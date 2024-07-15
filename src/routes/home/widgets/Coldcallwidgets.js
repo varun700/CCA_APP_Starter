@@ -80,7 +80,7 @@ const Coldcallwidget = () => {
           </ResponsiveContainer>
         }
         styleName="down"
-        desc="Ripple Price"
+        desc="Transfer/Cold"
       />
     </div>
   );

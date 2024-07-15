@@ -58,7 +58,7 @@ const FCRwidget = () => {
           </ResponsiveContainer>
         }
         styleName="down"
-        desc="Litecoin Price"
+        desc="FCR"
       />
     </div>
   );

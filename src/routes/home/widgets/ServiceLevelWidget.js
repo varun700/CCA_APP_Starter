@@ -1,20 +1,20 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { GetCallCentreWarmCallWidget } from "../../../appRedux/actions/CCAwidgets";
-import CardBox from "../../../components/CardBox/index";
-import { Badge } from "antd";
-import Top4card from "../../../components/CardBox/Top4card";
+import React from "react";
+// import { useDispatch, useSelector } from "react-redux";
+// import { GetCallCentreWarmCallWidget } from "../../../appRedux/actions/CCAwidgets";
+// import CardBox from "../../../components/CardBox/index";
+// import { Badge } from "antd";
+// import Top4card from "../../../components/CardBox/Top4card";
 import ChartCard from "../../../components/dashboard/Crypto/ChartCard";
 import { Area, AreaChart, ResponsiveContainer, Tooltip } from "recharts";
 
-const Warmcallwidget = () => {
-  const dispatch = useDispatch();
-  const callsdata = useSelector(
-    (state) => state.GetCallCentreWarmCallWidgetreducer
-  );
-  const callsdataloader = useSelector(
-    (state) => state.GetCallCentreWarmCallWidgetloader
-  );
+const ServiceLevelWidget = () => {
+  //   const dispatch = useDispatch();
+  //   const callsdata = useSelector(
+  //     (state) => state.GetCallCentreWarmCallWidgetreducer
+  //   );
+  //   const callsdataloader = useSelector(
+  //     (state) => state.GetCallCentreWarmCallWidgetloader
+  //   );
   const increamentData = [
     { name: "Page A", price: 200 },
     { name: "Page B", price: 1200 },
@@ -25,11 +25,11 @@ const Warmcallwidget = () => {
     { name: "Page K", price: 800 },
   ];
 
-  useEffect(() => {
-    dispatch(GetCallCentreWarmCallWidget());
-  }, []);
+  //   useEffect(() => {
+  //     dispatch(GetCallCentreWarmCallWidget());
+  //   }, []);
 
-  console.log(callsdata, "op", callsdataloader);
+  //   console.log(callsdata, "op", callsdataloader);
 
   return (
     <div>
@@ -64,10 +64,10 @@ const Warmcallwidget = () => {
           </ResponsiveContainer>
         }
         styleName="up"
-        desc="Conference/Warm"
+        desc="Service Level"
       />
     </div>
   );
 };
 
-export default Warmcallwidget;
+export default ServiceLevelWidget;

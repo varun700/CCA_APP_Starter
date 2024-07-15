@@ -55,7 +55,7 @@ const Index = () => {
           </ResponsiveContainer>
         }
         styleName="up"
-        desc="Bitcoin Price"
+        desc="Calls"
       />
     </div>
   );
