@@ -10,6 +10,12 @@ import { CallByRegion } from "./CallsbyRegion/Map.js";
 import ServiceLevelWidget from "./widgets/ServiceLevelWidget.js";
 import QueueTime from "./widgets/QueueTime.js";
 import KeyBarChart from "./KeyBarchart.js";
+import Top10FCR from "./AgentFCR/Top10FCR.js";
+import Bottom10FCR from "./AgentFCR/Bottom10FCR.js";
+import { Top5QueueTime } from "./Anomaly/Top5QueueTime.js";
+import { Top5TalkDurationAnomaly } from "./Anomaly/Top5TalkDurationAnomaly.js";
+import { Top10Splitgroup } from "./Group/Top10SplitGroup.js";
+// import { Disposition } from "./Group/Disposition.js";
 
 const Index = () => {
   const dispatch = useDispatch();
@@ -35,26 +41,44 @@ const Index = () => {
           {" "}
           <Warmcallwidget />
         </Col>
-        <Col xl={12} lg={24} md={12} sm={24} xs={24}>
-          <ServiceLevelWidget />
-        </Col>
-        <Col xl={12} lg={24} md={12} sm={24} xs={24}>
-          <QueueTime />
-        </Col>
-      </Row>
-      <Row>
-        <Col span={24}>
-          <Card style={{ height: "300px" }} className="gx-card">
-            <h2 className="h4 gx-mb-3">Key Call Topics</h2>
-            {/* {userval === "JM" ? <Barchart /> : <Heatmap />} */}
-            <KeyBarChart />
+        <Col xl={12} lg={12} md={12} sm={24} xs={24}>
+          <Row span={24}>
+            <Col xl={12} lg={24} md={12} sm={24} xs={24}>
+              <ServiceLevelWidget />
+            </Col>
+            <Col xl={12} lg={24} md={12} sm={24} xs={24}>
+              <QueueTime />
+            </Col>
+            <Col span={24}>
+              <Card style={{ height: "300px" }} className="gx-card">
+                <h2 className="h4 gx-mb-3">Key Call Topics</h2>
+                {/* {userval === "JM" ? <Barchart /> : <Heatmap />} */}
+                <KeyBarChart />
 
-            {/* <Heatmap /> */}
-          </Card>
+                {/* <Heatmap /> */}
+              </Card>
+            </Col>
+          </Row>
         </Col>
         <Col span={12}>
           <CallByRegion />
         </Col>
+        <Col span={12}>
+          <Top10FCR />
+        </Col>
+        <Col span={12}>
+          <Bottom10FCR />
+        </Col>
+        <Col span={12}>
+          <Top5TalkDurationAnomaly />{" "}
+        </Col>
+        <Col span={12}>
+          <Top5QueueTime />{" "}
+        </Col>
+        <Col span={12}>
+          <Top10Splitgroup />
+        </Col>
+        <Col span={12}>{/* <Disposition /> */}</Col>
       </Row>
     </div>
   );

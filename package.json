@@ -74,7 +74,7 @@
     "react-leaflet": "2.8.0"
   },
   "scripts": {
-    "start": "react-app-rewired --openssl-legacy-provider start",
+    "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired --env=jsdom",
     "less": "lessc --js src/styles/wieldy.less public/css/style.css && lessc --js src/styles/wieldy.less public/css/style.min.css --compress -x"

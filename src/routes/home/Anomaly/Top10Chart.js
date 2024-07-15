@@ -111,9 +111,7 @@ const Top10Chart = () => {
         width={900}
         footer={null}
       >
-        <div>
-          <TopSplitgroup />
-        </div>
+        <div>{/* <TopSplitgroup /> */}</div>
       </Modal>
       <Modal
         title={"modal2"}

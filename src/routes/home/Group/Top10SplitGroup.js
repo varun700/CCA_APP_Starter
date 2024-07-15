@@ -28,37 +28,37 @@ export const Top10Splitgroup = () => {
     { name: "BSD_INQ_BILL", uv: 3490, Call_Count: 560, amt: 560 },
   ];
   return (
-    // <Card
-    //   className="gx-card"
-    //   style={{ marginBottom: "50px" }}
-    //   title="Top 10 Split Group"
-    // >
-    <ResponsiveContainer width="100%" height={350}>
-      <ResponsiveContainer width="100%" height={300}>
-        <AreaChart
-          data={data}
-          margin={{ top: 0, right: 70, left: 70, bottom: 110 }}
-        >
-          <defs>
-            <linearGradient id="color2" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="5%" stopColor="#06BC8D" stopOpacity={0.9} />
-              <stop offset="95%" stopColor="#05C9D0" stopOpacity={0.9} />
-            </linearGradient>
-          </defs>
-          <XAxis interval={0} angle={-45} textAnchor="end" dataKey="name" />
-          <YAxis dataKey="Call_Count" />
-          <Tooltip />
-          <Legend verticalAlign="top" />
+    <Card
+      className="gx-card"
+      style={{ marginBottom: "50px" }}
+      title="Top 10 Split Group"
+    >
+      <ResponsiveContainer width="100%" height={350}>
+        <ResponsiveContainer width="100%" height={300}>
+          <AreaChart
+            data={data}
+            margin={{ top: 0, right: 70, left: 70, bottom: 110 }}
+          >
+            <defs>
+              <linearGradient id="color2" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="5%" stopColor="#06BC8D" stopOpacity={0.9} />
+                <stop offset="95%" stopColor="#05C9D0" stopOpacity={0.9} />
+              </linearGradient>
+            </defs>
+            <XAxis interval={0} angle={-45} textAnchor="end" dataKey="name" />
+            <YAxis dataKey="Call_Count" />
+            <Tooltip />
+            <Legend verticalAlign="top" />
 
-          <Area
-            dataKey="Call_Count"
-            fill="url(#color2)"
-            barSize={30}
-            radius={5}
-          />
-        </AreaChart>
+            <Area
+              dataKey="Call_Count"
+              fill="url(#color2)"
+              barSize={30}
+              radius={5}
+            />
+          </AreaChart>
+        </ResponsiveContainer>
       </ResponsiveContainer>
-    </ResponsiveContainer>
-    // </Card>
+    </Card>
   );
 };
