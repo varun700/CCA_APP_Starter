@@ -56,7 +56,7 @@ function KeyHeatmap() {
   };
 
   return (
-    <div style={{ marginTop: "-40px", marginLeft: "-45px" }}>
+    <div style={{ marginTop: "-40px", marginLeft: "-35px" }}>
       <ReactWordcloud words={data} options={options} />
     </div>
   );

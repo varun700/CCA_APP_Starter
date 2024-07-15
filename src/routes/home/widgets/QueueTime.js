@@ -46,9 +46,9 @@ const QueueTime = () => {
             >
               <Tooltip />
               <defs>
-                <linearGradient id="color4" x1="0" y1="0" x2="1" y2="0">
-                  <stop offset="5%" stopColor="#4ECDE4" stopOpacity={0.9} />
-                  <stop offset="95%" stopColor="#06BB8A" stopOpacity={0.9} />
+                <linearGradient id="color2" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="5%" stopColor="#61B1E4" stopOpacity={0.9} />
+                  <stop offset="95%" stopColor="#867AE5" stopOpacity={0.9} />
                 </linearGradient>
               </defs>
               <Area
@@ -57,7 +57,7 @@ const QueueTime = () => {
                 strokeWidth={0}
                 stackId="2"
                 stroke="#4D95F3"
-                fill="url(#color4)"
+                fill="url(#color2)"
                 fillOpacity={1}
               />
             </AreaChart>

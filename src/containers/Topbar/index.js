@@ -74,6 +74,7 @@ const Topbar = () => {
         onChange={updateSearchChatUser}
         value={searchText}
       /> */}
+      <h1>Customer Care Analytics</h1>
       <ul className="gx-header-notifications gx-ml-auto">
         {/* <li className="gx-notify gx-notify-search gx-d-inline-block gx-d-lg-none">
           <Popover

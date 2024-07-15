@@ -6,7 +6,7 @@ import Callswidget from "./widgets/Callswidget";
 import Warmcallwidget from "./widgets/Warmcallwidget";
 import { Card, Col, Row } from "antd";
 import { ServiceLead } from "./Servicelevel/Table.js";
-import { CallByRegion } from "./CallsbyRegion/Map.js";
+// import CallByRegion from "./CallsbyRegion/Map.js";
 import ServiceLevelWidget from "./widgets/ServiceLevelWidget.js";
 import QueueTime from "./widgets/QueueTime.js";
 import KeyBarChart from "./KeyBarchart.js";
@@ -15,12 +15,22 @@ import Bottom10FCR from "./AgentFCR/Bottom10FCR.js";
 import { Top5QueueTime } from "./Anomaly/Top5QueueTime.js";
 import { Top5TalkDurationAnomaly } from "./Anomaly/Top5TalkDurationAnomaly.js";
 import { Top10Splitgroup } from "./Group/Top10SplitGroup.js";
+import { Disposition } from "./Group/Disposition.js";
+import KeyHeatmap from "./KeyHeatmap.js";
+// import BalanceHistory from "./CallsbyRegion/Map.js";
+// import CallByRegion from "./CallsbyRegion/CallByRegion.js";
+import BalanceHistory from "./CallsbyRegion/Map.js";
+
+// import CallByRegion from "./CallsbyRegion/CallregionMap.js";
+// import CallsByRegion from "./CallsbyRegion/Map.js";
+// import BalanceHistory from "./CallsbyRegion/CallregionMap.js";
 // import { Disposition } from "./Group/Disposition.js";
 
 const Index = () => {
   const dispatch = useDispatch();
   const callsdata = useSelector((state) => state.GetCCATotalCallsreducer);
   const callsdataloader = useSelector((state) => state.GetCCATotalCallsLoader);
+  const Uservalue = useSelector((state) => state.Userval);
 
   return (
     <div>
@@ -50,24 +60,28 @@ const Index = () => {
               <QueueTime />
             </Col>
             <Col span={24}>
-              <Card style={{ height: "300px" }} className="gx-card">
+              <Card style={{ height: "350px" }} className="gx-card">
                 <h2 className="h4 gx-mb-3">Key Call Topics</h2>
-                {/* {userval === "JM" ? <Barchart /> : <Heatmap />} */}
-                <KeyBarChart />
+                {Uservalue === "JM" ? <KeyBarChart /> : <KeyHeatmap />}
 
+                {/* {localStorage.getItem("user") === "JM" ? (
+                  <KeyBarChart />
+                ) : (
+                  <KeyHeatmap />
+                )} */}
                 {/* <Heatmap /> */}
               </Card>
             </Col>
           </Row>
         </Col>
         <Col span={12}>
-          <CallByRegion />
+          <BalanceHistory />
         </Col>
         <Col span={12}>
-          <Top10FCR />
+          <Top10Splitgroup />
         </Col>
         <Col span={12}>
-          <Bottom10FCR />
+          <Disposition />{" "}
         </Col>
         <Col span={12}>
           <Top5TalkDurationAnomaly />{" "}
@@ -76,9 +90,11 @@ const Index = () => {
           <Top5QueueTime />{" "}
         </Col>
         <Col span={12}>
-          <Top10Splitgroup />
+          <Top10FCR />
         </Col>
-        <Col span={12}>{/* <Disposition /> */}</Col>
+        <Col span={12}>
+          <Bottom10FCR />
+        </Col>
       </Row>
     </div>
   );

@@ -46,9 +46,9 @@ const ServiceLevelWidget = () => {
             >
               <Tooltip />
               <defs>
-                <linearGradient id="color4" x1="0" y1="0" x2="1" y2="0">
-                  <stop offset="5%" stopColor="#4ECDE4" stopOpacity={0.9} />
-                  <stop offset="95%" stopColor="#06BB8A" stopOpacity={0.9} />
+                <linearGradient id="color1" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="5%" stopColor="#FF55AA" stopOpacity={0.9} />
+                  <stop offset="95%" stopColor="#E81D27" stopOpacity={0.9} />
                 </linearGradient>
               </defs>
               <Area
@@ -57,7 +57,7 @@ const ServiceLevelWidget = () => {
                 strokeWidth={0}
                 stackId="2"
                 stroke="#4D95F3"
-                fill="url(#color4)"
+                fill="url(#color1)"
                 fillOpacity={1}
               />
             </AreaChart>

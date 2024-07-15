@@ -44,11 +44,11 @@ const KeyBarChart = () => {
   ];
   return (
     <div className="App">
-      <ResponsiveContainer width={"100%"} height={250}>
+      <ResponsiveContainer width={"100%"} height={290}>
         <BarChart
           layout="vertical"
           width={600}
-          height={250}
+          height={290}
           data={data}
           margin={{
             top: 0,
@@ -68,7 +68,7 @@ const KeyBarChart = () => {
           </defs>
           <Tooltip />
           <Legend />
-          <Bar dataKey="pv" stackId="a" fill="url(#color08)" />
+          <Bar dataKey="pv" stackId="a" fill="url(#color08)" barSize={7} />
         </BarChart>
       </ResponsiveContainer>
     </div>
