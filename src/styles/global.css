@@ -1,0 +1,16 @@
+.custom-tax-badge.ant-ribbon.ant-ribbon-placement-start {
+    display: flex !important;
+    /* top: 50px; */
+    padding: 19px;
+    height: 30px !important;
+    align-items: center !important;
+  }
+  .widgethead_space{
+    margin-left: 25px;
+  }
+  .header_Style .ant-card-head-title{
+    color: #262626;
+    font-weight: 400;
+    line-height: 1.2;
+    font-size: 18px !important;
+  }
