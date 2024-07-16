@@ -242,6 +242,58 @@ export const ClearUserDetails = () => {
   };
 };
 
+export const GetKeyCallTopics = () => {
+  return async function (dispatch) {
+    dispatch({
+      type: "GetKeyCallTopicsloader",
+      payload: true,
+    });
+    try {
+      const response = await axios.get(
+        `https://ccaapp-api.azurewebsites.net/api/CCA/GetKeyCallTopics?EmployeeId=AG102
+  
+     `
+      );
+      dispatch({
+        type: "GetKeyCallTopics",
+        payload: response.data,
+      });
+      dispatch({
+        type: "GetKeyCallTopicsloader",
+        payload: false,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const GetTopKeyPhrases = () => {
+  return async function (dispatch) {
+    dispatch({
+      type: "GetTopKeyPhrasesloader",
+      payload: true,
+    });
+    try {
+      const response = await axios.get(
+        `https://ccaapp-api.azurewebsites.net/api/CCA/GetTopKeyPhrases
+  
+     `
+      );
+      dispatch({
+        type: "GetTopKeyPhrases",
+        payload: response.data,
+      });
+      dispatch({
+        type: "GetTopKeyPhrasesloader",
+        payload: false,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 export const GetDefaultDateFilter = () => {
   return async function (dispatch) {
     dispatch({

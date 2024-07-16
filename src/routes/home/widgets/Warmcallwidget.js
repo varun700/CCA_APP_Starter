@@ -64,7 +64,7 @@ const Warmcallwidget = () => {
           </ResponsiveContainer>
         }
         styleName="up"
-        desc="Conference/Warm"
+        desc="Satisfaction Score"
       />
     </div>
   );

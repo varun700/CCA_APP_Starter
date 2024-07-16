@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 // import AmCharts from "@amcharts/amcharts3-react";
 import {
   PieChart,
@@ -8,16 +8,22 @@ import {
   ResponsiveContainer,
   Legend,
 } from "recharts";
+import { useDispatch, useSelector } from "react-redux";
+import { GetCallCenterDispositionPieChart } from "../../../appRedux/actions/globalactions";
+import { Card, Tooltip } from "antd";
+import { Bars } from "react-loader-spinner";
 
-const data = [
-  { name: "CONNECTED_NON ACD CALL", value: 400 },
-  { name: "ABANDONED CALL", value: 300 },
-  { name: "FORCED DISCONNECT CALL", value: 300 },
-  { name: "INTERFLOWED CALLS", value: 200 },
-  { name: "OTHERS", value: 200 },
+const COLORS = [
+  "#0088FE",
+  "#00C49F",
+  "#FFBB28",
+  "#FF8042",
+  "#0088a3",
+  "#a3008d",
+  "#a39300",
 ];
-const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#dc94e3"];
 const renderColorfulLegendText = (value, entry) => {
+  // console.log("lklklkl", value, entry);
   return (
     <span
       style={{
@@ -26,46 +32,79 @@ const renderColorfulLegendText = (value, entry) => {
         padding: "10px",
       }}
     >
-      {value}
+      {entry?.payload?.Category}
     </span>
   );
 };
 
 const DisPieChart = () => {
+  const dispatch = useDispatch();
+  const GetCallCenterDispositionPieChartValue = useSelector(
+    (state) => state.GetCallCenterDispositionPieChartreducer?.Table
+  );
+  const GetCallCenterDispositionPieChartloader = useSelector(
+    (state) => state.GetCallCenterDispositionPieChartloader
+  );
+
+  useEffect(() => {
+    dispatch(GetCallCenterDispositionPieChart());
+  }, []);
+
+  // console.log("wertyuio", GetCallCenterDispositionPieChartloader);
+
   return (
     <div className="App">
-      <ResponsiveContainer width="100%" height={350}>
-        <PieChart width={800} height={300}>
-          <Legend
-            height={126}
-            iconType="circle"
-            layout="vertical"
-            verticalAlign="middle"
-            iconSize={10}
-            padding={5}
-            align="right"
-            formatter={renderColorfulLegendText}
-          />
-          <Pie
-            data={data}
-            cx={180}
-            cy={150}
-            innerRadius={60}
-            outerRadius={110}
-            fill="#8884d8"
-            paddingAngle={5}
-            dataKey="value"
-            label
-          >
-            {data.map((entry, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={COLORS[index % COLORS.length]}
+      {!GetCallCenterDispositionPieChartloader &&
+      GetCallCenterDispositionPieChartValue?.length > 0 ? (
+        <>
+          {" "}
+          <ResponsiveContainer width="100%" height={260}>
+            <PieChart width={800} height={300}>
+              <Legend
+                height={126}
+                iconType="circle"
+                layout="vertical"
+                verticalAlign="middle"
+                iconSize={10}
+                padding={5}
+                align="right"
+                formatter={renderColorfulLegendText}
               />
-            ))}
-          </Pie>
-        </PieChart>
-      </ResponsiveContainer>
+              <Tooltip />
+              <Pie
+                data={GetCallCenterDispositionPieChartValue}
+                cx={180}
+                cy={120}
+                innerRadius={60}
+                outerRadius={110}
+                fill="#8884d8"
+                paddingAngle={5}
+                dataKey="Category_Count"
+                label
+              >
+                {GetCallCenterDispositionPieChartValue?.map((entry, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={COLORS[index % COLORS.length]}
+                  />
+                ))}
+              </Pie>
+            </PieChart>
+          </ResponsiveContainer>
+        </>
+      ) : (
+        <>
+          <Bars
+            height="50"
+            width="80"
+            radius="9"
+            color="green"
+            ariaLabel="loading"
+            wrapperStyle
+            wrapperClass="Barloader"
+          />
+        </>
+      )}
     </div>
   );
 };

@@ -32,6 +32,8 @@ import {
   GetTop5CallDurationAnomalyloader,
   GetTopCallDurationAnomalyByAgentloader,
   GetUserDetailsloader,
+  GetKeyCallTopicsloader,
+  GetTopKeyPhrasesloader,
 } from "./LoaderReducer/Ccawidgetloader";
 import { GetServiceLevel } from "./ServicelvlReducer";
 import {
@@ -45,6 +47,8 @@ import {
   GetTopCallDurationAnomalyByAgent,
   GetUserDetails,
   UservalReducer,
+  GetKeyCallTopics,
+  GetTopKeyPhrases,
 } from "./globalreducer";
 
 const createRootReducer = (history) =>
@@ -91,6 +95,10 @@ const createRootReducer = (history) =>
     GetDefaultDateFilterloader,
     GetDefaultDateFilterreducer: GetDefaultDateFilter,
     Userval: UservalReducer,
+    GetKeyCallTopicsreducer: GetKeyCallTopics,
+    GetKeyCallTopicsloader,
+    GetTopKeyPhrasesreducer: GetTopKeyPhrases,
+    GetTopKeyPhrasesloader,
   });
 
 export default createRootReducer;

@@ -60,17 +60,7 @@ const Index = () => {
               <QueueTime />
             </Col>
             <Col span={24}>
-              <Card style={{ height: "350px" }} className="gx-card">
-                <h2 className="h4 gx-mb-3">Key Call Topics</h2>
-                {Uservalue === "JM" ? <KeyBarChart /> : <KeyHeatmap />}
-
-                {/* {localStorage.getItem("user") === "JM" ? (
-                  <KeyBarChart />
-                ) : (
-                  <KeyHeatmap />
-                )} */}
-                {/* <Heatmap /> */}
-              </Card>
+              <Disposition />
             </Col>
           </Row>
         </Col>
@@ -78,10 +68,16 @@ const Index = () => {
           <BalanceHistory />
         </Col>
         <Col span={12}>
-          <Top10Splitgroup />
+          <Card style={{ height: "370px" }} className="gx-card">
+            <h2 className="h4 gx-mb-3">Top 8 Key Call Topics</h2>
+            <KeyBarChart />
+          </Card>
         </Col>
         <Col span={12}>
-          <Disposition />{" "}
+          <Card style={{ height: "370px" }} className="gx-card">
+            <h2 className="h4 gx-mb-3">Key Call Topics</h2>
+            <KeyHeatmap />
+          </Card>
         </Col>
         <Col span={12}>
           <Top5TalkDurationAnomaly />{" "}
