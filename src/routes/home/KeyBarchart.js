@@ -106,6 +106,7 @@ const KeyBarChart = () => {
                 // stackId="a"
                 fill="url(#color08)"
                 barSize={7}
+                radius={5}
               >
                 {" "}
                 <LabelList

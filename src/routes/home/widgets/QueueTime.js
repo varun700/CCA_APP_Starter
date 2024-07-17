@@ -61,6 +61,30 @@ const QueueTime = () => {
     // Return original string if it doesn't match the expected format
     return timeStr;
   }
+
+  const CustomTooltip = ({ active, payload }) => {
+    console.log("12345678976543567", payload);
+    if (active && payload && payload.length) {
+      return (
+        <Card>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              padding: "10px",
+            }}
+          >
+            <h5 className="h4 gx-mb-3">{payload[0]?.payload.Month}</h5>
+            <span className="label">{`${payload[0]?.dataKey.replaceAll(
+              "_",
+              " "
+            )} : ${payload[0]?.value}`}</span>
+          </div>
+        </Card>
+      );
+    }
+    return null;
+  };
   return (
     <div>
       {" "}
@@ -77,7 +101,7 @@ const QueueTime = () => {
               >
                 <XAxis dataKey="Month" tick={false} />
 
-                <Tooltip />
+                <Tooltip content={<CustomTooltip />} />
                 <defs>
                   <linearGradient id="color2" x1="0" y1="0" x2="1" y2="0">
                     <stop offset="5%" stopColor="#61B1E4" stopOpacity={0.9} />

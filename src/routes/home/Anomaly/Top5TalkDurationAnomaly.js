@@ -117,6 +117,26 @@ const Top5talkDuration = () => {
     setqueuemodalname(e?.Employee_Name);
     showModal1();
   };
+  const CustomTooltip = ({ active, payload }) => {
+    if (active && payload && payload.length) {
+      return (
+        <Card>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <h5 className="h4 gx-mb-3">{payload[0]?.payload.Employee_Name}</h5>
+            <span className="label">{`${payload[0]?.dataKey.replace(
+              "_",
+              " "
+            )} : ${payload[0]?.value}`}</span>
+            <span className="label">{`${payload[1]?.dataKey.replace(
+              "_",
+              " "
+            )} : ${payload[1]?.value}`}</span>
+          </div>
+        </Card>
+      );
+    }
+    return null;
+  };
   console.log(chartdatadd, chartdataloaderdd, "ddtop5talk1");
   return (
     <>
@@ -131,7 +151,7 @@ const Top5talkDuration = () => {
               >
                 <XAxis dataKey="Employee_Name" />
                 <YAxis dataKey="Queuetime_Count" />
-                <Tooltip cursor={false} />
+                <Tooltip cursor={false} content={<CustomTooltip />} />
                 <Legend
                   verticalAlign="bottom"
                   formatter={(text) => text.replace("_", " ")}

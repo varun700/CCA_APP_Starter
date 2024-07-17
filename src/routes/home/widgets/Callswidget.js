@@ -35,6 +35,29 @@ const Index = () => {
       dispatch(GetCCATotalCallsChart(uservals?.Employee_Id));
     }
   }, [uservals]);
+
+  const CustomTooltip = ({ active, payload }) => {
+    if (active && payload && payload.length) {
+      return (
+        <Card>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              padding: "10px",
+            }}
+          >
+            <h5 className="h4 gx-mb-3">{payload[0]?.payload.MONTH_YEAR}</h5>
+            <span className="label">{`${payload[0]?.dataKey.replace(
+              "_",
+              " "
+            )} : ${payload[0]?.value}`}</span>
+          </div>
+        </Card>
+      );
+    }
+    return null;
+  };
   console.log(callsdata, "calls", callsdataloader, chartdata);
   return (
     <div>
@@ -55,7 +78,7 @@ const Index = () => {
               >
                 <XAxis dataKey="MONTH_YEAR" tick={false} />
 
-                <Tooltip />
+                <Tooltip content={<CustomTooltip />} />
                 <defs>
                   <linearGradient id="color3" x1="0" y1="0" x2="1" y2="0">
                     <stop offset="5%" stopColor="#163469" stopOpacity={0.9} />
