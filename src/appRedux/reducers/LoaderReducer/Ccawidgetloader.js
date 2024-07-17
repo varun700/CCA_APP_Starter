@@ -160,6 +160,14 @@ export const GetQueueTimeWidgetloader = (state = true, action) => {
       return state;
   }
 };
+export const GetKeyCallTopicsloader = (state = true, action) => {
+  switch (action.type) {
+    case "GetKeyCallTopicsloader":
+      return action.payload;
+    default:
+      return state;
+  }
+};
 
 export const GetCCATotalCallsChartloader = (state = true, action) => {
   switch (action.type) {
@@ -250,6 +258,14 @@ export const GetQueueTimeAnomalyloader = (state = true, action) => {
 export const GetTalkDurationAnomalyloader = (state = true, action) => {
   switch (action.type) {
     case "GetTalkDurationAnomalyloader":
+      return action.payload;
+    default:
+      return state;
+  }
+};
+export const GetTopKeyPhrasesloader = (state = true, action) => {
+  switch (action.type) {
+    case "GetTopKeyPhrasesloader":
       return action.payload;
     default:
       return state;

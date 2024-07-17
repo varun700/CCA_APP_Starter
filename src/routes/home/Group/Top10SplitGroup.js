@@ -35,9 +35,9 @@ export const Top10Splitgroup = () => {
     >
       <ResponsiveContainer width="100%" height={350}>
         <ResponsiveContainer width="100%" height={300}>
-          <AreaChart
+          <BarChart
             data={data}
-            margin={{ top: 0, right: 70, left: 70, bottom: 110 }}
+            margin={{ top: 0, right: 10, left: 30, bottom: 110 }}
           >
             <defs>
               <linearGradient id="color2" x1="0" y1="0" x2="1" y2="0">
@@ -50,13 +50,13 @@ export const Top10Splitgroup = () => {
             <Tooltip />
             <Legend verticalAlign="top" />
 
-            <Area
+            <Bar
               dataKey="Call_Count"
               fill="url(#color2)"
-              barSize={30}
+              barSize={15}
               radius={5}
             />
-          </AreaChart>
+          </BarChart>
         </ResponsiveContainer>
       </ResponsiveContainer>
     </Card>

@@ -82,3 +82,20 @@ export const UservalReducer = (state = [], action) => {
       return state;
   }
 };
+export const GetKeyCallTopics = (state = [], action) => {
+  switch (action.type) {
+    case "GetKeyCallTopics":
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
+export const GetTopKeyPhrases = (state = [], action) => {
+  switch (action.type) {
+    case "GetTopKeyPhrases":
+      return action.payload;
+    default:
+      return state;
+  }
+};

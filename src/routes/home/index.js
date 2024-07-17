@@ -16,6 +16,15 @@ import Top5QueueTime from "./Anomaly/Top5QueueTime.js";
 import { Top10Splitgroup } from "./Group/Top10SplitGroup.js";
 import { GetImporsinationDD } from "../../appRedux/actions/globalactions/index.js";
 import Top5talkDuration from "./Anomaly/Top5TalkDurationAnomaly.js";
+import { Disposition } from "./Group/Disposition.js";
+import KeyHeatmap from "./KeyHeatmap.js";
+// import BalanceHistory from "./CallsbyRegion/Map.js";
+// import CallByRegion from "./CallsbyRegion/CallByRegion.js";
+import BalanceHistory from "./CallsbyRegion/Map.js";
+
+// import CallByRegion from "./CallsbyRegion/CallregionMap.js";
+// import CallsByRegion from "./CallsbyRegion/Map.js";
+// import BalanceHistory from "./CallsbyRegion/CallregionMap.js";
 // import { Disposition } from "./Group/Disposition.js";
 
 const Index = () => {
@@ -54,24 +63,24 @@ const Index = () => {
               <QueueTime />
             </Col>
             <Col span={24}>
-              <Card style={{ height: "300px" }} className="gx-card">
-                <h2 className="h4 gx-mb-3">Key Call Topics</h2>
-                {/* {userval === "JM" ? <Barchart /> : <Heatmap />} */}
-                <KeyBarChart />
-
-                {/* <Heatmap /> */}
-              </Card>
+              <Disposition />
             </Col>
           </Row>
         </Col>
         <Col span={12}>
-          <CallByRegion />
+          <BalanceHistory />
         </Col>
         <Col span={12}>
-          <Top10FCR />
+          <Card style={{ height: "370px" }} className="gx-card">
+            <h2 className="h4 gx-mb-3">Top 8 Key Call Topics</h2>
+            <KeyBarChart />
+          </Card>
         </Col>
         <Col span={12}>
-          <Bottom10FCR />
+          <Card style={{ height: "370px" }} className="gx-card">
+            <h2 className="h4 gx-mb-3">Key Call Topics</h2>
+            <KeyHeatmap />
+          </Card>
         </Col>
         <Col span={12}>
           <Top5talkDuration />{" "}
@@ -80,9 +89,11 @@ const Index = () => {
           <Top5QueueTime />{" "}
         </Col>
         <Col span={12}>
-          <Top10Splitgroup />
+          <Top10FCR />
         </Col>
-        <Col span={12}>{/* <Disposition /> */}</Col>
+        <Col span={12}>
+          <Bottom10FCR />
+        </Col>
       </Row>
     </div>
   );

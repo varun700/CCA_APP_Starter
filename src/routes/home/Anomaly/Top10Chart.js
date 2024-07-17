@@ -111,7 +111,9 @@ const Top10Chart = () => {
         width={900}
         footer={null}
       >
-        <div>{/* <TopSplitgroup /> */}</div>
+        <div>
+          <Top10Chart />
+        </div>
       </Modal>
       <Modal
         title={"modal2"}
@@ -120,7 +122,7 @@ const Top10Chart = () => {
         onOk={handleOk1}
         onCancel={handleCancel1}
       >
-        {/* <TopSplitgroup /> */}
+        <Top10Chart />
       </Modal>
     </div>
   );
