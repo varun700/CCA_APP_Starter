@@ -44,7 +44,7 @@ const Warmcallwidget = () => {
       {" "}
       {!chartdataloader ? (
         <ChartCard
-          prize={`${chartdata?.Table[0]?.Avg_Satisfaction_Score}%`}
+          prize={`${chartdata?.Table[0]?.Avg_Satisfaction_Score}`}
           title={chartdata?.Table[0]?.IncDec_Percentage}
           icon="etherium"
           children={
@@ -75,7 +75,7 @@ const Warmcallwidget = () => {
             </ResponsiveContainer>
           }
           styleName={
-            chartdata.Table[0]?.IncDec_Percentage > 0
+            chartdata.Table[0]?.IncDec_Percentage > 0.0
               ? "up"
               : chartdata.Table[0]?.IncDec_Percentage == 0 || null
               ? ""

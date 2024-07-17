@@ -21,3 +21,6 @@
     margin-left: 25px !important;
     cursor: pointer;
   }
+  .text_transform_none .ant-card-head-title{
+    text-transform: none !important;
+  }

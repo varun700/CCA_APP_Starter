@@ -51,7 +51,7 @@ const FCRwidget = () => {
       {!callsdataloader && !chartdataloader ? (
         <ChartCard
           prize={`${callsdata?.Table[0]?.FCR_Percentage}%`}
-          title={callsdata?.Table[0]?.Inc_Dec_Percentage}
+          title={callsdata?.Table[0]?.IncDec_Percentage}
           icon="litcoin"
           children={
             <ResponsiveContainer width="100%" height={75}>

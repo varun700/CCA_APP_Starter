@@ -87,7 +87,10 @@ const Index = () => {
         {usercurrval?.Job_Title == "Call Centre Agent" ? (
           <Col span={12}>
             {console.log(usercurrval, "cuurval")}
-            <Card className="gx-card" title="Talk Duration">
+            <Card
+              className="gx-card text_transform_none"
+              title="Talk Duration Anomaly"
+            >
               <Talkddchart />
             </Card>
           </Col>
@@ -98,7 +101,10 @@ const Index = () => {
         )}
         {usercurrval?.Job_Title == "Call Centre Agent" ? (
           <Col span={12}>
-            <Card className="gx-card" title="Queue Time">
+            <Card
+              className="gx-card text_transform_none"
+              title="Queue Time Anomaly"
+            >
               <Queueddchart />
             </Card>
           </Col>
@@ -108,7 +114,7 @@ const Index = () => {
           </Col>
         )}{" "}
         {console.log(usercurrval, "cuurval")}
-        {usercurrval?.Job_Title !== "Call Centre Analyst" && (
+        {usercurrval?.Job_Title !== "Call Centre Agent" && (
           <Col span={12}>
             <Card style={{ height: "470px" }} className="gx-card">
               <h2 className="h4 gx-mb-0 gx-text-capitalize">
@@ -118,7 +124,7 @@ const Index = () => {
             </Card>
           </Col>
         )}
-        {usercurrval?.Job_Title !== "Call Centre Analyst" && (
+        {usercurrval?.Job_Title !== "Call Centre Agent" && (
           <Col span={12}>
             <Card style={{ height: "470px" }} className="gx-card">
               <h2 className="h4 gx-mb-0 gx-text-capitalize">

@@ -25,7 +25,7 @@ const App = () => {
   const dispatch = useDispatch();
   const uservals = useSelector((state) => state?.Userval);
   const [center, setCenter] = useState([[46.808327, -100.783737]]);
-  const [zoom, setZoom] = useState(3);
+  const [zoom, setZoom] = useState(4);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [clickedloc, setclickedloc] = useState("");
   const columns = [
@@ -131,7 +131,7 @@ const App = () => {
                     </li>
                   </span>
                 ) : Tooltipdata.length == 0 && !Tooltipdataloader ? (
-                  "Nodata"
+                  "No data"
                 ) : (
                   "fetching"
                 )}

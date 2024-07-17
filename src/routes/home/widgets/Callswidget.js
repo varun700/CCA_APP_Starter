@@ -45,7 +45,7 @@ const Index = () => {
           forecast={
             !callsdataloader && callsdata?.Table1[0]?.AVG_FORECAST_CALLS
           }
-          forecasttitle="Predicted Calls"
+          forecasttitle="Avg Predicted Calls"
           icon="bitcoin"
           children={
             <ResponsiveContainer width="100%" height={75}>

@@ -67,7 +67,7 @@ const QueueTime = () => {
       {!callsdataloader ? (
         <ChartCard
           prize={formatTime(callsdata?.Table[0]?.Queue_Time)}
-          title={callsdata?.Table[0]?.Column1}
+          // title={callsdata?.Table[0]?.Column1}
           icon="etherium"
           children={
             <ResponsiveContainer width="100%" height={75}>

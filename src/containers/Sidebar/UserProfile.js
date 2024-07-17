@@ -15,7 +15,7 @@ const UserProfile = () => {
   console.log(userdd, "userdd");
   const [userdata, setuserdata] = useState("");
   const [userdatades, setuserdatades] = useState("");
-
+  const [usershortname, setusershortname] = useState("");
   const localStorageuserval = localStorage.getItem("user");
   const GetImporsinationDDs = useSelector(
     (state) => state?.GetImporsinationDDreducer?.Table
@@ -25,7 +25,7 @@ const UserProfile = () => {
     if (JSON.parse(localStorageuserval)) {
       setuserdata(JSON.parse(localStorageuserval)?.Employee_Name);
       setuserdatades(JSON.parse(localStorageuserval)?.Job_Title);
-
+      setusershortname(JSON.parse(localStorageuserval)?.Short_Name);
       dispatch(Userval(JSON.parse(localStorageuserval)));
       dispatch(
         GetImporsinationDD(JSON.parse(localStorageuserval)?.Employee_Id)
@@ -44,6 +44,7 @@ const UserProfile = () => {
       console.log("eeeeeee");
       setuserdata(userdd[0]?.Employee_Name);
       setuserdatades(userdd[0]?.Job_Title);
+      setusershortname(userdd[0]?.Short_Name);
       dispatch(Userval(userdd[0]));
       dispatch(GetImporsinationDD(userdd[0]?.Employee_Id));
       dispatch(
@@ -60,6 +61,8 @@ const UserProfile = () => {
     setuserdata(e?.Employee_Name);
     setuserdatades(e?.Job_Title);
     dispatch(Userval(e));
+    setusershortname(e?.Short_Name);
+
     dispatch(GetImporsinationDD(e?.Employee_Id));
     dispatch(
       SaveUserDetails({
@@ -130,8 +133,7 @@ const UserProfile = () => {
               className="gx-size-40 gx-pointer gx-mr-3"
               alt=""
             >
-              {" "}
-              {""}
+              {usershortname}
             </Avatar>
           </Col>
           <Col style={{ marginTop: "5px" }}>
