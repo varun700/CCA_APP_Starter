@@ -44,7 +44,7 @@ const Warmcallwidget = () => {
       {" "}
       {!chartdataloader ? (
         <ChartCard
-          prize={chartdata?.Table[0]?.Avg_Satisfaction_Score}
+          prize={`${chartdata?.Table[0]?.Avg_Satisfaction_Score}%`}
           title={chartdata?.Table[0]?.IncDec_Percentage}
           icon="etherium"
           children={

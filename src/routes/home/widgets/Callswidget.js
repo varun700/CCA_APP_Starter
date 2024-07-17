@@ -45,7 +45,7 @@ const Index = () => {
           forecast={
             !callsdataloader && callsdata?.Table1[0]?.AVG_FORECAST_CALLS
           }
-          forecasttitle="Forecast Calls"
+          forecasttitle="Predicted Calls"
           icon="bitcoin"
           children={
             <ResponsiveContainer width="100%" height={75}>
@@ -74,7 +74,7 @@ const Index = () => {
             </ResponsiveContainer>
           }
           styleName="up"
-          desc="Calls"
+          desc="Avg Calls"
         />
       ) : (
         <Card className="gx-card-widget" style={{ height: "400" }}>

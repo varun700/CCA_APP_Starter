@@ -48,7 +48,7 @@ const ServiceLevelWidget = () => {
       {" "}
       {!callsdataloader && !chartdataloader ? (
         <ChartCard
-          prize={callsdata?.Table[0]?.SERVICE_LEVEL}
+          prize={`${callsdata?.Table[0]?.SERVICE_LEVEL}%`}
           // title="07"
           icon="etherium"
           children={

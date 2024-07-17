@@ -53,12 +53,37 @@ const DisPieChart = () => {
       dispatch(GetCallCenterDispositionPieChart(uservals?.Employee_Id));
     }
   }, [uservals]);
-
-  // console.log("wertyuio", GetCallCenterDispositionPieChartloader);
+  const RADIAN = Math.PI / 180;
+  const renderCustomizedLabel = ({
+    cx,
+    cy,
+    midAngle,
+    innerRadius,
+    outerRadius,
+    percent,
+    index,
+  }) => {
+    const radius = innerRadius + (outerRadius - innerRadius) * 1.2;
+    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+    console.log("zzzzzzzzzzzzzzz", index);
+    return (
+      <text
+        x={x}
+        y={y}
+        fill={COLORS[index % COLORS.length]}
+        textAnchor={x > cx ? "start" : "end"}
+        dominantBaseline="central"
+      >
+        {`${(percent * 100).toFixed(0)}%`}
+      </text>
+    );
+  };
+  // console.log("wertyuio", GetCallCenterDispositionPieChartValue);
 
   return (
     <div className="App">
-      {GetCallCenterDispositionPieChartloader &&
+      {!GetCallCenterDispositionPieChartloader &&
       GetCallCenterDispositionPieChartValue?.length > 0 ? (
         <>
           <ResponsiveContainer width="100%" height={260}>
@@ -83,7 +108,8 @@ const DisPieChart = () => {
                 fill="#8884d8"
                 paddingAngle={5}
                 dataKey="Category_Count"
-                label
+                label={renderCustomizedLabel}
+                labelLine={false}
               >
                 {GetCallCenterDispositionPieChartValue?.map((entry, index) => (
                   <Cell

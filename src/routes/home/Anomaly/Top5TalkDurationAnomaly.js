@@ -120,18 +120,22 @@ const Top5talkDuration = () => {
   console.log(chartdatadd, chartdataloaderdd, "ddtop5talk1");
   return (
     <>
-      <Card className="gx-card" title="Top 5 Talk Duration Anomaly">
+      <Card className="gx-card">
+        <h2 className="h4 gx-mb-3">Top 5 Talk Duration Anomaly</h2>
         <div className="App">
           {!chartdataloader ? (
             <ResponsiveContainer width="100%" height={350}>
               <BarChart
                 data={chartdata?.Table}
-                margin={{ top: 120, right: 0, left: 0, bottom: 0 }}
+                margin={{ top: 20, right: 0, left: 0, bottom: 0 }}
               >
                 <XAxis dataKey="Employee_Name" />
-                <YAxis dataKey="Talkduration_count" />
+                <YAxis dataKey="Queuetime_Count" />
                 <Tooltip cursor={false} />
-                <Legend verticalAlign="bottom" />
+                <Legend
+                  verticalAlign="bottom"
+                  formatter={(text) => text.replace("_", " ")}
+                />
                 <defs>
                   <linearGradient id="color08" x1="0" y1="1" x2="0" y2="0">
                     <stop offset="5%" stopColor="#43c48a" stopOpacity={0.9} />

@@ -99,7 +99,7 @@ const KeyBarChart = () => {
                   <stop offset="95%" stopColor="#63AEE4" stopOpacity={0.9} />
                 </linearGradient>
               </defs>
-              <Tooltip />
+              {/* <Tooltip /> */}
               <Legend verticalAlign="top" />
               <Bar
                 dataKey="Count"

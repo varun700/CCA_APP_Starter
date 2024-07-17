@@ -24,17 +24,18 @@ const ChartCard = ({
                 ({forecast})
               </span>
             )}
-            {title && (
-              <span
-                className={`gx-mb-0 gx-ml-2 gx-pt-xl-2 gx-fs-lg gx-chart-${styleName}`}
-              >
-                {title}% <i className="icon icon-menu-up gx-fs-sm" />
-              </span>
-            )}
           </h2>
-          <i
+
+          {title && (
+            <span
+              className={`gx-mb-0 gx-ml-2 gx-pt-xl-2 gx-fs-lg gx-chart-${styleName}`}
+            >
+              {title}
+            </span>
+          )}
+          {/* <i
             className={`icon icon-${icon} gx-fs-xl gx-ml-auto gx-text-primary gx-fs-xxxl`}
-          />
+          /> */}
         </div>
         <p className="gx-mb-0 gx-fs-sm gx-text-grey">
           {desc} {forecasttitle && `(${forecasttitle})`}

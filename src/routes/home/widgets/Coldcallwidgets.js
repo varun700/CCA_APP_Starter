@@ -62,7 +62,7 @@ const Coldcallwidget = () => {
       </Badge.Ribbon>{" "} */}
       {!callsdataloader && !chartdataloader ? (
         <ChartCard
-          prize={callsdata?.Table[0]?.Cold_Call_Percentage}
+          prize={`${callsdata?.Table[0]?.Cold_Call_Percentage}%`}
           title={callsdata?.Table[0]?.IncDec_Percentage}
           icon="ripple"
           children={
