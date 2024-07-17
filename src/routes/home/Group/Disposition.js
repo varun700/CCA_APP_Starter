@@ -9,12 +9,12 @@ export const Disposition = () => {
     <>
       <Card
         className="gx-card"
-        title="Disposition"
         style={{
           width: "100%",
           height: "350px",
         }}
       >
+        <h2 className="h4 gx-mb-3">Disposition</h2>
         <DisPieChart />
       </Card>
     </>

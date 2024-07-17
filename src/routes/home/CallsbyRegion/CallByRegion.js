@@ -87,7 +87,7 @@ const App = () => {
         <Map
           center={[
             parseFloat(mapdata?.Table[0]?.Latitude),
-            parseFloat(mapdata.Table[0].Longitude),
+            parseFloat(mapdata?.Table[0]?.Longitude),
           ]}
           zoom={zoom}
         >

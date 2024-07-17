@@ -72,7 +72,7 @@ const Index = () => {
         </Col>
         <Col span={12}>
           <Card style={{ height: "370px" }} className="gx-card">
-            <h2 className="h4 gx-mb-3">Top 8 Key Call Topics</h2>
+            <h2 className="h4 gx-mb-3">Reason for contact</h2>
             <KeyBarChart />
           </Card>
         </Col>
@@ -89,10 +89,20 @@ const Index = () => {
           <Top5QueueTime />{" "}
         </Col>
         <Col span={12}>
-          <Top10FCR />
+          <Card style={{ height: "470px" }} className="gx-card">
+            <h2 className="h4 gx-mb-0 gx-text-capitalize">
+              Top 5 agent by FCR
+            </h2>
+            <Top10FCR />
+          </Card>
         </Col>
         <Col span={12}>
-          <Bottom10FCR />
+          <Card style={{ height: "470px" }} className="gx-card">
+            <h2 className="h4 gx-mb-0 gx-text-capitalize">
+              Bottom 5 agent by FCR
+            </h2>
+            <Bottom10FCR />
+          </Card>
         </Col>
       </Row>
     </div>

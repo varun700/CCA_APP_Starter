@@ -114,21 +114,25 @@ const Top5QueueTime = () => {
   };
   return (
     <>
-      <Card className="gx-card" title="Top 5 Bottom Duration Anomaly">
+      <Card className="gx-card">
+        <h2 className="h4 gx-mb-3">Top 5 Queue Time Anomaly</h2>
         <div className="App">
           {!chartdataloader && (
             <ResponsiveContainer width="100%" height={350}>
               <BarChart
                 data={chartdata?.Table}
-                margin={{ top: 130, right: 0, left: 0, bottom: 0 }}
+                margin={{ top: 20, right: 0, left: 0, bottom: 0 }}
               >
                 <XAxis dataKey="Employee_Name" interval={0} />
                 <YAxis
-                  dataKey="Talkduration_count"
-                  domain={[0, "dataMax + 10"]}
+                  dataKey="Queuetime_Count"
+                  //  domain={[0, "dataMax + 10"]}
                 />
                 <Tooltip cursor={false} />
-                <Legend verticalAlign="bottom" />
+                <Legend
+                  verticalAlign="bottom"
+                  formatter={(text) => text.replace("_", " ")}
+                />
                 <defs>
                   <linearGradient id="color08" x1="0" y1="1" x2="0" y2="0">
                     <stop offset="5%" stopColor="#43c48a" stopOpacity={0.9} />

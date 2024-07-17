@@ -3,6 +3,17 @@ import { Table } from "antd";
 import Widget from "components/Widget/index";
 import { useDispatch, useSelector } from "react-redux";
 import { GetCallBottom10AgentByFCR } from "../../../appRedux/actions/globalactions";
+// import {
+//   BarChart,
+//   Bar,
+//   Cell,
+//   XAxis,
+//   YAxis,
+//   CartesianGrid,
+//   Tooltip,
+//   Legend,
+//   ResponsiveContainer,
+// } from "recharts";
 
 const Bottom10FCR = () => {
   const dispatch = useDispatch();
@@ -38,57 +49,70 @@ const Bottom10FCR = () => {
       title: "Service Level%",
       key: "Service_Level%",
       dataIndex: "Service_Level%",
+      render: (text, record) => {
+        return <span>{text}%</span>;
+      },
     },
     {
       title: "FCR%",
       key: "FCR%",
       dataIndex: "FCR%",
+      render: (text, record) => {
+        return <span>{text}%</span>;
+      },
     },
     {
-      title: "Avg Sentiment Score",
+      title: "Avg Sentiment Score%",
       key: "Sentiment_Score_Percentage",
       dataIndex: "Sentiment_Score_Percentage",
-    },
-  ];
-
-  const data = [
-    {
-      key: "2",
-      name: "Grojovin, Heather",
-      age: 1493,
-      address: "2d:3h:18m",
-      action: "7.33",
-      fcr: "85.65",
-    },
-    {
-      key: "1",
-      name: "Stevens, Clint	",
-      age: 8982,
-      address: "15d:17h:35m",
-      action: "46.22",
-      fcr: "92",
+      // render: (text, record) => {
+      //   console.log("qazswsxdedcdfrfvgtg", record);
+      //   return (
+      //     <BarChart
+      //       width={100}
+      //       height={40}
+      //       data={[record]}
+      //       // layout="vertical"
+      //       margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
+      //     >
+      //       {/* <Tooltip /> */}
+      //       <Bar
+      //         dataKey="Positive_Score_Percentage"
+      //         stackId="a"
+      //         fill="#82ca9d"
+      //       />
+      //       <Bar
+      //         dataKey="Negative_Score_Percentage"
+      //         stackId="a"
+      //         fill="#8884d8"
+      //       />
+      //       <Bar
+      //         dataKey="Neutral_Score_Percentage"
+      //         stackId="a"
+      //         fill="#ff7300"
+      //       />
+      //     </BarChart>
+      //   );
+      // },
     },
   ];
 
   return (
-    <Widget
-      title={
-        <h2 className="h4 gx-mb-0 gx-text-capitalize">
-          Bottom 10 agent by FCR
-        </h2>
-      }
-    >
+    // <Widget>
+    <>
       {!tabledataloader && (
         <Table
           className="gx-table-responsive"
           columns={columns}
           dataSource={tabledata?.Table}
-          pagination={{
-            pageSize: 5,
-          }}
+          // pagination={{
+          //   pageSize: 5,
+          // }}
+          pagination={false}
         />
       )}
-    </Widget>
+    </>
+    // {/* </Widget> */}
   );
 };
 
