@@ -50,7 +50,7 @@ const Index = () => {
         </Col>
         <Col xl={6} lg={12} md={12} sm={12} xs={24}>
           {" "}
-          <Coldcallwidget />
+          <ServiceLevelWidget />
         </Col>
         <Col xl={6} lg={12} md={12} sm={12} xs={24}>
           {" "}
@@ -59,7 +59,7 @@ const Index = () => {
         <Col xl={12} lg={12} md={12} sm={24} xs={24}>
           <Row span={24}>
             <Col xl={12} lg={24} md={12} sm={24} xs={24}>
-              <ServiceLevelWidget />
+              <Coldcallwidget />
             </Col>
             <Col xl={12} lg={24} md={12} sm={24} xs={24}>
               <QueueTime />

@@ -27,6 +27,10 @@ const Sidebar = () => {
   const onToggleCollapsedNav = () => {
     dispatch(toggleCollapsedSideNav(!navCollapsed));
   };
+  localStorage.clear();
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
   useEffect(() => {
     dispatch(GetCallCentreUserDD());
   }, []);

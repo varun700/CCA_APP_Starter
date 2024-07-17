@@ -30,8 +30,10 @@ const Index = () => {
   ];
   console.log(uservals);
   useEffect(() => {
-    dispatch(GetCCATotalCalls(uservals?.Employee_Id));
-    dispatch(GetCCATotalCallsChart(uservals?.Employee_Id));
+    if (uservals?.Employee_Id !== undefined) {
+      dispatch(GetCCATotalCalls(uservals?.Employee_Id));
+      dispatch(GetCCATotalCallsChart(uservals?.Employee_Id));
+    }
   }, [uservals]);
   console.log(callsdata, "calls", callsdataloader, chartdata);
   return (

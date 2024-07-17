@@ -22,7 +22,9 @@ const Queueddchart = () => {
   );
   const uservals = useSelector((state) => state?.Userval);
   useEffect(() => {
-    dispatch(GetQueueTimeDD(uservals?.Employee_Id));
+    if (uservals?.Employee_Id !== undefined) {
+      dispatch(GetQueueTimeDD(uservals?.Employee_Id));
+    }
   }, []);
 
   return (

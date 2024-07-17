@@ -49,7 +49,9 @@ const DisPieChart = () => {
   const uservals = useSelector((state) => state?.Userval);
 
   useEffect(() => {
-    dispatch(GetCallCenterDispositionPieChart(uservals?.Employee_Id));
+    if (uservals?.Employee_Id !== undefined) {
+      dispatch(GetCallCenterDispositionPieChart(uservals?.Employee_Id));
+    }
   }, [uservals]);
 
   // console.log("wertyuio", GetCallCenterDispositionPieChartloader);

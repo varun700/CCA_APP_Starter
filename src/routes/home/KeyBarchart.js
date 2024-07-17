@@ -29,7 +29,9 @@ const KeyBarChart = () => {
   const uservals = useSelector((state) => state?.Userval);
 
   useEffect(() => {
-    dispatch(GetKeyCallTopics(uservals?.Employee_Id));
+    if (uservals?.Employee_Id !== undefined) {
+      dispatch(GetKeyCallTopics(uservals?.Employee_Id));
+    }
   }, [uservals]);
 
   // const CustomYAxisLabel = ({ x, y, value }) => {

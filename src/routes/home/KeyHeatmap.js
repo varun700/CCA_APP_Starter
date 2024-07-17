@@ -19,7 +19,9 @@ function KeyHeatmap() {
   const uservals = useSelector((state) => state?.Userval);
 
   useEffect(() => {
-    dispatch(GetTopKeyPhrases());
+    if (uservals?.Employee_Id !== undefined) {
+      dispatch(GetTopKeyPhrases());
+    }
   }, [uservals]);
 
   useEffect(() => {

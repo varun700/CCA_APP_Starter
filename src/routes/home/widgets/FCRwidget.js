@@ -28,8 +28,11 @@ const FCRwidget = () => {
   const uservals = useSelector((state) => state?.Userval);
 
   useEffect(() => {
-    dispatch(GetCallCentreFCRWidget(uservals?.Employee_Id));
-    dispatch(GetFcrChart(uservals?.Employee_Id));
+    if (uservals?.Employee_Id !== undefined) {
+      console.log("oops", uservals, uservals?.Employee_Id);
+      dispatch(GetCallCentreFCRWidget(uservals?.Employee_Id));
+      dispatch(GetFcrChart(uservals?.Employee_Id));
+    }
   }, [uservals]);
   const lineData = [
     { name: "Page A", price: 200 },
@@ -45,7 +48,7 @@ const FCRwidget = () => {
   return (
     <div>
       {" "}
-      {/* {!callsdataloader && !chartdataloader ? (
+      {!callsdataloader && !chartdataloader ? (
         <ChartCard
           prize={callsdata?.Table[0]?.FCR_Percentage}
           title={callsdata?.Table[0]?.Inc_Dec_Percentage}
@@ -81,7 +84,7 @@ const FCRwidget = () => {
         <Card className="gx-card-widget" style={{ height: "400" }}>
           <Skeleton paragraph={{ rows: 2 }} active />
         </Card>
-      )} */}
+      )}
     </div>
   );
 };

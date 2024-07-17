@@ -16,7 +16,9 @@ const Bottom10FCR = () => {
   );
   useEffect(() => {
     console.log(uservals, "emp");
-    dispatch(GetCallBottom10AgentByFCR(uservals?.Employee_Id));
+    if (uservals?.Employee_Id !== undefined) {
+      dispatch(GetCallBottom10AgentByFCR(uservals?.Employee_Id));
+    }
   }, [uservals]);
   const columns = [
     {
@@ -89,7 +91,7 @@ const Bottom10FCR = () => {
           }}
         />
       ) : (
-        <SkeletonTable columns={columns} rows={5}></SkeletonTable>
+        <SkeletonTable columns={columns} rows={6}></SkeletonTable>
       )}
     </Widget>
   );

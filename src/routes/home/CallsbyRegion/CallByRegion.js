@@ -74,7 +74,9 @@ const App = () => {
     (state) => state?.GetCallByRegionMaploader
   );
   useEffect(() => {
-    dispatch(GetCallByRegionMap(uservals?.Employee_Id));
+    if (uservals?.Employee_Id !== undefined) {
+      dispatch(GetCallByRegionMap(uservals?.Employee_Id));
+    }
   }, [uservals]);
   console.log(Tooltipdata, "datatool", Tooltiptbldata, Tooltiptbldataloader);
   const handleMarkerClick = (e, location) => {

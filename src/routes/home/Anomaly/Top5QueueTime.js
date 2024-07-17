@@ -80,7 +80,9 @@ const Top5QueueTime = () => {
     (state) => state?.GetQueueTimeDDloader
   );
   useEffect(() => {
-    dispatch(GetQueueTimeAnomaly(uservals?.Employee_Id));
+    if (uservals?.Employee_Id !== undefined) {
+      dispatch(GetQueueTimeAnomaly(uservals?.Employee_Id));
+    }
   }, [uservals]);
   const showModal = () => {
     setIsModalOpen(true);

@@ -68,7 +68,9 @@ const Top10FCR = () => {
     },
   ];
   useEffect(() => {
-    dispatch(GetCallTop10AgentByFCR(uservals?.Employee_Id));
+    if (uservals?.Employee_Id !== undefined) {
+      dispatch(GetCallTop10AgentByFCR(uservals?.Employee_Id));
+    }
   }, [uservals]);
   console.log(tabledata, "tbl");
   return (
@@ -87,7 +89,7 @@ const Top10FCR = () => {
           }}
         />
       ) : (
-        <SkeletonTable columns={columns} rows={5}></SkeletonTable>
+        <SkeletonTable columns={columns} rows={6}></SkeletonTable>
       )}
     </Widget>
   );

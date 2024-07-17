@@ -32,7 +32,9 @@ const Warmcallwidget = () => {
   ];
 
   useEffect(() => {
-    dispatch(GetSatisfactionScoreWidget(uservals?.Employee_Id));
+    if (uservals?.Employee_Id !== undefined) {
+      dispatch(GetSatisfactionScoreWidget(uservals?.Employee_Id));
+    }
   }, [uservals]);
 
   console.log(chartdata, "warm", chartdataloader);
@@ -40,7 +42,7 @@ const Warmcallwidget = () => {
   return (
     <div>
       {" "}
-      {/* {!chartdataloader ? (
+      {!chartdataloader ? (
         <ChartCard
           prize={chartdata?.Table[0]?.Avg_Satisfaction_Score}
           title={chartdata?.Table[0]?.IncDec_Percentage}
@@ -85,7 +87,7 @@ const Warmcallwidget = () => {
         <Card className="gx-card-widget" style={{ height: "400" }}>
           <Skeleton paragraph={{ rows: 2 }} active />
         </Card>
-      )} */}
+      )}
     </div>
   );
 };

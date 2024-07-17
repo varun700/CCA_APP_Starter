@@ -33,8 +33,10 @@ const Coldcallwidget = () => {
     { name: "Page K", price: 800 },
   ];
   useEffect(() => {
-    dispatch(GetCallCentreColdCallWidget(uservals?.Employee_Id));
-    dispatch(GetColdCallChart(uservals?.Employee_Id));
+    if (uservals?.Employee_Id !== undefined) {
+      dispatch(GetCallCentreColdCallWidget(uservals?.Employee_Id));
+      dispatch(GetColdCallChart(uservals?.Employee_Id));
+    }
   }, [uservals]);
 
   console.log(callsdata, "op", callsdataloader);
@@ -58,7 +60,7 @@ const Coldcallwidget = () => {
           )}
         </CardBox>
       </Badge.Ribbon>{" "} */}
-      {/* {!callsdataloader && !chartdataloader ? (
+      {!callsdataloader && !chartdataloader ? (
         <ChartCard
           prize={callsdata?.Table[0]?.Cold_Call_Percentage}
           title={callsdata?.Table[0]?.IncDec_Percentage}
@@ -102,7 +104,7 @@ const Coldcallwidget = () => {
         <Card className="gx-card-widget" style={{ height: "400" }}>
           <Skeleton paragraph={{ rows: 2 }} active />
         </Card>
-      )} */}
+      )}
     </div>
   );
 };

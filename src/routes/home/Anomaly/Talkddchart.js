@@ -21,7 +21,9 @@ const Talkddchart = () => {
   );
   const uservals = useSelector((state) => state?.Userval);
   useEffect(() => {
-    dispatch(GetTalkDurationDD(uservals?.Employee_Id));
+    if (uservals?.Employee_Id !== undefined) {
+      dispatch(GetTalkDurationDD(uservals?.Employee_Id));
+    }
   }, []);
 
   return (

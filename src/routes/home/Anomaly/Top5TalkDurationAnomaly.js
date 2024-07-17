@@ -82,7 +82,9 @@ const Top5talkDuration = () => {
     (state) => state?.GetQueueTimeDDloader
   );
   useEffect(() => {
-    dispatch(GetTalkDurationAnomaly(uservals?.Employee_Id));
+    if (uservals?.Employee_Id !== undefined) {
+      dispatch(GetTalkDurationAnomaly(uservals?.Employee_Id));
+    }
   }, [uservals]);
 
   const showModal = () => {
