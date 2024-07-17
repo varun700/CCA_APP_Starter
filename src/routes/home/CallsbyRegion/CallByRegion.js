@@ -9,9 +9,10 @@ import {
   GetCallByRegion,
   GetCallByRegionMap,
 } from "../../../appRedux/actions/CCAwidgets";
-import { Card, Modal, Table } from "antd";
+import { Card, Modal, Skeleton, Table } from "antd";
 import Widget from "../../../components/Widget";
 import { GetCallByRegionDD } from "../../../appRedux/actions/globalactions";
+import CustomMapSkeleton from "../../loader/Maploader";
 let DefaultIcon = L.icon({
   iconUrl: customicon,
   iconSize: [40, 41],
@@ -83,7 +84,7 @@ const App = () => {
   };
   return (
     <div>
-      {!mapdataloader && (
+      {!mapdataloader ? (
         <Map
           center={[
             parseFloat(mapdata?.Table[0]?.Latitude),
@@ -136,6 +137,8 @@ const App = () => {
             </Marker>
           ))}
         </Map>
+      ) : (
+        <CustomMapSkeleton width={650} height={450} />
       )}
       <Modal
         title={clickedloc}

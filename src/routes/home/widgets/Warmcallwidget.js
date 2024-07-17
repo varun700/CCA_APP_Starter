@@ -2,12 +2,14 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { GetCallCentreWarmCallWidget } from "../../../appRedux/actions/CCAwidgets";
 import CardBox from "../../../components/CardBox/index";
-import { Badge } from "antd";
+import { Badge, Card, Skeleton } from "antd";
 import Top4card from "../../../components/CardBox/Top4card";
 import ChartCard from "../../../components/dashboard/Crypto/ChartCard";
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis } from "recharts";
 import { GetSatisfactionScoreWidget } from "../../../appRedux/actions/globalactions";
-
+// import Skeleton from "react-loading-skeleton";
+// import "react-loading-skeleton/dist/skeleton.css";
+// import CustomSkeleton from "../../loader/CustomSkeleton";
 const Warmcallwidget = () => {
   const dispatch = useDispatch();
 
@@ -38,7 +40,7 @@ const Warmcallwidget = () => {
   return (
     <div>
       {" "}
-      {!chartdataloader ? (
+      {/* {!chartdataloader ? (
         <ChartCard
           prize={chartdata?.Table[0]?.Avg_Satisfaction_Score}
           title={chartdata?.Table[0]?.IncDec_Percentage}
@@ -80,10 +82,18 @@ const Warmcallwidget = () => {
           desc="Satisfaction Score"
         />
       ) : (
-        ""
-      )}
+        <Card className="gx-card-widget" style={{ height: "400" }}>
+          <Skeleton paragraph={{ rows: 2 }} active />
+        </Card>
+      )} */}
     </div>
   );
 };
 
 export default Warmcallwidget;
+
+// <Card className="gx-card-widget" style={{ height: "400" }}>
+//   {/* <div style={{ display: "flex" }}> */}
+//   <CustomSkeleton lineCount={5} height={20} gap={10} />
+//   {/* </div> */}
+// </Card>

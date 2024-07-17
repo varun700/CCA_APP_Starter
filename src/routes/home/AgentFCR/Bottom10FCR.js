@@ -3,6 +3,7 @@ import { Table } from "antd";
 import Widget from "components/Widget/index";
 import { useDispatch, useSelector } from "react-redux";
 import { GetCallBottom10AgentByFCR } from "../../../appRedux/actions/globalactions";
+import SkeletonTable from "../../loader/Antdtableloader";
 
 const Bottom10FCR = () => {
   const dispatch = useDispatch();
@@ -78,7 +79,7 @@ const Bottom10FCR = () => {
         </h2>
       }
     >
-      {!tabledataloader && (
+      {!tabledataloader ? (
         <Table
           className="gx-table-responsive"
           columns={columns}
@@ -87,6 +88,8 @@ const Bottom10FCR = () => {
             pageSize: 5,
           }}
         />
+      ) : (
+        <SkeletonTable columns={columns} rows={5}></SkeletonTable>
       )}
     </Widget>
   );

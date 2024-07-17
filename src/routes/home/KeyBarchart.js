@@ -16,6 +16,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { GetKeyCallTopics } from "../../appRedux/actions/globalactions";
 import { Bars } from "react-loader-spinner";
+import { Skeleton } from "antd";
 
 const KeyBarChart = () => {
   const dispatch = useDispatch();
@@ -25,10 +26,11 @@ const KeyBarChart = () => {
   const GetKeyCallTopicsloader = useSelector(
     (state) => state.GetKeyCallTopicsloader
   );
+  const uservals = useSelector((state) => state?.Userval);
 
   useEffect(() => {
-    dispatch(GetKeyCallTopics());
-  }, []);
+    dispatch(GetKeyCallTopics(uservals?.Employee_Id));
+  }, [uservals]);
 
   // const CustomYAxisLabel = ({ x, y, value }) => {
   //   console.log("qwe34r", x, y, value);
@@ -136,15 +138,7 @@ const KeyBarChart = () => {
         </>
       ) : (
         <>
-          <Bars
-            height="50"
-            width="80"
-            radius="9"
-            color="green"
-            ariaLabel="loading"
-            wrapperStyle
-            wrapperClass="Barloader"
-          />
+          <Skeleton paragraph={{ rows: 8 }} active />
         </>
       )}
     </div>

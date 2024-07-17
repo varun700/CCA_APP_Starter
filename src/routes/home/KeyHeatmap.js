@@ -5,6 +5,7 @@ import "tippy.js/animations/scale.css";
 import { useDispatch, useSelector } from "react-redux";
 import { GetTopKeyPhrases } from "../../appRedux/actions/globalactions";
 import { Bars } from "react-loader-spinner";
+import CustomMapSkeleton from "../loader/Maploader";
 
 function KeyHeatmap() {
   const dispatch = useDispatch();
@@ -15,10 +16,11 @@ function KeyHeatmap() {
   const GetTopKeyPhrasesloader = useSelector(
     (state) => state.GetTopKeyPhrasesloader
   );
+  const uservals = useSelector((state) => state?.Userval);
 
   useEffect(() => {
     dispatch(GetTopKeyPhrases());
-  }, []);
+  }, [uservals]);
 
   useEffect(() => {
     setValuechange(
@@ -45,15 +47,7 @@ function KeyHeatmap() {
         </>
       ) : (
         <>
-          <Bars
-            height="50"
-            width="80"
-            radius="9"
-            color="green"
-            ariaLabel="loading"
-            wrapperStyle
-            wrapperClass="Barloader"
-          />
+          <CustomMapSkeleton width={650} height={280} />
         </>
       )}
     </div>

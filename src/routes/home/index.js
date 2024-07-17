@@ -21,6 +21,8 @@ import KeyHeatmap from "./KeyHeatmap.js";
 // import BalanceHistory from "./CallsbyRegion/Map.js";
 // import CallByRegion from "./CallsbyRegion/CallByRegion.js";
 import BalanceHistory from "./CallsbyRegion/Map.js";
+import Talkddchart from "./Anomaly/Talkddchart.js";
+import Queueddchart from "./Anomaly/Queueddchart.js";
 
 // import CallByRegion from "./CallsbyRegion/CallregionMap.js";
 // import CallsByRegion from "./CallsbyRegion/Map.js";
@@ -82,18 +84,41 @@ const Index = () => {
             <KeyHeatmap />
           </Card>
         </Col>
-        <Col span={12}>
-          <Top5talkDuration />{" "}
-        </Col>
-        <Col span={12}>
-          <Top5QueueTime />{" "}
-        </Col>
-        <Col span={12}>
-          <Top10FCR />
-        </Col>
-        <Col span={12}>
-          <Bottom10FCR />
-        </Col>
+        {usercurrval?.Job_Title == "Call Centre Agent" ? (
+          <Col span={12}>
+            {console.log(usercurrval, "cuurval")}
+            <Card className="gx-card" title="Talk Duration">
+              <Talkddchart />
+            </Card>
+          </Col>
+        ) : (
+          <Col span={12}>
+            <Top5talkDuration />
+          </Col>
+        )}
+        {usercurrval?.Job_Title == "Call Centre Agent" ? (
+          <Col span={12}>
+            <Card className="gx-card" title="Queue Time">
+              <Queueddchart />
+            </Card>
+          </Col>
+        ) : (
+          <Col span={12}>
+            <Top5QueueTime />
+          </Col>
+        )}{" "}
+        {console.log(usercurrval, "cuurval")}
+        {usercurrval?.Job_Title !== "Call Centre Analyst" && (
+          <Col span={12}>
+            {console.log(usercurrval, "cuurval")}
+            <Top10FCR />
+          </Col>
+        )}
+        {usercurrval?.Job_Title !== "Call Centre Analyst" && (
+          <Col span={12}>
+            <Bottom10FCR />
+          </Col>
+        )}
       </Row>
     </div>
   );

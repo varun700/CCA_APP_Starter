@@ -8,6 +8,7 @@ import ChartCard from "../../../components/dashboard/Crypto/ChartCard";
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis } from "recharts";
 import { useDispatch, useSelector } from "react-redux";
 import { GetQueueTimeWidget } from "../../../appRedux/actions/globalactions";
+import { Card, Skeleton } from "antd";
 
 const QueueTime = () => {
   const dispatch = useDispatch();
@@ -62,42 +63,47 @@ const QueueTime = () => {
     <div>
       {" "}
       {!callsdataloader ? (
-        <ChartCard
-          prize={formatTime(callsdata?.Table[0]?.Queue_Time)}
-          title={callsdata?.Table[0]?.Column1}
-          icon="etherium"
-          children={
-            <ResponsiveContainer width="100%" height={75}>
-              <AreaChart
-                data={callsdata?.Table1}
-                margin={{ top: 0, right: 0, left: 0, bottom: -30 }}
-              >
-                <XAxis dataKey="Month" tick={false} />
+        // <ChartCard
+        //   prize={formatTime(callsdata?.Table[0]?.Queue_Time)}
+        //   title={callsdata?.Table[0]?.Column1}
+        //   icon="etherium"
+        //   children={
+        //     <ResponsiveContainer width="100%" height={75}>
+        //       <AreaChart
+        //         data={callsdata?.Table1}
+        //         margin={{ top: 0, right: 0, left: 0, bottom: -30 }}
+        //       >
+        //         <XAxis dataKey="Month" tick={false} />
 
-                <Tooltip />
-                <defs>
-                  <linearGradient id="color2" x1="0" y1="0" x2="1" y2="0">
-                    <stop offset="5%" stopColor="#61B1E4" stopOpacity={0.9} />
-                    <stop offset="95%" stopColor="#867AE5" stopOpacity={0.9} />
-                  </linearGradient>
-                </defs>
-                <Area
-                  dataKey="Queue_Time"
-                  type="monotone"
-                  strokeWidth={0}
-                  stackId="2"
-                  stroke="#4D95F3"
-                  fill="url(#color2)"
-                  fillOpacity={1}
-                />
-              </AreaChart>
-            </ResponsiveContainer>
-          }
-          // styleName="up"
-          desc="Queue Time"
-        />
+        //         <Tooltip />
+        //         <defs>
+        //           <linearGradient id="color2" x1="0" y1="0" x2="1" y2="0">
+        //             <stop offset="5%" stopColor="#61B1E4" stopOpacity={0.9} />
+        //             <stop offset="95%" stopColor="#867AE5" stopOpacity={0.9} />
+        //           </linearGradient>
+        //         </defs>
+        //         <Area
+        //           dataKey="Queue_Time"
+        //           type="monotone"
+        //           strokeWidth={0}
+        //           stackId="2"
+        //           stroke="#4D95F3"
+        //           fill="url(#color2)"
+        //           fillOpacity={1}
+        //         />
+        //       </AreaChart>
+        //     </ResponsiveContainer>
+        //   }
+        //   // styleName="up"
+        //   desc="Queue Time"
+        // />
+        <Card className="gx-card-widget" style={{ height: "400" }}>
+          <Skeleton paragraph={{ rows: 2 }} active />
+        </Card>
       ) : (
-        ""
+        <Card className="gx-card-widget" style={{ height: "400" }}>
+          <Skeleton paragraph={{ rows: 2 }} active />
+        </Card>
       )}
     </div>
   );

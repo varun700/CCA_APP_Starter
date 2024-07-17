@@ -10,8 +10,9 @@ import {
 } from "recharts";
 import { useDispatch, useSelector } from "react-redux";
 import { GetCallCenterDispositionPieChart } from "../../../appRedux/actions/globalactions";
-import { Card, Tooltip } from "antd";
+import { Card, Skeleton, Tooltip } from "antd";
 import { Bars } from "react-loader-spinner";
+import CustomDonutSkeleton from "../../loader/CustomDonutSkeleton";
 
 const COLORS = [
   "#0088FE",
@@ -45,19 +46,19 @@ const DisPieChart = () => {
   const GetCallCenterDispositionPieChartloader = useSelector(
     (state) => state.GetCallCenterDispositionPieChartloader
   );
+  const uservals = useSelector((state) => state?.Userval);
 
   useEffect(() => {
-    dispatch(GetCallCenterDispositionPieChart());
-  }, []);
+    dispatch(GetCallCenterDispositionPieChart(uservals?.Employee_Id));
+  }, [uservals]);
 
   // console.log("wertyuio", GetCallCenterDispositionPieChartloader);
 
   return (
     <div className="App">
-      {!GetCallCenterDispositionPieChartloader &&
+      {GetCallCenterDispositionPieChartloader &&
       GetCallCenterDispositionPieChartValue?.length > 0 ? (
         <>
-          {" "}
           <ResponsiveContainer width="100%" height={260}>
             <PieChart width={800} height={300}>
               <Legend
@@ -94,15 +95,9 @@ const DisPieChart = () => {
         </>
       ) : (
         <>
-          <Bars
-            height="50"
-            width="80"
-            radius="9"
-            color="green"
-            ariaLabel="loading"
-            wrapperStyle
-            wrapperClass="Barloader"
-          />
+          {/* <Card className="gx-card-widget" style={{ height: "400" }}> */}
+          <CustomDonutSkeleton />
+          {/* </Card> */}
         </>
       )}
     </div>

@@ -166,7 +166,7 @@ export const GetCallCenterTop10SplitGroupBarChart = () => {
     }
   };
 };
-export const GetCallCenterDispositionPieChart = () => {
+export const GetCallCenterDispositionPieChart = (userid) => {
   return async function (dispatch) {
     dispatch({
       type: "GetCallCenterDispositionPieChartloader",
@@ -174,7 +174,7 @@ export const GetCallCenterDispositionPieChart = () => {
     });
     try {
       const response = await axios.get(
-        `https://ccaapp-api.azurewebsites.net/api/CCA/GetCallCenterDispositionPieChart?EmployeeId=AG102
+        `https://ccaapp-api.azurewebsites.net/api/CCA/GetCallCenterDispositionPieChart?EmployeeId=${userid}
  `
       );
       dispatch({
@@ -240,7 +240,7 @@ export const ClearUserDetails = (userid) => {
   };
 };
 
-export const GetKeyCallTopics = () => {
+export const GetKeyCallTopics = (userid) => {
   return async function (dispatch) {
     dispatch({
       type: "GetKeyCallTopicsloader",
@@ -248,7 +248,7 @@ export const GetKeyCallTopics = () => {
     });
     try {
       const response = await axios.get(
-        `https://ccaapp-api.azurewebsites.net/api/CCA/GetKeyCallTopics?EmployeeId=AG102
+        `https://ccaapp-api.azurewebsites.net/api/CCA/GetKeyCallTopics?EmployeeId=${userid}
   
      `
       );

@@ -3,6 +3,7 @@ import { Table } from "antd";
 import Widget from "components/Widget/index";
 import { useDispatch, useSelector } from "react-redux";
 import { GetCallTop10AgentByFCR } from "../../../appRedux/actions/globalactions";
+import SkeletonTable from "../../loader/Antdtableloader";
 
 const Top10FCR = () => {
   const dispatch = useDispatch();
@@ -76,7 +77,7 @@ const Top10FCR = () => {
         <h2 className="h4 gx-mb-0 gx-text-capitalize">Top 10 agent by FCR</h2>
       }
     >
-      {!tabledataloader && (
+      {!tabledataloader ? (
         <Table
           className="gx-table-responsive"
           columns={columns}
@@ -85,6 +86,8 @@ const Top10FCR = () => {
             pageSize: 5,
           }}
         />
+      ) : (
+        <SkeletonTable columns={columns} rows={5}></SkeletonTable>
       )}
     </Widget>
   );

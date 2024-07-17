@@ -14,3 +14,10 @@
     line-height: 1.2;
     font-size: 18px !important;
   }
+  .map_default_size{
+    height: 530px;
+  }
+  .userprofile_ml{
+    margin-left: 25px !important;
+    cursor: pointer;
+  }

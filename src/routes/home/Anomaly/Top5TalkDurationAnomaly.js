@@ -21,6 +21,7 @@ import {
   GetTalkDurationDD,
 } from "../../../appRedux/actions/globalactions";
 import { Line } from "react-simple-maps";
+import CustomBarChartSkeleton from "../../loader/Barchartloader";
 // import TopSplitgroup from "./Linechart";
 const datas = [
   {
@@ -119,7 +120,7 @@ const Top5talkDuration = () => {
     <>
       <Card className="gx-card" title="Top 5 Talk Duration Anomaly">
         <div className="App">
-          {!chartdataloader && (
+          {!chartdataloader ? (
             <ResponsiveContainer width="100%" height={350}>
               <BarChart
                 data={chartdata?.Table}
@@ -157,6 +158,8 @@ const Top5talkDuration = () => {
                 />
               </BarChart>
             </ResponsiveContainer>
+          ) : (
+            <CustomBarChartSkeleton />
           )}
         </div>
       </Card>

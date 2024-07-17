@@ -5,7 +5,7 @@ import {
   GetCCATotalCallsChart,
 } from "../../../appRedux/actions/CCAwidgets";
 import CardBox from "../../../components/CardBox/index";
-import { Badge } from "antd";
+import { Badge, Card, Skeleton } from "antd";
 import Top4card from "../../../components/CardBox/Top4card";
 import ChartCard from "../../../components/dashboard/Crypto/ChartCard";
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis } from "recharts";
@@ -75,7 +75,9 @@ const Index = () => {
           desc="Calls"
         />
       ) : (
-        ""
+        <Card className="gx-card-widget" style={{ height: "400" }}>
+          <Skeleton paragraph={{ rows: 2 }} active />
+        </Card>
       )}
     </div>
   );

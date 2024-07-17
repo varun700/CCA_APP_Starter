@@ -155,9 +155,8 @@ const UserProfile = () => {
         placement="bottomRight"
         content={userimporsination}
         trigger="click"
-        style={{ marginLeft: "20px" }}
       >
-        <i className="icon icon-chevron-down gx-fs-xxs gx-ml-2" />
+        <i className="icon icon-chevron-down gx-fs-xxs  userprofile_ml" />
       </Popover>
     </div>
   );
