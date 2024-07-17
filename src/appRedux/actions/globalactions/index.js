@@ -93,7 +93,7 @@ export const GetTopCallDurationAnomalyByAgent = () => {
     }
   };
 };
-export const GetCallTop10AgentByFCR = () => {
+export const GetCallTop10AgentByFCR = (userid) => {
   return async function (dispatch) {
     dispatch({
       type: "GetCallTop10AgentByFCRloader",
@@ -101,7 +101,7 @@ export const GetCallTop10AgentByFCR = () => {
     });
     try {
       const response = await axios.get(
-        `https://ccaapp-api.azurewebsites.net/api/CCA/GetCallTop10AgentByFCR?EmployeeId=AG102
+        `https://ccaapp-api.azurewebsites.net/api/CCA/GetCallTop10AgentByFCR?EmployeeId=${userid}
 `
       );
       dispatch({
@@ -118,7 +118,7 @@ export const GetCallTop10AgentByFCR = () => {
   };
 };
 
-export const GetCallBottom10AgentByFCR = () => {
+export const GetCallBottom10AgentByFCR = (userid) => {
   return async function (dispatch) {
     dispatch({
       type: "GetCallBottom10AgentByFCRloader",
@@ -126,7 +126,7 @@ export const GetCallBottom10AgentByFCR = () => {
     });
     try {
       const response = await axios.get(
-        `https://ccaapp-api.azurewebsites.net/api/CCA/GetCallBottom10AgentByFCR?EmployeeId=AG102
+        `https://ccaapp-api.azurewebsites.net/api/CCA/GetCallBottom10AgentByFCR?EmployeeId=${userid}
 
   `
       );
@@ -190,7 +190,7 @@ export const GetCallCenterDispositionPieChart = () => {
     }
   };
 };
-export const GetUserDetails = () => {
+export const GetUserDetails = (userid) => {
   return async function (dispatch) {
     dispatch({
       type: "GetUserDetailsloader",
@@ -198,7 +198,7 @@ export const GetUserDetails = () => {
     });
     try {
       const response = await axios.get(
-        `https://ccaapp-api.azurewebsites.net/api/CCA/GetUserDetails?EmployeeId=AG102
+        `https://ccaapp-api.azurewebsites.net/api/CCA/GetUserDetails?EmployeeId=${userid}
 
    `
       );
@@ -216,7 +216,7 @@ export const GetUserDetails = () => {
   };
 };
 
-export const ClearUserDetails = () => {
+export const ClearUserDetails = (userid) => {
   return async function (dispatch) {
     dispatch({
       type: "ClearUserDetailsloader",
@@ -224,9 +224,7 @@ export const ClearUserDetails = () => {
     });
     try {
       const response = await axios.get(
-        `https://ccaapp-api.azurewebsites.net/api/CCA/ClearUserDetails?EmployeeId=AG102
-  
-     `
+        `https://ccaapp-api.azurewebsites.net/api/CCA/ClearUserDetails?EmployeeId=${userid}`
       );
       dispatch({
         type: "ClearUserDetails",
@@ -275,5 +273,245 @@ export const Userval = (val) => {
       type: "Userval",
       payload: val,
     });
+  };
+};
+export const GetCallCentreUserDD = () => {
+  return async function (dispatch) {
+    dispatch({
+      type: "GetCallCentreUserDDloader",
+      payload: true,
+    });
+    try {
+      const response = await axios.get(
+        `https://ccaapp-api.azurewebsites.net/api/CCA/GetCallCentreUserDD
+
+    
+       `
+      );
+      dispatch({
+        type: "GetCallCentreUserDD",
+        payload: response.data,
+      });
+      dispatch({
+        type: "GetCallCentreUserDDloader",
+        payload: false,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const GetImporsinationDD = (userid) => {
+  return async function (dispatch) {
+    dispatch({
+      type: "GetImporsinationDDloader",
+      payload: true,
+    });
+    try {
+      const response = await axios.get(
+        `https://ccaapp-api.azurewebsites.net/api/CCA/GetImporsinationDD?EmployeeId=${userid}`
+      );
+      dispatch({
+        type: "GetImporsinationDD",
+        payload: response.data,
+      });
+      dispatch({
+        type: "GetImporsinationDDloader",
+        payload: false,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+export const GetQueueTimeWidget = (userid) => {
+  return async function (dispatch) {
+    dispatch({
+      type: "GetQueueTimeWidgetloader",
+      payload: true,
+    });
+    try {
+      const response = await axios.get(
+        `https://ccaapp-api.azurewebsites.net/api/CCA/GetQueueTimeWidget?EmployeeId=${userid}
+`
+      );
+      dispatch({
+        type: "GetQueueTimeWidget",
+        payload: response.data,
+      });
+      dispatch({
+        type: "GetQueueTimeWidgetloader",
+        payload: false,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+export const GetFcrChart = (userid) => {
+  return async function (dispatch) {
+    dispatch({
+      type: "GetFcrChartloader",
+      payload: true,
+    });
+    try {
+      const response = await axios.get(
+        `https://ccaapp-api.azurewebsites.net/api/CCA/GetFcrChart?EmployeeId=${userid}`
+      );
+      dispatch({
+        type: "GetFcrChart",
+        payload: response.data,
+      });
+      dispatch({
+        type: "GetFcrChartloader",
+        payload: false,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+//
+export const GetSatisfactionScoreWidget = (userid) => {
+  return async function (dispatch) {
+    dispatch({
+      type: "GetSatisfactionScoreWidgetloader",
+      payload: true,
+    });
+    try {
+      const response = await axios.get(
+        `https://ccaapp-api.azurewebsites.net/api/CCA/GetSatisfactionScoreWidget?EmployeeId=${userid}`
+      );
+      dispatch({
+        type: "GetSatisfactionScoreWidget",
+        payload: response.data,
+      });
+      dispatch({
+        type: "GetSatisfactionScoreWidgetloader",
+        payload: false,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+export const GetServiceLevelChart = (userid) => {
+  return async function (dispatch) {
+    dispatch({
+      type: "GetServiceLevelChartloader",
+      payload: true,
+    });
+    try {
+      const response = await axios.get(
+        `https://ccaapp-api.azurewebsites.net/api/CCA/GetServiceLevelChart?EmployeeId=${userid}`
+      );
+      dispatch({
+        type: "GetServiceLevelChart",
+        payload: response.data,
+      });
+      dispatch({
+        type: "GetServiceLevelChartloader",
+        payload: false,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+export const GetCallByRegionDD = (userid, region) => {
+  return async function (dispatch) {
+    dispatch({
+      type: "GetCallByRegionDDloader",
+      payload: true,
+    });
+    try {
+      const response = await axios.get(
+        `https://ccaapp-api.azurewebsites.net/api/CCA/GetCallByRegionDD?EmployeeId=${userid}&Region=${region}
+`
+      );
+      dispatch({
+        type: "GetCallByRegionDD",
+        payload: response.data,
+      });
+      dispatch({
+        type: "GetCallByRegionDDloader",
+        payload: false,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+//
+export const GetTalkDurationDD = (userid, region) => {
+  return async function (dispatch) {
+    dispatch({
+      type: "GetTalkDurationDDloader",
+      payload: true,
+    });
+    try {
+      const response = await axios.get(
+        `https://ccaapp-api.azurewebsites.net/api/CCA/GetTalkDurationDD?EmployeeId=${userid}
+`
+      );
+      dispatch({
+        type: "GetTalkDurationDD",
+        payload: response.data,
+      });
+      dispatch({
+        type: "GetTalkDurationDDloader",
+        payload: false,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+export const GetQueueTimeDD = (userid, region) => {
+  return async function (dispatch) {
+    dispatch({
+      type: "GetQueueTimeDDloader",
+      payload: true,
+    });
+    try {
+      const response = await axios.get(
+        `https://ccaapp-api.azurewebsites.net/api/CCA/GetQueueTimeDD?EmployeeId=${userid}`
+      );
+      dispatch({
+        type: "GetQueueTimeDD",
+        payload: response.data,
+      });
+      dispatch({
+        type: "GetQueueTimeDDloader",
+        payload: false,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+export const SaveUserDetails = (data) => {
+  return async function (dispatch) {
+    dispatch({
+      type: "SaveUserDetailsloader",
+      payload: true,
+    });
+    try {
+      const response = await axios.post(
+        `https://ccaapp-api.azurewebsites.net/api/CCA/SaveUserDetails`,
+        data
+      );
+      dispatch({
+        type: "SaveUserDetails",
+        payload: response.data,
+      });
+      dispatch({
+        type: "SaveUserDetailsloader",
+        payload: false,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 };

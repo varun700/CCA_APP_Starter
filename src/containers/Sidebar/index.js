@@ -13,6 +13,7 @@ import {
   TAB_SIZE,
   THEME_TYPE_LITE,
 } from "../../constants/ThemeSetting";
+import { GetCallCentreUserDD } from "../../appRedux/actions/globalactions";
 
 const { Sider } = Layout;
 
@@ -26,6 +27,9 @@ const Sidebar = () => {
   const onToggleCollapsedNav = () => {
     dispatch(toggleCollapsedSideNav(!navCollapsed));
   };
+  useEffect(() => {
+    dispatch(GetCallCentreUserDD());
+  }, []);
 
   // useEffect(() => {
   //   setSidebarCollapsed(navStyle === NAV_STYLE_MINI_SIDEBAR);

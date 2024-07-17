@@ -5,22 +5,26 @@ import Coldcallwidget from "./widgets/Coldcallwidgets";
 import Callswidget from "./widgets/Callswidget";
 import Warmcallwidget from "./widgets/Warmcallwidget";
 import { Card, Col, Row } from "antd";
-import { ServiceLead } from "./Servicelevel/Table.js";
-import { CallByRegion } from "./CallsbyRegion/Map.js";
+// import { ServiceLead } from "./Servicelevel/Table.js";
+import CallByRegion from "./CallsbyRegion/Map.js";
 import ServiceLevelWidget from "./widgets/ServiceLevelWidget.js";
 import QueueTime from "./widgets/QueueTime.js";
 import KeyBarChart from "./KeyBarchart.js";
 import Top10FCR from "./AgentFCR/Top10FCR.js";
 import Bottom10FCR from "./AgentFCR/Bottom10FCR.js";
-import { Top5QueueTime } from "./Anomaly/Top5QueueTime.js";
-import { Top5TalkDurationAnomaly } from "./Anomaly/Top5TalkDurationAnomaly.js";
+import Top5QueueTime from "./Anomaly/Top5QueueTime.js";
 import { Top10Splitgroup } from "./Group/Top10SplitGroup.js";
+import { GetImporsinationDD } from "../../appRedux/actions/globalactions/index.js";
+import Top5talkDuration from "./Anomaly/Top5TalkDurationAnomaly.js";
 // import { Disposition } from "./Group/Disposition.js";
 
 const Index = () => {
   const dispatch = useDispatch();
+
   const callsdata = useSelector((state) => state.GetCCATotalCallsreducer);
+
   const callsdataloader = useSelector((state) => state.GetCCATotalCallsLoader);
+  const usercurrval = useSelector((state) => state?.Userval) || [];
 
   return (
     <div>
@@ -70,7 +74,7 @@ const Index = () => {
           <Bottom10FCR />
         </Col>
         <Col span={12}>
-          <Top5TalkDurationAnomaly />{" "}
+          <Top5talkDuration />{" "}
         </Col>
         <Col span={12}>
           <Top5QueueTime />{" "}

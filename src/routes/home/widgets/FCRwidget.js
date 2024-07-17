@@ -12,7 +12,9 @@ import {
   LineChart,
   ResponsiveContainer,
   Tooltip,
+  XAxis,
 } from "recharts";
+import { GetFcrChart } from "../../../appRedux/actions/globalactions";
 
 const FCRwidget = () => {
   const dispatch = useDispatch();
@@ -20,10 +22,15 @@ const FCRwidget = () => {
   const callsdataloader = useSelector(
     (state) => state.GetCallCentreFCRWidgetloader
   );
+  const chartdata = useSelector((state) => state.GetFcrChartreducer);
+  const chartdataloader = useSelector((state) => state.GetFcrChartloader);
+
+  const uservals = useSelector((state) => state?.Userval);
 
   useEffect(() => {
-    dispatch(GetCallCentreFCRWidget());
-  }, []);
+    dispatch(GetCallCentreFCRWidget(uservals?.Employee_Id));
+    dispatch(GetFcrChart(uservals?.Employee_Id));
+  }, [uservals]);
   const lineData = [
     { name: "Page A", price: 200 },
     { name: "Page B", price: 1100 },
@@ -38,28 +45,41 @@ const FCRwidget = () => {
   return (
     <div>
       {" "}
-      <ChartCard
-        prize="$849"
-        title="47"
-        icon="litcoin"
-        children={
-          <ResponsiveContainer width="100%" height={75}>
-            <LineChart
-              data={lineData}
-              margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
-            >
-              <Tooltip />
-              <Line
-                dataKey="price"
-                stroke="#038FDE"
-                dot={{ stroke: "#FEA931", strokeWidth: 2 }}
-              />
-            </LineChart>
-          </ResponsiveContainer>
-        }
-        styleName="down"
-        desc="FCR"
-      />
+      {!callsdataloader && !chartdataloader ? (
+        <ChartCard
+          prize={callsdata?.Table[0]?.FCR_Percentage}
+          title={callsdata?.Table[0]?.Inc_Dec_Percentage}
+          icon="litcoin"
+          children={
+            <ResponsiveContainer width="100%" height={75}>
+              <LineChart
+                data={chartdata?.Table}
+                margin={{ top: 5, right: 5, left: 5, bottom: -30 }}
+              >
+                <XAxis dataKey="Short_Month" tick={false} />
+
+                <Tooltip />
+                <Line
+                  dataKey="FCR_Percentage"
+                  stroke="#038FDE"
+                  dot={{ stroke: "#FEA931", strokeWidth: 2 }}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          }
+          // styleName={callsdata?.Table[0]?.IncDec_Percentage > 0 ? "up" : "down"}
+          styleName={
+            callsdata?.Table[0]?.IncDec_Percentage > 0
+              ? "up"
+              : callsdata?.Table[0]?.Inc_Dec_Percentage === null
+              ? ""
+              : "down"
+          }
+          desc="FCR"
+        />
+      ) : (
+        ""
+      )}
     </div>
   );
 };

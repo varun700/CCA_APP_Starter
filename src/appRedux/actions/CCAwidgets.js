@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const GetCCATotalCalls = () => {
+export const GetCCATotalCalls = (userid) => {
   return async function (dispatch) {
     dispatch({
       type: "GetCCATotalCallsloader",
@@ -8,11 +8,11 @@ export const GetCCATotalCalls = () => {
     });
     try {
       const response = await axios.get(
-        `https://ccaapp-api.azurewebsites.net/api/CCA/GetCCATotalCalls?EmployeeId=AG102&StartDate=01-07-2023&EndDate=30-07-2023`
+        `https://ccaapp-api.azurewebsites.net/api/CCA/GetCCATotalCalls?EmployeeId=${userid}`
       );
       dispatch({
         type: "GetCCATotalCalls",
-        payload: response?.data?.Table,
+        payload: response?.data,
       });
       dispatch({
         type: "GetCCATotalCallsloader",
@@ -23,8 +23,31 @@ export const GetCCATotalCalls = () => {
     }
   };
 };
-
-export const GetCallCentreFCRWidget = () => {
+export const GetCCATotalCallsChart = (userid) => {
+  return async function (dispatch) {
+    dispatch({
+      type: "GetCCATotalCallsChartloader",
+      payload: true,
+    });
+    try {
+      const response = await axios.get(
+        `https://ccaapp-api.azurewebsites.net/api/CCA/GetCCATotalCallsChart?EmployeeId=${userid}
+`
+      );
+      dispatch({
+        type: "GetCCATotalCallsChart",
+        payload: response?.data,
+      });
+      dispatch({
+        type: "GetCCATotalCallsChartloader",
+        payload: false,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+export const GetCallCentreFCRWidget = (userid) => {
   return async function (dispatch) {
     dispatch({
       type: "GetCallCentreFCRWidgetloader",
@@ -32,14 +55,11 @@ export const GetCallCentreFCRWidget = () => {
     });
     try {
       const response = await axios.get(
-        `https://ccaapp-api.azurewebsites.net/api/CCA/GetCallCentreFCRWidget?EmployeeId=AG102&StartDate=01-07-2023&EndDate=30-07-2023`
+        `https://ccaapp-api.azurewebsites.net/api/CCA/GetCallCentreFCRWidget?EmployeeId=${userid}`
       );
       dispatch({
         type: "GetCallCentreFCRWidget",
-        payload: {
-          Table: response?.data?.Table,
-          Table1: response?.data?.Table1,
-        },
+        payload: response?.data,
       });
       dispatch({
         type: "GetCallCentreFCRWidgetloader",
@@ -50,7 +70,7 @@ export const GetCallCentreFCRWidget = () => {
     }
   };
 };
-export const GetCallCentreColdCallWidget = () => {
+export const GetCallCentreColdCallWidget = (userid) => {
   return async function (dispatch) {
     dispatch({
       type: "GetCallCentreColdCallWidgetloader",
@@ -58,14 +78,11 @@ export const GetCallCentreColdCallWidget = () => {
     });
     try {
       const response = await axios.get(
-        `https://ccaapp-api.azurewebsites.net/api/CCA/GetCallCentreColdCallWidget?EmployeeId=AG102&StartDate=01-07-2023&EndDate=30-07-2023`
+        `https://ccaapp-api.azurewebsites.net/api/CCA/GetCallCentreColdCallWidget?EmployeeId=${userid}`
       );
       dispatch({
         type: "GetCallCentreColdCallWidget",
-        payload: {
-          Table: response?.data?.Table,
-          Table1: response?.data?.Table1,
-        },
+        payload: response?.data,
       });
       dispatch({
         type: "GetCallCentreColdCallWidgetloader",
@@ -76,7 +93,7 @@ export const GetCallCentreColdCallWidget = () => {
     }
   };
 };
-export const GetCallCentreWarmCallWidget = () => {
+export const GetCallCentreWarmCallWidget = (userid) => {
   return async function (dispatch) {
     dispatch({
       type: "GetCallCentreWarmCallWidgetloader",
@@ -84,14 +101,11 @@ export const GetCallCentreWarmCallWidget = () => {
     });
     try {
       const response = await axios.get(
-        `https://ccaapp-api.azurewebsites.net/api/CCA/GetCallCentreWarmCallWidget?EmployeeId=AG102&StartDate=01-07-2023&EndDate=30-07-2023`
+        `https://ccaapp-api.azurewebsites.net/api/CCA/GetCallCentreWarmCallWidget?EmployeeId=${userid}`
       );
       dispatch({
         type: "GetCallCentreWarmCallWidget",
-        payload: {
-          Table: response?.data?.Table,
-          Table1: response?.data?.Table1,
-        },
+        payload: response?.data,
       });
       dispatch({
         type: "GetCallCentreWarmCallWidgetloader",
@@ -102,7 +116,7 @@ export const GetCallCentreWarmCallWidget = () => {
     }
   };
 };
-export const GetCallByRegionMap = () => {
+export const GetCallByRegionMap = (userid) => {
   return async function (dispatch) {
     dispatch({
       type: "GetCallByRegionMaploader",
@@ -110,7 +124,7 @@ export const GetCallByRegionMap = () => {
     });
     try {
       const response = await axios.get(
-        `https://ccaapp-api.azurewebsites.net/api/CCA/GetCallByRegionMap?EmployeeId=AG102
+        `https://ccaapp-api.azurewebsites.net/api/CCA/GetCallByRegionMap?EmployeeId=${userid}
 `
       );
       dispatch({
@@ -119,6 +133,100 @@ export const GetCallByRegionMap = () => {
       });
       dispatch({
         type: "GetCallByRegionMaploader",
+        payload: false,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+export const GetColdCallChart = (userid) => {
+  return async function (dispatch) {
+    dispatch({
+      type: "GetColdCallChartloader",
+      payload: true,
+    });
+    try {
+      const response = await axios.get(
+        `https://ccaapp-api.azurewebsites.net/api/CCA/GetColdCallChart?EmployeeId=${userid}`
+      );
+      dispatch({
+        type: "GetColdCallChart",
+        payload: response.data,
+      });
+      dispatch({
+        type: "GetColdCallChartloader",
+        payload: false,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+export const GetCallByRegion = (userid, region) => {
+  return async function (dispatch) {
+    dispatch({
+      type: "GetCallByRegionloader",
+      payload: true,
+    });
+    try {
+      const response = await axios.get(
+        `https://ccaapp-api.azurewebsites.net/api/CCA/GetCallByRegion?EmployeeId=${userid}&Region=${region}`
+      );
+      dispatch({
+        type: "GetCallByRegion",
+        payload: response.data,
+      });
+      dispatch({
+        type: "GetCallByRegionloader",
+        payload: false,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+export const GetTalkDurationAnomaly = (userid) => {
+  return async function (dispatch) {
+    dispatch({
+      type: "GetTalkDurationAnomalyloader",
+      payload: true,
+    });
+    try {
+      const response = await axios.get(
+        `https://ccaapp-api.azurewebsites.net/api/CCA/GetTalkDurationAnomaly?EmployeeId=${userid}
+`
+      );
+      dispatch({
+        type: "GetTalkDurationAnomaly",
+        payload: response.data,
+      });
+      dispatch({
+        type: "GetTalkDurationAnomalyloader",
+        payload: false,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+export const GetQueueTimeAnomaly = (userid) => {
+  return async function (dispatch) {
+    dispatch({
+      type: "GetQueueTimeAnomalyloader",
+      payload: true,
+    });
+    try {
+      const response = await axios.get(
+        `https://ccaapp-api.azurewebsites.net/api/CCA/GetQueueTimeAnomaly?EmployeeId=${userid}
+`
+      );
+      dispatch({
+        type: "GetQueueTimeAnomaly",
+        payload: response.data,
+      });
+      dispatch({
+        type: "GetQueueTimeAnomalyloader",
         payload: false,
       });
     } catch (error) {

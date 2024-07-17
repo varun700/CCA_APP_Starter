@@ -1,39 +1,53 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Table } from "antd";
 import Widget from "components/Widget/index";
+import { useDispatch, useSelector } from "react-redux";
+import { GetCallBottom10AgentByFCR } from "../../../appRedux/actions/globalactions";
 
 const Bottom10FCR = () => {
+  const dispatch = useDispatch();
+  const uservals = useSelector((state) => state?.Userval);
+  const tabledata = useSelector(
+    (state) => state?.GetCallBottom10AgentByFCRreducer
+  );
+  const tabledataloader = useSelector(
+    (state) => state?.GetCallBottom10AgentByFCRloader
+  );
+  useEffect(() => {
+    console.log(uservals, "emp");
+    dispatch(GetCallBottom10AgentByFCR(uservals?.Employee_Id));
+  }, [uservals]);
   const columns = [
     {
       title: "Agent Name",
-      dataIndex: "name",
-      key: "name",
-      render: (text) => <span className="gx-link">{text}</span>,
+      dataIndex: "Agent_Name",
+      key: "Agent_Name",
+      render: (text) => <span>{text}</span>,
     },
     {
       title: "Total Call",
-      dataIndex: "age",
-      key: "age",
+      dataIndex: "Total_Call",
+      key: "Total_Call",
     },
     {
       title: "Duration",
-      dataIndex: "address",
-      key: "address",
+      dataIndex: "Duration",
+      key: "Duration",
     },
     {
       title: "Service Level%",
-      key: "action",
-      dataIndex: "action",
+      key: "Service_Level%",
+      dataIndex: "Service_Level%",
     },
     {
       title: "FCR%",
-      key: "fcr",
-      dataIndex: "fcr",
+      key: "FCR%",
+      dataIndex: "FCR%",
     },
     {
       title: "Avg Sentiment Score",
-      key: "Avg Sentiment Score",
-      dataIndex: "Avg Sentiment Score",
+      key: "Sentiment_Score_Percentage",
+      dataIndex: "Sentiment_Score_Percentage",
     },
   ];
 
@@ -64,12 +78,16 @@ const Bottom10FCR = () => {
         </h2>
       }
     >
-      <Table
-        className="gx-table-responsive"
-        columns={columns}
-        dataSource={data}
-        pagination={false}
-      />
+      {!tabledataloader && (
+        <Table
+          className="gx-table-responsive"
+          columns={columns}
+          dataSource={tabledata?.Table}
+          pagination={{
+            pageSize: 5,
+          }}
+        />
+      )}
     </Widget>
   );
 };

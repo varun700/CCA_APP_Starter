@@ -151,3 +151,107 @@ export const GetDefaultDateFilterloader = (state = true, action) => {
       return state;
   }
 };
+
+export const GetQueueTimeWidgetloader = (state = true, action) => {
+  switch (action.type) {
+    case "GetQueueTimeWidgetloader":
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
+export const GetCCATotalCallsChartloader = (state = true, action) => {
+  switch (action.type) {
+    case "GetCCATotalCallsChartloader":
+      return action.payload;
+    default:
+      return state;
+  }
+};
+export const GetFcrChartloader = (state = true, action) => {
+  switch (action.type) {
+    case "GetFcrChartloader":
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
+export const GetColdCallChartloader = (state = true, action) => {
+  switch (action.type) {
+    case "GetColdCallChartloader":
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
+export const GetSatisfactionScoreWidgetloader = (state = true, action) => {
+  switch (action.type) {
+    case "GetSatisfactionScoreWidgetloader":
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
+export const GetServiceLevelChartloader = (state = true, action) => {
+  switch (action.type) {
+    case "GetServiceLevelChartloader":
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
+export const GetCallByRegionloader = (state = true, action) => {
+  switch (action.type) {
+    case "GetCallByRegionloader":
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
+export const GetCallByRegionDDloader = (state = true, action) => {
+  switch (action.type) {
+    case "GetCallByRegionDDloader":
+      return action.payload;
+    default:
+      return state;
+  }
+};
+export const GetTalkDurationDDloader = (state = [], action) => {
+  switch (action.type) {
+    case "GetTalkDurationDDloader":
+      return action.payload;
+    default:
+      return state;
+  }
+};
+export const GetQueueTimeDDloader = (state = [], action) => {
+  switch (action.type) {
+    case "GetQueueTimeDDloader":
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
+export const GetQueueTimeAnomalyloader = (state = true, action) => {
+  switch (action.type) {
+    case "GetQueueTimeAnomalyloader":
+      return action.payload;
+    default:
+      return state;
+  }
+};
+export const GetTalkDurationAnomalyloader = (state = true, action) => {
+  switch (action.type) {
+    case "GetTalkDurationAnomalyloader":
+      return action.payload;
+    default:
+      return state;
+  }
+};

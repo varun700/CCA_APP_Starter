@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const GetServiceLevel = () => {
+export const GetServiceLevel = (userid) => {
   return async function (dispatch) {
     dispatch({
       type: "GetServiceLevelloader",
@@ -8,7 +8,7 @@ export const GetServiceLevel = () => {
     });
     try {
       const response = await axios.get(
-        `https://ccaapp-api.azurewebsites.net/api/CCA/GetServiceLevel?EmployeeId=AG102&StartDate=01-07-2023&EndDate=30-07-2023`
+        `https://ccaapp-api.azurewebsites.net/api/CCA/GetServiceLevel?EmployeeId=${userid}`
       );
       dispatch({
         type: "GetServiceLevel",
