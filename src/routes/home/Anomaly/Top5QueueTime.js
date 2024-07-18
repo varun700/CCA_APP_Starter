@@ -22,6 +22,7 @@ import {
 } from "../../../appRedux/actions/globalactions";
 import { Line } from "react-simple-maps";
 import CustomBarChartSkeleton from "../../loader/Barchartloader";
+import AreaChartSkeleton from "../../loader/Areachartloader";
 // import TopSplitgroup from "./Linechart";
 const datas = [
   {
@@ -115,6 +116,27 @@ const Top5QueueTime = () => {
     setqueuemodalname(e?.Employee_Name);
     showModal1();
   };
+  const CustomTooltip = ({ active, payload }) => {
+    if (active && payload && payload.length) {
+      return (
+        <Card>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <h5 className="h4 gx-mb-3">{payload[0]?.payload.Employee_Name}</h5>
+            <span className="label">{`${payload[0]?.dataKey.replace(
+              "_",
+              " "
+            )} : ${payload[0]?.value}`}</span>
+            <span className="label">{`${payload[1]?.dataKey.replace(
+              "_",
+              " "
+            )} : ${payload[1]?.value}`}</span>
+          </div>
+        </Card>
+      );
+    }
+    return null;
+  };
+
   return (
     <>
       <Card className="gx-card">
@@ -127,11 +149,8 @@ const Top5QueueTime = () => {
                 margin={{ top: 20, right: 0, left: 0, bottom: 0 }}
               >
                 <XAxis dataKey="Employee_Name" interval={0} />
-                <YAxis
-                  dataKey="Queuetime_Count"
-                  //  domain={[0, "dataMax + 10"]}
-                />
-                <Tooltip cursor={false} />
+                <YAxis dataKey="Queuetime_Count" />
+                <Tooltip cursor={false} content={<CustomTooltip />} />
                 <Legend
                   verticalAlign="bottom"
                   formatter={(text) => text.replace("_", " ")}
@@ -146,6 +165,7 @@ const Top5QueueTime = () => {
                     <stop offset="95%" stopColor="#4CA6B7" stopOpacity="1" />
                   </linearGradient>
                 </defs>
+
                 <Bar
                   dataKey="Talkduration_count"
                   fill="url(#color08)"
@@ -180,7 +200,7 @@ const Top5QueueTime = () => {
       >
         <div>
           {" "}
-          {!chartdataloaderdd && (
+          {!chartdataloaderdd ? (
             // <ResponsiveContainer width="100%" height={275}>
             //   <LineChart
             //     data={chartdatadd?.Table}
@@ -250,6 +270,7 @@ const Top5QueueTime = () => {
                 </AreaChart>
               </ResponsiveContainer>
             </div>
+          ) : (
             // <div>
             //   <ResponsiveContainer width="100%" height={400}>
             //     {console.log(chartdatadd?.Table)}
@@ -270,6 +291,7 @@ const Top5QueueTime = () => {
             //     </AreaChart>
             //   </ResponsiveContainer>
             // </div>
+            <AreaChartSkeleton />
           )}
         </div>
       </Modal>
@@ -282,7 +304,7 @@ const Top5QueueTime = () => {
         onCancel={handleCancel1}
       >
         <div>
-          {!chartdataloaderqueue && (
+          {!chartdataloaderqueue ? (
             // <ResponsiveContainer width="100%" height={275}>
             //   <LineChart
             //     data={chartdataqueue?.Table}
@@ -352,6 +374,8 @@ const Top5QueueTime = () => {
                 </AreaChart>
               </ResponsiveContainer>
             </div>
+          ) : (
+            <AreaChartSkeleton />
           )}
         </div>
       </Modal>

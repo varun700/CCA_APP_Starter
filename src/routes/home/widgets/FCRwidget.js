@@ -34,15 +34,30 @@ const FCRwidget = () => {
       dispatch(GetFcrChart(uservals?.Employee_Id));
     }
   }, [uservals]);
-  const lineData = [
-    { name: "Page A", price: 200 },
-    { name: "Page B", price: 1100 },
-    { name: "Page C", price: 800 },
-    { name: "Page D", price: 1700 },
-    { name: "Page D", price: 600 },
-    { name: "Page D", price: 1800 },
-    { name: "Page D", price: 600 },
-  ];
+
+  const CustomTooltip = ({ active, payload }) => {
+    console.log("12345678976543567", payload);
+    if (active && payload && payload.length) {
+      return (
+        <Card>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              padding: "10px",
+            }}
+          >
+            <h5 className="h4 gx-mb-3">{payload[0]?.payload.Short_Month}</h5>
+            <span className="label">{`${payload[0]?.dataKey.replaceAll(
+              "_",
+              " "
+            )} : ${payload[0]?.value}`}</span>
+          </div>
+        </Card>
+      );
+    }
+    return null;
+  };
   console.log(callsdata, "fcr", callsdataloader);
 
   return (
@@ -55,13 +70,17 @@ const FCRwidget = () => {
           icon="litcoin"
           children={
             <ResponsiveContainer width="100%" height={75}>
+              {console.log(
+                typeof callsdata?.Table[0]?.IncDec_Percentage,
+                "type"
+              )}
               <LineChart
                 data={chartdata?.Table}
                 margin={{ top: 5, right: 5, left: 5, bottom: -30 }}
               >
                 <XAxis dataKey="Short_Month" tick={false} />
 
-                <Tooltip />
+                <Tooltip content={<CustomTooltip />} />
                 <Line
                   dataKey="FCR_Percentage"
                   stroke="#038FDE"
@@ -75,7 +94,7 @@ const FCRwidget = () => {
             callsdata?.Table[0]?.IncDec_Percentage > 0
               ? "up"
               : callsdata?.Table[0]?.Inc_Dec_Percentage === null
-              ? ""
+              ? "neutral"
               : "down"
           }
           desc="FCR"

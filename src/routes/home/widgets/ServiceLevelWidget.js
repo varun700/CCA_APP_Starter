@@ -41,6 +41,30 @@ const ServiceLevelWidget = () => {
     }
   }, [uservals]);
 
+  const CustomTooltip = ({ active, payload }) => {
+    console.log("12345678976543567", payload);
+    if (active && payload && payload.length) {
+      return (
+        <Card>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              padding: "10px",
+            }}
+          >
+            <h5 className="h4 gx-mb-3">{payload[0]?.payload.MONTH_YEAR}</h5>
+            <span className="label">{`${payload[0]?.dataKey.replaceAll(
+              "_",
+              " "
+            )} : ${payload[0]?.value}`}</span>
+          </div>
+        </Card>
+      );
+    }
+    return null;
+  };
+
   console.log(callsdata, "SERVICE", callsdataloader);
 
   return (
@@ -49,7 +73,7 @@ const ServiceLevelWidget = () => {
       {!callsdataloader && !chartdataloader ? (
         <ChartCard
           prize={`${callsdata?.Table[0]?.SERVICE_LEVEL}%`}
-          // title="07"
+          title={callsdata?.Table[0]?.IncDec_Percentage}
           icon="etherium"
           children={
             <ResponsiveContainer width="100%" height={75}>
@@ -57,7 +81,7 @@ const ServiceLevelWidget = () => {
                 data={chartdata.Table}
                 margin={{ top: 0, right: 0, left: 0, bottom: -30 }}
               >
-                <Tooltip />
+                <Tooltip content={<CustomTooltip />} />
                 <XAxis dataKey="MONTH_YEAR" tick={false} />
 
                 <defs>
@@ -79,6 +103,13 @@ const ServiceLevelWidget = () => {
             </ResponsiveContainer>
           }
           // styleName="up"
+          styleName={
+            callsdata?.Table[0]?.IncDec_Percentage > 0
+              ? "up"
+              : callsdata?.Table[0]?.IncDec_Percentage === null
+              ? "neutral"
+              : "down"
+          }
           desc="Service Level"
         />
       ) : (

@@ -11,6 +11,7 @@ import {
   Legend,
   LineChart,
   ResponsiveContainer,
+  Scatter,
   Tooltip,
   XAxis,
   YAxis,
@@ -22,6 +23,7 @@ import {
 } from "../../../appRedux/actions/globalactions";
 import { Line } from "react-simple-maps";
 import CustomBarChartSkeleton from "../../loader/Barchartloader";
+import AreaChartSkeleton from "../../loader/Areachartloader";
 // import TopSplitgroup from "./Linechart";
 const datas = [
   {
@@ -61,6 +63,11 @@ const Top5talkDuration = () => {
   const [isModalOpen1, setIsModalOpen1] = useState(false);
   const [talkmodalname, settalkmodalname] = useState("");
   const [queuemodalname, setqueuemodalname] = useState("");
+
+  const [chartqueueanomaly, setchartqueueanomaly] = useState([]);
+
+  const [charttalkanomaly, setcharttalkanomaly] = useState([]);
+
   const dispatch = useDispatch();
   const uservals = useSelector((state) => state?.Userval);
   const chartdata = useSelector(
@@ -86,7 +93,18 @@ const Top5talkDuration = () => {
       dispatch(GetTalkDurationAnomaly(uservals?.Employee_Id));
     }
   }, [uservals]);
-
+  useEffect(() => {
+    if (!chartdataloaderqueue && chartdataqueue.length > 0) {
+      const anomalies = chartdataqueue.filter((item) => item.Is_Anomaly === 1);
+      setchartqueueanomaly(anomalies);
+    }
+  }, [chartdataqueue]);
+  useEffect(() => {
+    if (!chartdataloaderdd && chartdatadd.length > 0) {
+      const anomalies = chartdatadd.filter((item) => item.Is_Anomaly === 1);
+      setchartqueueanomaly(anomalies);
+    }
+  }, [chartdatadd]);
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -117,6 +135,26 @@ const Top5talkDuration = () => {
     setqueuemodalname(e?.Employee_Name);
     showModal1();
   };
+  const CustomTooltip = ({ active, payload }) => {
+    if (active && payload && payload.length) {
+      return (
+        <Card>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <h5 className="h4 gx-mb-3">{payload[0]?.payload.Employee_Name}</h5>
+            <span className="label">{`${payload[0]?.dataKey.replace(
+              "_",
+              " "
+            )} : ${payload[0]?.value}`}</span>
+            <span className="label">{`${payload[1]?.dataKey.replace(
+              "_",
+              " "
+            )} : ${payload[1]?.value}`}</span>
+          </div>
+        </Card>
+      );
+    }
+    return null;
+  };
   console.log(chartdatadd, chartdataloaderdd, "ddtop5talk1");
   return (
     <>
@@ -131,7 +169,7 @@ const Top5talkDuration = () => {
               >
                 <XAxis dataKey="Employee_Name" />
                 <YAxis dataKey="Queuetime_Count" />
-                <Tooltip cursor={false} />
+                <Tooltip cursor={false} content={<CustomTooltip />} />
                 <Legend
                   verticalAlign="bottom"
                   formatter={(text) => text.replace("_", " ")}
@@ -180,7 +218,7 @@ const Top5talkDuration = () => {
       >
         <div>
           {" "}
-          {!chartdataloaderdd && (
+          {!chartdataloaderdd ? (
             // <ResponsiveContainer width="100%" height={275}>
             //   <LineChart
             //     data={chartdatadd?.Table}
@@ -250,6 +288,7 @@ const Top5talkDuration = () => {
                 </AreaChart>
               </ResponsiveContainer>
             </div>
+          ) : (
             // <div>
             //   <ResponsiveContainer width="100%" height={400}>
             //     {console.log(chartdatadd?.Table)}
@@ -270,6 +309,7 @@ const Top5talkDuration = () => {
             //     </AreaChart>
             //   </ResponsiveContainer>
             // </div>
+            <AreaChartSkeleton />
           )}
         </div>
       </Modal>
@@ -282,7 +322,7 @@ const Top5talkDuration = () => {
         onCancel={handleCancel1}
       >
         <div>
-          {!chartdataloaderqueue && (
+          {!chartdataloaderqueue ? (
             // <ResponsiveContainer width="100%" height={275}>
             //   <LineChart
             //     data={chartdataqueue?.Table}
@@ -322,36 +362,48 @@ const Top5talkDuration = () => {
                   <Tooltip />
                   <Legend verticalAlign="top" />
                   {/* {GetCallVolumePredictionValue?.length > 0 && (
-                  <Brush
-                    startIndex={GetCallVolumePredictionValue?.length - 60}
-                    endIndex={GetCallVolumePredictionValue?.length - 1}
-                    dataKey="Date"
-                    // tickFormatter={formatXAxis}
-                    height={50}
-                    y={250}
-                  >
-                    <LineChart data={GetCallVolumePredictionValue}>
-                      <Line
-                        type="monotone"
-                        dataKey="Total_Answered_Calls"
-                        stroke="#54D454"
-                        fill="#54D454"
-                        strokeWidth={3}
-                        dot={false}
-                      />
-                    </LineChart>
-                  </Brush>
-                )} */}
+                <Brush
+                  startIndex={GetCallVolumePredictionValue?.length - 60}
+                  endIndex={GetCallVolumePredictionValue?.length - 1}
+                  dataKey="Date"
+                  // tickFormatter={formatXAxis}
+                  height={50}
+                  y={250}
+                >
+                  <LineChart data={GetCallVolumePredictionValue}>
+                    <Line
+                      type="monotone"
+                      dataKey="Total_Answered_Calls"
+                      stroke="#54D454"
+                      fill="#54D454"
+                      strokeWidth={3}
+                      dot={false}
+                    />
+                  </LineChart>
+                </Brush>
+              )} */}
                   <Area
                     type="monotone"
                     dataKey="Queue_Time"
                     stroke="#54D454"
                     activeDot={{ r: 8 }}
                   />
-                  {/* <Line type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
+                  <Scatter data={chartqueueanomaly} fill="red">
+                    {chartqueueanomaly?.map((entry, index) => (
+                      <Scatter
+                        key={`dot-${index}`}
+                        cx={entry.Date}
+                        cy={entry.Queue_Time}
+                        r={5}
+                        fill="red"
+                      />
+                    ))}
+                  </Scatter>
                 </AreaChart>
               </ResponsiveContainer>
             </div>
+          ) : (
+            <AreaChartSkeleton />
           )}
         </div>
       </Modal>

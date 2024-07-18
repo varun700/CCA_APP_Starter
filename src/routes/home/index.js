@@ -116,21 +116,25 @@ const Index = () => {
         {console.log(usercurrval, "cuurval")}
         {usercurrval?.Job_Title !== "Call Centre Agent" && (
           <Col span={12}>
-            <Card style={{ height: "470px" }} className="gx-card">
+            <Card style={{ height: "490px" }} className="gx-card">
               <h2 className="h4 gx-mb-0 gx-text-capitalize">
                 Top 5 agent by FCR
               </h2>
-              <Top10FCR />
+              <div style={{ marginTop: "20px" }}>
+                <Top10FCR />
+              </div>
             </Card>
           </Col>
         )}
         {usercurrval?.Job_Title !== "Call Centre Agent" && (
           <Col span={12}>
-            <Card style={{ height: "470px" }} className="gx-card">
+            <Card style={{ height: "490px" }} className="gx-card">
               <h2 className="h4 gx-mb-0 gx-text-capitalize">
                 Bottom 5 agent by FCR
               </h2>
-              <Bottom10FCR />
+              <div style={{ marginTop: "20px" }}>
+                <Bottom10FCR />
+              </div>
             </Card>
           </Col>
         )}

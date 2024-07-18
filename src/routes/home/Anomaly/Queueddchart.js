@@ -10,6 +10,7 @@ import {
   Tooltip,
 } from "recharts";
 import { GetQueueTimeDD } from "../../../appRedux/actions/globalactions";
+import AreaChartSkeleton from "../../loader/Areachartloader";
 
 const Queueddchart = () => {
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ const Queueddchart = () => {
 
   return (
     <div>
-      {!chartdataloaderqueue && (
+      {!chartdataloaderqueue ? (
         // <ResponsiveContainer width="100%" height={275}>
         //   <LineChart
         //     data={chartdataqueue?.Table}
@@ -99,6 +100,8 @@ const Queueddchart = () => {
             </AreaChart>
           </ResponsiveContainer>
         </div>
+      ) : (
+        <AreaChartSkeleton />
       )}
     </div>
   );

@@ -20,16 +20,29 @@ const Warmcallwidget = () => {
     (state) => state.GetSatisfactionScoreWidgetloader
   );
   const uservals = useSelector((state) => state?.Userval);
-
-  const increamentData = [
-    { name: "Page A", price: 200 },
-    { name: "Page B", price: 1200 },
-    { name: "Page C", price: 600 },
-    { name: "Page D", price: 1600 },
-    { name: "Page D", price: 1000 },
-    { name: "Page H", price: 2260 },
-    { name: "Page K", price: 800 },
-  ];
+  const CustomTooltip = ({ active, payload }) => {
+    console.log("12345678976543567", payload);
+    if (active && payload && payload.length) {
+      return (
+        <Card>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              padding: "10px",
+            }}
+          >
+            <h5 className="h4 gx-mb-3">{payload[0]?.payload.Short_Month}</h5>
+            <span className="label">{`${payload[0]?.dataKey.replaceAll(
+              "_",
+              " "
+            )} : ${payload[0]?.value}`}</span>
+          </div>
+        </Card>
+      );
+    }
+    return null;
+  };
 
   useEffect(() => {
     if (uservals?.Employee_Id !== undefined) {
@@ -45,15 +58,16 @@ const Warmcallwidget = () => {
       {!chartdataloader ? (
         <ChartCard
           prize={`${chartdata?.Table[0]?.Avg_Satisfaction_Score}`}
-          title={chartdata?.Table[0]?.IncDec_Percentage}
+          title={`${chartdata?.Table[0]?.IncDec_Percentage}`}
           icon="etherium"
           children={
             <ResponsiveContainer width="100%" height={75}>
+              {console.log(chartdata?.Table[0]?.Avg_Satisfaction_Score, "op")}
               <AreaChart
                 data={chartdata?.Table1}
                 margin={{ top: 0, right: 0, left: 0, bottom: -30 }}
               >
-                <Tooltip />
+                <Tooltip content={<CustomTooltip />} />
                 <XAxis dataKey="Short_Month" tick={false} />
 
                 <defs>
@@ -78,7 +92,7 @@ const Warmcallwidget = () => {
             chartdata.Table[0]?.IncDec_Percentage > 0.0
               ? "up"
               : chartdata.Table[0]?.IncDec_Percentage == 0 || null
-              ? ""
+              ? "neutral"
               : "down"
           }
           desc="Satisfaction Score"

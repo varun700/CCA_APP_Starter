@@ -55,37 +55,25 @@ const Bottom10FCR = () => {
     },
     {
       title: "Avg Sentiment Score%",
-      key: "Sentiment_Score_Percentage",
-      dataIndex: "Sentiment_Score_Percentage",
-      // render: (text, record) => {
-      //   console.log("qazswsxdedcdfrfvgtg", record);
-      //   return (
-      //     <BarChart
-      //       width={100}
-      //       height={40}
-      //       data={[record]}
-      //       // layout="vertical"
-      //       margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
-      //     >
-      //       {/* <Tooltip /> */}
-      //       <Bar
-      //         dataKey="Positive_Score_Percentage"
-      //         stackId="a"
-      //         fill="#82ca9d"
-      //       />
-      //       <Bar
-      //         dataKey="Negative_Score_Percentage"
-      //         stackId="a"
-      //         fill="#8884d8"
-      //       />
-      //       <Bar
-      //         dataKey="Neutral_Score_Percentage"
-      //         stackId="a"
-      //         fill="#ff7300"
-      //       />
-      //     </BarChart>
-      //   );
-      // },
+      key: "Sentiment_Score_Percentage%",
+      dataIndex: "Neutral_Score_Percentage",
+      render: (text, record) => {
+        return <span>{text}%</span>;
+      },
+      // render: (text, record) => (
+      //   <BarChart
+      //     width={100}
+      //     height={40}
+      //     data={[record]}
+      //     // layout="vertical"
+      //     margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
+      //   >
+      //     {/* <Tooltip /> */}
+      //     <Bar dataKey="Positive_Score_Percentage" stackId="a" fill="#82ca9d" />
+      //     <Bar dataKey="Negative_Score_Percentage" stackId="a" fill="#8884d8" />
+      //     <Bar dataKey="Neutral_Score_Percentage" stackId="a" fill="#ff7300" />
+      //   </BarChart>
+      // ),
     },
   ];
 

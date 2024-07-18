@@ -51,7 +51,10 @@ const Top10FCR = () => {
     {
       title: "Avg Sentiment Score%",
       key: "Sentiment_Score_Percentage%",
-      dataIndex: "Sentiment_Score_Percentage",
+      dataIndex: "Neutral_Score_Percentage",
+      render: (text, record) => {
+        return <span>{text}%</span>;
+      },
       // render: (text, record) => (
       //   <BarChart
       //     width={100}

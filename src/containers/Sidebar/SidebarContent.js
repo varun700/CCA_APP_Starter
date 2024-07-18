@@ -51,8 +51,8 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
             theme={themeType === THEME_TYPE_LITE ? "lite" : "dark"}
             mode="inline"
           >
-            <Menu.Item key="sample">
-              <Link to="/sample">
+            <Menu.Item key="home">
+              <Link to="/home">
                 <i className="icon icon-widgets" />
                 <span>
                   <IntlMessages id="sidebar.samplePage" />

@@ -24,3 +24,21 @@
   .text_transform_none .ant-card-head-title{
     text-transform: none !important;
   }
+  .gx-chart-neutral {
+    color: orange;
+}
+.gx-chart-down .icon {
+  transform: rotate(0deg) !important;
+  display: inline-block;
+}
+.hide_legend_recharts .recharts-legend-item-text {
+  visibility: hidden;
+}
+.hide_legend_recharts  .recharts-default-legend{
+  visibility: hidden;
+}
+.footer_logo{
+  width: 20px;
+    height: 20px;
+    margin: 0 auto;
+}

@@ -14,6 +14,7 @@ const ChartCard = ({
 }) => {
   return (
     <Widget styleName="gx-card-full">
+      {console.log(styleName, desc, "chartwidget")}
       {/* <div className="gx-actchart gx-px-3 gx-pt-3">
         <div className="ant-row-flex">
           <h2 className="gx-mb-0 gx-fs-xxl gx-font-weight-medium">
@@ -45,11 +46,18 @@ const ChartCard = ({
         <div className="ant-row-flex">
           <h2 className="gx-mb-0 gx-fs-xxl gx-font-weight-medium">
             {prize}
+            {forecast && (
+              <span className="gx-mb-0 gx-fs-lg gx-font-weight-small">
+                {" "}
+                ({forecast})
+              </span>
+            )}
             {title && (
               <span
                 className={`gx-mb-0 gx-ml-2 gx-pt-xl-2 gx-fs-lg gx-chart-${styleName}`}
               >
-                {title}% <i className="icon icon-menu-up gx-fs-sm" />
+                {title}%{" "}
+                <i className={`icon icon-menu-${styleName} gx-fs-sm`} />
               </span>
             )}
           </h2>

@@ -65,7 +65,7 @@ const KeyBarChart = () => {
 
   // console.log("wertyuio", GetKeyCallTopicsValue);
   return (
-    <div className="App">
+    <div className="App hide_legend_recharts">
       {!GetKeyCallTopicsloader && GetKeyCallTopicsValue?.length > 0 ? (
         <>
           {" "}
@@ -106,6 +106,7 @@ const KeyBarChart = () => {
                 // stackId="a"
                 fill="url(#color08)"
                 barSize={7}
+                radius={5}
               >
                 {" "}
                 <LabelList

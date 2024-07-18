@@ -1,12 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Avatar, Col, Popover, Row } from "antd";
+import {
+  Avatar,
+  Button,
+  Col,
+  Dropdown,
+  Menu,
+  Popover,
+  Row,
+  Select,
+  Space,
+} from "antd";
+import { DownOutlined } from "@ant-design/icons";
 import { userSignOut } from "../../appRedux/actions";
 import {
   GetImporsinationDD,
   SaveUserDetails,
   Userval,
 } from "../../appRedux/actions/globalactions";
+
+const items = [{}];
 
 const UserProfile = () => {
   const dispatch = useDispatch();
@@ -105,18 +118,19 @@ const UserProfile = () => {
   console.log("userimp", GetImporsinationDDs, uservals);
 
   return (
-    <div className="gx-flex-row gx-align-items-center  gx-avatar-row">
-      <Popover
-        placement="bottomRight"
-        content={userMenuOptions}
-        trigger="click"
-      >
-        {/* <Avatar
+    <>
+      <div className="gx-flex-row gx-align-items-center  gx-avatar-row">
+        <Popover
+          placement="bottomRight"
+          content={userMenuOptions}
+          trigger="click"
+        >
+          {/* <Avatar
           src={"https://via.placeholder.com/150"}
           className="gx-size-40 gx-pointer gx-mr-3"
           alt=""
         /> */}
-        {/* <span className="gx-avatar-name">
+          {/* <span className="gx-avatar-name">
           {userdata}
           <i className="icon icon-chevron-down gx-fs-xxs gx-ml-2" />
         </span>
@@ -124,43 +138,103 @@ const UserProfile = () => {
           {userdata}
           <i className="icon icon-chevron-down gx-fs-xxs gx-ml-2" />
         </div> */}
-        <Row gutter={[16, 16]}>
-          <Col>
-            <Avatar
-              style={{
-                color: "black",
-              }}
-              className="gx-size-40 gx-pointer gx-mr-3"
-              alt=""
-            >
-              {usershortname}
-            </Avatar>
-          </Col>
-          <Col style={{ marginTop: "5px" }}>
-            <Row>
-              <Col>
-                <span className="gx-avatar-name">
-                  {userdata}
-                  <i className="icon icon-chevron-down gx-fs-xxs gx-ml-2" />
-                </span>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <span>{userdatades}</span>
-              </Col>
-            </Row>
-          </Col>
-        </Row>
-      </Popover>
-      <Popover
-        placement="bottomRight"
-        content={userimporsination}
-        trigger="click"
-      >
-        <i className="icon icon-chevron-down gx-fs-xxs  userprofile_ml" />
-      </Popover>
-    </div>
+          <Row gutter={[16, 16]}>
+            <Col>
+              <Avatar
+                style={{
+                  color: "black",
+                }}
+                className="gx-size-40 gx-pointer gx-mr-3"
+                alt=""
+              >
+                {usershortname}
+
+                {""}
+              </Avatar>
+            </Col>
+            <Col style={{ marginTop: "5px" }}>
+              <Row>
+                <Col>
+                  <span className="gx-avatar-name">
+                    {userdata}
+                    <i className="icon icon-chevron-down gx-fs-xxs gx-ml-2" />
+                  </span>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <span>{userdatades}</span>
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </Popover>
+        {/* <Popover
+          placement="bottomRight"
+          content={userimporsination}
+          trigger="click"
+        >
+          <i className="icon icon-chevron-down gx-fs-xxs  userprofile_ml" />
+        </Popover> */}
+        <Dropdown
+          menu={{ items }}
+          dropdownRender={() => (
+            <Menu>
+              <Row gutter={[16, 16]}>
+                <Col span={24}>
+                  <Select
+                    showSearch
+                    placeholder="Select"
+                    style={{
+                      width: 160,
+                    }}
+                    filterOption={(input, option) =>
+                      (option?.label ?? "")
+                        .toLowerCase()
+                        .includes(input.toLowerCase())
+                    }
+                    options={GetImporsinationDDs?.map((e) => {
+                      return {
+                        value: e?.Employee_Name,
+                      };
+                    })}
+                  />
+                </Col>
+              </Row>
+
+              <Row
+                gutter={[16, 16]}
+                style={{ marginTop: "15px", marginLeft: "10px" }}
+              >
+                <Col span={12}>
+                  <Button
+                    size="small"
+                    style={{ background: "#f23a3a", color: "white" }}
+                  >
+                    Clear
+                  </Button>
+                </Col>
+                <Col span={12}>
+                  <Button
+                    size="small"
+                    style={{ background: "#77f23a", color: "white" }}
+                    onClick={(e) => Clickeduserdetails1(e)}
+                  >
+                    Save
+                  </Button>
+                </Col>
+              </Row>
+            </Menu>
+          )}
+        >
+          <a className="ant-dropdown-link">
+            <Space>
+              <i className="icon icon-chevron-down gx-fs-xxs  userprofile_ml" />
+            </Space>
+          </a>
+        </Dropdown>
+      </div>
+    </>
   );
 };
 

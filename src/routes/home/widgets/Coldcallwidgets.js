@@ -39,6 +39,30 @@ const Coldcallwidget = () => {
     }
   }, [uservals]);
 
+  const CustomTooltip = ({ active, payload }) => {
+    console.log("12345678976543567", payload);
+    if (active && payload && payload.length) {
+      return (
+        <Card>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              padding: "10px",
+            }}
+          >
+            <h5 className="h4 gx-mb-3">{payload[0]?.payload.Short_Month}</h5>
+            <span className="label">{`${payload[0]?.dataKey.replaceAll(
+              "_",
+              " "
+            )} : ${payload[0]?.value}`}</span>
+          </div>
+        </Card>
+      );
+    }
+    return null;
+  };
+
   console.log(callsdata, "op", callsdataloader);
 
   return (
@@ -63,7 +87,7 @@ const Coldcallwidget = () => {
       {!callsdataloader && !chartdataloader ? (
         <ChartCard
           prize={`${callsdata?.Table[0]?.Cold_Call_Percentage}%`}
-          title={callsdata?.Table[0]?.IncDec_Percentage}
+          title={`${callsdata?.Table[0]?.IncDec_Percentage}`}
           icon="ripple"
           children={
             <ResponsiveContainer width="100%" height={75}>
@@ -73,7 +97,7 @@ const Coldcallwidget = () => {
               >
                 <XAxis dataKey="Short_Month" tick={false} />
 
-                <Tooltip />
+                <Tooltip content={<CustomTooltip />} />
                 <defs>
                   <linearGradient id="color5" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="5%" stopColor="#e81a24" stopOpacity={0.8} />
@@ -92,10 +116,10 @@ const Coldcallwidget = () => {
             </ResponsiveContainer>
           }
           styleName={
-            callsdata?.Table[0]?.Inc_Dec_Percentage > 0
+            callsdata.Table[0]?.IncDec_Percentage > 0.0
               ? "up"
-              : callsdata?.Table[0]?.Inc_Dec_Percentage === null
-              ? ""
+              : callsdata.Table[0]?.IncDec_Percentage == 0 || null
+              ? "neutral"
               : "down"
           }
           desc="Transfer/Cold"

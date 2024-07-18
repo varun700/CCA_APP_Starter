@@ -10,6 +10,7 @@ import {
   Tooltip,
 } from "recharts";
 import { GetTalkDurationDD } from "../../../appRedux/actions/globalactions";
+import AreaChartSkeleton from "../../loader/Areachartloader";
 const Talkddchart = () => {
   const dispatch = useDispatch();
 
@@ -31,7 +32,7 @@ const Talkddchart = () => {
       {" "}
       <div>
         {" "}
-        {!chartdataloaderdd && (
+        {!chartdataloaderdd ? (
           // <ResponsiveContainer width="100%" height={275}>
           //   <LineChart
           //     data={chartdatadd?.Table}
@@ -101,6 +102,7 @@ const Talkddchart = () => {
               </AreaChart>
             </ResponsiveContainer>
           </div>
+        ) : (
           // <div>
           //   <ResponsiveContainer width="100%" height={400}>
           //     {console.log(chartdatadd?.Table)}
@@ -121,6 +123,7 @@ const Talkddchart = () => {
           //     </AreaChart>
           //   </ResponsiveContainer>
           // </div>
+          <AreaChartSkeleton />
         )}
       </div>
     </div>
