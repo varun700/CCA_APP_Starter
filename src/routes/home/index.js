@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import FCRwidget from "./widgets/FCRwidget";
 import Coldcallwidget from "./widgets/Coldcallwidgets";
 import Callswidget from "./widgets/Callswidget";
 import Warmcallwidget from "./widgets/Warmcallwidget";
-import { Card, Col, Row } from "antd";
+import { Card, Col, Row, Select } from "antd";
 // import { ServiceLead } from "./Servicelevel/Table.js";
 import CallByRegion from "./CallsbyRegion/Map.js";
 import ServiceLevelWidget from "./widgets/ServiceLevelWidget.js";
@@ -14,7 +14,12 @@ import Top10FCR from "./AgentFCR/Top10FCR.js";
 import Bottom10FCR from "./AgentFCR/Bottom10FCR.js";
 import Top5QueueTime from "./Anomaly/Top5QueueTime.js";
 import { Top10Splitgroup } from "./Group/Top10SplitGroup.js";
-import { GetImporsinationDD } from "../../appRedux/actions/globalactions/index.js";
+import {
+  GetImporsinationDD,
+  GetUserDetails,
+  SaveUserDetails,
+  Userval,
+} from "../../appRedux/actions/globalactions/index.js";
 import Top5talkDuration from "./Anomaly/Top5TalkDurationAnomaly.js";
 import { Disposition } from "./Group/Disposition.js";
 import KeyHeatmap from "./KeyHeatmap.js";
@@ -28,6 +33,7 @@ import Queueddchart from "./Anomaly/Queueddchart.js";
 // import CallsByRegion from "./CallsbyRegion/Map.js";
 // import BalanceHistory from "./CallsbyRegion/CallregionMap.js";
 // import { Disposition } from "./Group/Disposition.js";
+const { Option } = Select;
 
 const Index = () => {
   const dispatch = useDispatch();
@@ -35,11 +41,106 @@ const Index = () => {
   const callsdata = useSelector((state) => state.GetCCATotalCallsreducer);
 
   const callsdataloader = useSelector((state) => state.GetCCATotalCallsLoader);
+  const uservals = useSelector((state) => state?.Userval);
+
   const usercurrval = useSelector((state) => state?.Userval) || [];
+  const GetImporsinationDDs = useSelector(
+    (state) => state?.GetImporsinationDDreducer?.Table
+  );
+  const GetUserDetailss = useSelector((state) => state?.GetUserDetailsreducer);
+  const Usermainprofiledata = useSelector(
+    (state) => state?.Usermainprofilereducer
+  );
+
+  const GetUserDetailsimpdata = useSelector(
+    (state) => state?.GetUserDetailsreducer?.Table
+  );
+  const GetUserDetailsimpdataloader = useSelector(
+    (state) => state?.GetUserDetailsloader
+  );
+  const [selectdata, setselectdata] = useState("");
+
+  useEffect(() => {
+    if (GetUserDetailsimpdata && !GetUserDetailsimpdataloader) {
+      console.log(GetUserDetailsimpdata, "useff");
+      if (GetUserDetailsimpdata[0]?.Impersonation_Id == null || undefined) {
+        // console.log(GetUserDetailsimpdata[0]?.Impersonation_Id, "iff");
+        setselectdata("");
+      } else {
+        const getimpname = GetImporsinationDDs?.filter(
+          (e) => e.Employee_Id == GetUserDetailsimpdata[0]?.Impersonation_Id
+        );
+        console.log(getimpname, "getim");
+        getimpname && setselectdata(getimpname[0]?.Employee_Name);
+      }
+    }
+  }, [GetUserDetailsimpdataloader, GetUserDetailsimpdata, GetImporsinationDDs]);
+
+  const Clickeduserdetails1 = (val) => {
+    setselectdata(val);
+    if (val == "") {
+      dispatch(Userval(Usermainprofiledata));
+    }
+    const userimpdata = GetImporsinationDDs.filter(
+      (e) => e.Employee_Name === val
+    );
+    dispatch(Userval(userimpdata[0]));
+
+    dispatch(
+      SaveUserDetails({
+        EmployeeId: Usermainprofiledata?.Employee_Id,
+        ImpersonationId: userimpdata[0]?.Employee_Id,
+        Theme: "Light",
+      })
+    );
+  };
 
   return (
     <div>
       <Row>
+        <Col
+          span={24}
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            marginBottom: "20px",
+          }}
+        >
+          <label
+            style={{
+              display: "flex",
+              alignItems: "center",
+              marginRight: "20px",
+            }}
+          >
+            Impersonation as{" "}
+          </label>
+          <Select
+            showSearch
+            value={selectdata}
+            placeholder="Select value for impersonate"
+            onChange={(e) => Clickeduserdetails1(e)}
+            style={{
+              width: 300,
+            }}
+            // filterOption={(input, option) =>
+            //   (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
+            // }
+            // options={GetImporsinationDDs?.map((e) => {
+            //   console.log(e, "select");
+            //   return {
+            //     value: `${e?.Employee_Name}(${e?.Job_Title})`,
+            //   };
+            // })}
+          >
+            <Option key={""} value={""}></Option>
+            {GetImporsinationDDs?.map((item) => (
+              <Option key={item.Employee_Name} value={item.Employee_Name}>
+                {`${item?.Employee_Name}(${item?.Job_Title})`}
+              </Option>
+            ))}
+          </Select>
+        </Col>
         <Col xl={6} lg={12} md={12} sm={12} xs={24}>
           {" "}
           <Callswidget />
@@ -86,7 +187,6 @@ const Index = () => {
         </Col>
         {usercurrval?.Job_Title == "Call Centre Agent" ? (
           <Col span={12}>
-            {console.log(usercurrval, "cuurval")}
             <Card
               className="gx-card text_transform_none"
               title="Talk Duration Anomaly"
@@ -113,7 +213,6 @@ const Index = () => {
             <Top5QueueTime />
           </Col>
         )}{" "}
-        {console.log(usercurrval, "cuurval")}
         {usercurrval?.Job_Title !== "Call Centre Agent" && (
           <Col span={12}>
             <Card style={{ height: "490px" }} className="gx-card">

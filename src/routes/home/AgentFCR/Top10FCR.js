@@ -77,7 +77,6 @@ const Top10FCR = () => {
       dispatch(GetCallTop10AgentByFCR(uservals?.Employee_Id));
     }
   }, [uservals]);
-  console.log(tabledata, "tbl");
   return (
     // <Widget>
     <>

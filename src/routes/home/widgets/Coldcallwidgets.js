@@ -40,7 +40,6 @@ const Coldcallwidget = () => {
   }, [uservals]);
 
   const CustomTooltip = ({ active, payload }) => {
-    console.log("12345678976543567", payload);
     if (active && payload && payload.length) {
       return (
         <Card>
@@ -55,15 +54,13 @@ const Coldcallwidget = () => {
             <span className="label">{`${payload[0]?.dataKey.replaceAll(
               "_",
               " "
-            )} : ${payload[0]?.value}`}</span>
+            )} : ${payload[0]?.value}%`}</span>
           </div>
         </Card>
       );
     }
     return null;
   };
-
-  console.log(callsdata, "op", callsdataloader);
 
   return (
     <div>

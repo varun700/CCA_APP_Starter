@@ -21,7 +21,6 @@ const Warmcallwidget = () => {
   );
   const uservals = useSelector((state) => state?.Userval);
   const CustomTooltip = ({ active, payload }) => {
-    console.log("12345678976543567", payload);
     if (active && payload && payload.length) {
       return (
         <Card>
@@ -50,8 +49,6 @@ const Warmcallwidget = () => {
     }
   }, [uservals]);
 
-  console.log(chartdata, "warm", chartdataloader);
-
   return (
     <div>
       {" "}
@@ -62,7 +59,6 @@ const Warmcallwidget = () => {
           icon="etherium"
           children={
             <ResponsiveContainer width="100%" height={75}>
-              {console.log(chartdata?.Table[0]?.Avg_Satisfaction_Score, "op")}
               <AreaChart
                 data={chartdata?.Table1}
                 margin={{ top: 0, right: 0, left: 0, bottom: -30 }}

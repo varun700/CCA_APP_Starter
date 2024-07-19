@@ -5,8 +5,8 @@ import "react-loading-skeleton/dist/skeleton.css";
 
 const CustomMapSkeleton = ({ width, height }) => {
   const mapStyle = {
-    width: "400px",
-    height: "400px",
+    width: "100%",
+    height: "100%",
     position: "relative",
     margin: "0",
   };
@@ -15,14 +15,14 @@ const CustomMapSkeleton = ({ width, height }) => {
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
-    height: "400px",
+    height: "100%",
     // marginLeft: "20px",
   };
 
   return (
     <div style={{ display: "flex" }}>
       <div style={mapStyle}>
-        <Skeleton width={width} height={height} />
+        <Skeleton height={height} />
       </div>
     </div>
   );

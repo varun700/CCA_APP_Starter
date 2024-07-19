@@ -199,7 +199,6 @@ export const GetUserDetails = (userid) => {
     try {
       const response = await axios.get(
         `https://ccaapp-api.azurewebsites.net/api/CCA/GetUserDetails?EmployeeId=${userid}
-
    `
       );
       dispatch({
@@ -550,6 +549,8 @@ export const SaveUserDetails = (data) => {
       payload: true,
     });
     try {
+      console.log(data, "post");
+
       const response = await axios.post(
         `https://ccaapp-api.azurewebsites.net/api/CCA/SaveUserDetails`,
         data
@@ -565,5 +566,13 @@ export const SaveUserDetails = (data) => {
     } catch (error) {
       console.log(error);
     }
+  };
+};
+export const Usermainprofile = (val) => {
+  return async function (dispatch) {
+    dispatch({
+      type: "Usermainprofile",
+      payload: val,
+    });
   };
 };

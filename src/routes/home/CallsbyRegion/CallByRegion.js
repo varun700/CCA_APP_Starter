@@ -104,75 +104,56 @@ const App = () => {
   const Tooltiptbldataloader = useSelector(
     (state) => state?.GetCallByRegionDDloaders
   );
-  useEffect(() => {
-    if (uservals?.Employee_Id !== undefined) {
-      dispatch(GetCallByRegionMap(uservals?.Employee_Id));
-    }
-  }, [uservals]);
-  console.log(Tooltipdata, "datatool", Tooltiptbldata, Tooltiptbldataloader);
+
   const handleMarkerClick = (e, location) => {
-    console.log("marker clicked", e, location);
     setclickedloc(location);
     dispatch(GetCallByRegion(uservals?.Employee_Id, location));
   };
   return (
     <div>
-      {!mapdataloader && mapdata?.Table.length > 0 ? (
-        <Map
-          center={[
-            parseFloat(mapdata?.Table[0]?.Latitude),
-            parseFloat(mapdata?.Table[0]?.Longitude),
-          ]}
-          zoom={zoom}
-        >
-          {console.log(
-            mapdata,
-            "map",
-            mapdata?.Table[0]?.Latitude,
-            Tooltipdata,
-            Tooltipdataloader
-          )}
-          <TileLayer
-            attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.osm.org/{z}/{x}/{y}.png"
-          />
-          {mapdata?.Table.map((e, index) => (
-            <Marker
-              key={index}
-              position={[parseFloat(e.Latitude), parseFloat(e.Longitude)]}
-              onClick={(event) => handleMarkerClick(event, e.Location)}
-            >
-              <Popup>
-                {Tooltipdata.length > 0 && !Tooltipdataloader ? (
-                  <span>
-                    <li>center : {Tooltipdata[0]?.Call_Centre}</li>
-                    <li>city : {Tooltipdata[0]?.Location}</li>
-                    <li>Total Call : {Tooltipdata[0]?.Total_Calls}</li>
-                    <li>Fcr : {Tooltipdata[0]?.FCR}</li>
-                    <li>Transfer/Cold : {Tooltipdata[0]?.Transfer_Cold}</li>
-                    <li>Conference/Warm :{Tooltipdata[0]?.Conference_Warm}</li>
-                    <li>Service Level : {Tooltipdata[0]?.Service_Level}</li>
-                    <li
-                      className=" text-blue-300 gx-link"
-                      style={{ cursor: "pointer" }}
-                      onClick={showModal}
-                    >
-                      {" "}
-                      view Details
-                    </li>
-                  </span>
-                ) : Tooltipdata.length == 0 && !Tooltipdataloader ? (
-                  "No data"
-                ) : (
-                  "fetching"
-                )}
-              </Popup>
-            </Marker>
-          ))}
-        </Map>
-      ) : (
+      {/* {!mapdataloader && mapdata?.Table.length > 0 ? ( */}
+      <Map center={[39.0997, -94.5786]} zoom={zoom}>
+        <TileLayer
+          attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.osm.org/{z}/{x}/{y}.png"
+        />
+        {mapdata?.Table.map((e, index) => (
+          <Marker
+            key={index}
+            position={[parseFloat(e.Latitude), parseFloat(e.Longitude)]}
+            onClick={(event) => handleMarkerClick(event, e.Location)}
+          >
+            <Popup>
+              {Tooltipdata.length > 0 && !Tooltipdataloader ? (
+                <span>
+                  <li>center : {Tooltipdata[0]?.Call_Centre}</li>
+                  <li>city : {Tooltipdata[0]?.Location}</li>
+                  <li>Total Call : {Tooltipdata[0]?.Total_Calls}</li>
+                  <li>Fcr : {Tooltipdata[0]?.FCR}</li>
+                  <li>Transfer/Cold : {Tooltipdata[0]?.Transfer_Cold}</li>
+                  <li>Conference/Warm :{Tooltipdata[0]?.Conference_Warm}</li>
+                  <li>Service Level : {Tooltipdata[0]?.Service_Level}</li>
+                  <li
+                    className=" text-blue-300 gx-link"
+                    style={{ cursor: "pointer" }}
+                    onClick={showModal}
+                  >
+                    {" "}
+                    view Details
+                  </li>
+                </span>
+              ) : Tooltipdata.length == 0 && !Tooltipdataloader ? (
+                "No data"
+              ) : (
+                "fetching"
+              )}
+            </Popup>
+          </Marker>
+        ))}
+      </Map>
+      {/* ) : (
         <CustomMapSkeleton width={650} height={450} />
-      )}
+      )} */}
       <Modal
         title={clickedloc}
         open={isModalOpen}

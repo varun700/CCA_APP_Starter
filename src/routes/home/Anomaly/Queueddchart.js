@@ -26,7 +26,7 @@ const Queueddchart = () => {
     if (uservals?.Employee_Id !== undefined) {
       dispatch(GetQueueTimeDD(uservals?.Employee_Id));
     }
-  }, []);
+  }, [uservals]);
 
   return (
     <div>
@@ -47,7 +47,6 @@ const Queueddchart = () => {
         //   </LineChart>
         // </ResponsiveContainer>
         <div style={{ width: "100%", height: 300 }}>
-          {console.log(chartdataqueue, "ddtest3")}
           <ResponsiveContainer>
             <AreaChart
               width={400}

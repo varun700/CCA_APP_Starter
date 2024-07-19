@@ -19,8 +19,6 @@ export const ServiceLead = () => {
   const tabledata = useSelector((state) => state.GetServiceLevelreducer);
   const tabledataloader = useSelector((state) => state.GetServiceLevelloader);
 
-  console.log("hguyvhb", tabledata);
-
   return (
     <>
       <Widget title={"Service Level/Ring Time"} styleName={"header_Style"}>

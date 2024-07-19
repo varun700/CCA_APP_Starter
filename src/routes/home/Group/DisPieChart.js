@@ -66,7 +66,6 @@ const DisPieChart = () => {
     const radius = innerRadius + (outerRadius - innerRadius) * 1.2;
     const x = cx + radius * Math.cos(-midAngle * RADIAN);
     const y = cy + radius * Math.sin(-midAngle * RADIAN);
-    console.log("zzzzzzzzzzzzzzz", index);
     return (
       <text
         x={x}

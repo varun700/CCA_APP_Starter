@@ -14,7 +14,6 @@ const ChartCard = ({
 }) => {
   return (
     <Widget styleName="gx-card-full">
-      {console.log(styleName, desc, "chartwidget")}
       {/* <div className="gx-actchart gx-px-3 gx-pt-3">
         <div className="ant-row-flex">
           <h2 className="gx-mb-0 gx-fs-xxl gx-font-weight-medium">

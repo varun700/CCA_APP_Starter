@@ -75,6 +75,7 @@ import {
   GetUserDetails,
   UservalReducer,
   GetKeyCallTopics,
+  Usermainprofile,
   GetTopKeyPhrases,
 } from "./globalreducer";
 
@@ -153,6 +154,7 @@ const createRootReducer = (history) =>
     GetKeyCallTopicsloader,
     GetTopKeyPhrasesreducer: GetTopKeyPhrases,
     GetTopKeyPhrasesloader,
+    Usermainprofilereducer: Usermainprofile,
   });
 
 export default createRootReducer;

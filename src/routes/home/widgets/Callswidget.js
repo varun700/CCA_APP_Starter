@@ -28,7 +28,6 @@ const Index = () => {
     { name: "Page H", price: 2260 },
     { name: "Page K", price: 800 },
   ];
-  console.log(uservals);
   useEffect(() => {
     if (uservals?.Employee_Id !== undefined) {
       dispatch(GetCCATotalCalls(uservals?.Employee_Id));
@@ -38,9 +37,6 @@ const Index = () => {
 
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
-      {
-        console.log(payload, "payl");
-      }
       return (
         <Card>
           <div
@@ -61,7 +57,10 @@ const Index = () => {
     }
     return null;
   };
-  console.log(callsdata, "calls", callsdataloader, chartdata);
+  const COLORS = {
+    "Actual Calls": "#9288E8", // Purple for actual calls
+    "Predicted Calls": "#FE9E15", // Green for predicted calls
+  };
   return (
     <div>
       {!callsdataloader && !chartdataloader ? (
@@ -83,18 +82,50 @@ const Index = () => {
 
                 <Tooltip content={<CustomTooltip />} />
                 <defs>
+                  <linearGradient
+                    id="colorGradient"
+                    x1="0"
+                    y1="0"
+                    x2="1"
+                    y2="0"
+                  >
+                    {chartdata?.Table.map((entry, index) => {
+                      console.log(
+                        `${(index / (chartdata?.Table.length - 1)) * 100}%`,
+                        "off"
+                      );
+                      return (
+                        <stop
+                          key={index}
+                          offset={`${
+                            (index / (chartdata?.Table.length - 1)) * 100
+                          }%`}
+                          stopColor={COLORS[entry.Actual_Predicted_Calls]}
+                          opacity={1}
+                        />
+                      );
+                    })}
+                  </linearGradient>
+                </defs>
+                {/* <defs>
                   <linearGradient id="color3" x1="0" y1="0" x2="1" y2="0">
                     <stop offset="5%" stopColor="#163469" stopOpacity={0.9} />
                     <stop offset="95%" stopColor="#FE9E15" stopOpacity={0.9} />
                   </linearGradient>
-                </defs>
-                <Area
+                </defs> */}
+                {/* <Area
                   dataKey="AVG_CALLS"
                   strokeWidth={0}
                   stackId="2"
                   stroke="#4D95F3"
                   fill="url(#color3)"
                   fillOpacity={1}
+                /> */}
+                <Area
+                  type="monotone"
+                  dataKey="AVG_CALLS"
+                  stroke="url(#colorGradient)"
+                  fill="url(#colorGradient)"
                 />
               </AreaChart>
             </ResponsiveContainer>

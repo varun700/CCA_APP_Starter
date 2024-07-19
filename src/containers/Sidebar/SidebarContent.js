@@ -44,23 +44,23 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
           <UserProfile/>
           <AppsNavigation />
         </div> */}
-        <CustomScrollbars className="gx-layout-sider-scrollbar">
-          <Menu
-            defaultOpenKeys={[defaultOpenKeys]}
-            selectedKeys={[selectedKeys]}
-            theme={themeType === THEME_TYPE_LITE ? "lite" : "dark"}
-            mode="inline"
-          >
-            <Menu.Item key="home">
-              <Link to="/home">
-                <i className="icon icon-widgets" />
-                <span>
-                  <IntlMessages id="sidebar.samplePage" />
-                </span>
-              </Link>
-            </Menu.Item>
-          </Menu>
-        </CustomScrollbars>
+        {/* <CustomScrollbars className="gx-layout-sider-scrollbar"> */}
+        <Menu
+          defaultOpenKeys={[defaultOpenKeys]}
+          selectedKeys={[selectedKeys]}
+          theme={themeType === THEME_TYPE_LITE ? "lite" : "dark"}
+          mode="inline"
+        >
+          <Menu.Item key="home">
+            <Link to="/home">
+              <i className="icon icon-widgets" />
+              <span>
+                <IntlMessages id="sidebar.samplePage" />
+              </span>
+            </Link>
+          </Menu.Item>
+        </Menu>
+        {/* </CustomScrollbars> */}
       </div>
     </>
   );

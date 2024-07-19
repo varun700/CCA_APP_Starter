@@ -63,7 +63,6 @@ const QueueTime = () => {
   }
 
   const CustomTooltip = ({ active, payload }) => {
-    console.log("12345678976543567", payload);
     if (active && payload && payload.length) {
       return (
         <Card>
@@ -74,11 +73,11 @@ const QueueTime = () => {
               padding: "10px",
             }}
           >
-            <h5 className="h4 gx-mb-3">{payload[0]?.payload.Month}</h5>
+            <h5 className="h4 gx-mb-3">{payload[0]?.payload.Short_Month}</h5>
             <span className="label">{`${payload[0]?.dataKey.replaceAll(
               "_",
               " "
-            )} : ${payload[0]?.value}`}</span>
+            )} : ${payload[0]?.value}s`}</span>
           </div>
         </Card>
       );

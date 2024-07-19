@@ -42,7 +42,6 @@ const ServiceLevelWidget = () => {
   }, [uservals]);
 
   const CustomTooltip = ({ active, payload }) => {
-    console.log("12345678976543567", payload);
     if (active && payload && payload.length) {
       return (
         <Card>
@@ -53,19 +52,14 @@ const ServiceLevelWidget = () => {
               padding: "10px",
             }}
           >
-            <h5 className="h4 gx-mb-3">{payload[0]?.payload.MONTH_YEAR}</h5>
-            <span className="label">{`${payload[0]?.dataKey.replaceAll(
-              "_",
-              " "
-            )} : ${payload[0]?.value}`}</span>
+            <h5 className="h4 gx-mb-3">{payload[0]?.payload.Short_Month}</h5>
+            <span className="label">{`Service Level : ${payload[0]?.value}%`}</span>
           </div>
         </Card>
       );
     }
     return null;
   };
-
-  console.log(callsdata, "SERVICE", callsdataloader);
 
   return (
     <div>

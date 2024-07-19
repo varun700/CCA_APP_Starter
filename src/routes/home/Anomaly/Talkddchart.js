@@ -25,7 +25,7 @@ const Talkddchart = () => {
     if (uservals?.Employee_Id !== undefined) {
       dispatch(GetTalkDurationDD(uservals?.Employee_Id));
     }
-  }, []);
+  }, [uservals]);
 
   return (
     <div>
@@ -49,7 +49,6 @@ const Talkddchart = () => {
           //   </LineChart>
           // </ResponsiveContainer>
           <div style={{ width: "100%", height: 300 }}>
-            {console.log(chartdatadd, "ddtest")}
             <ResponsiveContainer>
               <AreaChart
                 width={400}

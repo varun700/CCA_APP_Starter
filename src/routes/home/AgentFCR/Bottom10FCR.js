@@ -14,8 +14,8 @@ const Bottom10FCR = () => {
   const tabledataloader = useSelector(
     (state) => state?.GetCallBottom10AgentByFCRloader
   );
+  console.log(uservals?.Employee_Id, "uservl");
   useEffect(() => {
-    console.log(uservals, "emp");
     if (uservals?.Employee_Id !== undefined) {
       dispatch(GetCallBottom10AgentByFCR(uservals?.Employee_Id));
     }

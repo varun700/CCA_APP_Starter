@@ -99,3 +99,12 @@ export const GetTopKeyPhrases = (state = [], action) => {
       return state;
   }
 };
+
+export const Usermainprofile = (state = [], action) => {
+  switch (action.type) {
+    case "Usermainprofile":
+      return action.payload;
+    default:
+      return state;
+  }
+};

@@ -11,8 +11,10 @@ import {
   Legend,
   LineChart,
   ResponsiveContainer,
+  Scatter,
   Tooltip,
   XAxis,
+  Line,
   YAxis,
 } from "recharts";
 import { GetQueueTimeAnomaly } from "../../../appRedux/actions/CCAwidgets";
@@ -20,7 +22,6 @@ import {
   GetQueueTimeDD,
   GetTalkDurationDD,
 } from "../../../appRedux/actions/globalactions";
-import { Line } from "react-simple-maps";
 import CustomBarChartSkeleton from "../../loader/Barchartloader";
 import AreaChartSkeleton from "../../loader/Areachartloader";
 // import TopSplitgroup from "./Linechart";
@@ -80,11 +81,26 @@ const Top5QueueTime = () => {
   const chartdataloaderqueue = useSelector(
     (state) => state?.GetQueueTimeDDloader
   );
+  const [chartqueueanomaly, setchartqueueanomaly] = useState([]);
+
+  const [charttalkanomaly, setcharttalkanomaly] = useState([]);
   useEffect(() => {
     if (uservals?.Employee_Id !== undefined) {
       dispatch(GetQueueTimeAnomaly(uservals?.Employee_Id));
     }
   }, [uservals]);
+  useEffect(() => {
+    if (!chartdataloaderqueue && chartdataqueue.length > 0) {
+      const anomalies = chartdataqueue.filter((item) => item.Is_Anomaly === 1);
+      setchartqueueanomaly(anomalies);
+    }
+  }, [chartdataqueue]);
+  useEffect(() => {
+    if (!chartdataloaderdd && chartdatadd.length > 0) {
+      const anomalies = chartdatadd.filter((item) => item.Is_Anomaly === 1);
+      setcharttalkanomaly(anomalies);
+    }
+  }, [chartdatadd]);
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -103,15 +119,12 @@ const Top5QueueTime = () => {
   const handleCancel1 = () => {
     setIsModalOpen1(false);
   };
-  console.log(chartdata, chartdataloader, "top5queue");
   const Talkdurationchart = (e) => {
-    console.log(e, "talk");
     dispatch(GetTalkDurationDD(e?.Employee_Id));
     settalkmodalname(e?.Employee_Name);
     showModal();
   };
   const queuedurationchart = (e) => {
-    console.log(e, "talk");
     dispatch(GetQueueTimeDD(e?.Employee_Id));
     setqueuemodalname(e?.Employee_Name);
     showModal1();
@@ -136,7 +149,30 @@ const Top5QueueTime = () => {
     }
     return null;
   };
+  const CustomTick = ({ x, y, payload }) => {
+    const customLabel = "Jacobson, Nancy"; // Specify the label you want to customize
+    const labelMargin = payload.value === customLabel ? -20 : 0; // Adjust margin as needed
 
+    return (
+      <g transform={`translate(${x + labelMargin},${y})`}>
+        <text x={0} y={0} dy={16} textAnchor="middle" fill="#666">
+          {payload.value}
+        </text>
+      </g>
+    );
+  };
+  const CustomDot = (props) => {
+    const { cx, cy, value, payload } = props;
+    if (payload.Is_Anomaly === 1) {
+      return (
+        <g>
+          <circle cx={cx} cy={cy} r={6} fill="#27C4A0" stroke="none" />
+        </g>
+      );
+    } else {
+      return false;
+    }
+  };
   return (
     <>
       <Card className="gx-card">
@@ -148,7 +184,11 @@ const Top5QueueTime = () => {
                 data={chartdata?.Table}
                 margin={{ top: 20, right: 0, left: 0, bottom: 0 }}
               >
-                <XAxis dataKey="Employee_Name" interval={0} />
+                <XAxis
+                  dataKey="Employee_Name"
+                  tick={<CustomTick />}
+                  interval={0}
+                />
                 <YAxis dataKey="Queuetime_Count" />
                 <Tooltip cursor={false} content={<CustomTooltip />} />
                 <Legend
@@ -165,15 +205,6 @@ const Top5QueueTime = () => {
                     <stop offset="95%" stopColor="#4CA6B7" stopOpacity="1" />
                   </linearGradient>
                 </defs>
-
-                <Bar
-                  dataKey="Talkduration_count"
-                  fill="url(#color08)"
-                  barSize={30}
-                  radius={5}
-                  cursor={"pointer"}
-                  onClickCapture={(e) => Talkdurationchart(e)}
-                />
                 <Bar
                   dataKey="Queuetime_Count"
                   fill="url(#blueGradient)"
@@ -181,6 +212,14 @@ const Top5QueueTime = () => {
                   radius={5}
                   cursor={"pointer"}
                   onClickCapture={(e) => queuedurationchart(e)}
+                />
+                <Bar
+                  dataKey="Talkduration_count"
+                  fill="url(#color08)"
+                  barSize={30}
+                  radius={5}
+                  cursor={"pointer"}
+                  onClickCapture={(e) => Talkdurationchart(e)}
                 />
               </BarChart>
             </ResponsiveContainer>
@@ -217,9 +256,8 @@ const Top5QueueTime = () => {
             //   </LineChart>
             // </ResponsiveContainer>
             <div style={{ width: "100%", height: 300 }}>
-              {console.log(chartdatadd, "ddtest")}
               <ResponsiveContainer>
-                <AreaChart
+                <LineChart
                   width={400}
                   height={150}
                   data={chartdatadd}
@@ -260,14 +298,15 @@ const Top5QueueTime = () => {
                     </LineChart>
                   </Brush>
                 )} */}
-                  <Area
+                  <Line
+                    dot={<CustomDot />}
                     type="monotone"
                     dataKey="Talk_Duration"
-                    stroke="#54D454"
-                    activeDot={{ r: 8 }}
+                    fill="#75B3E7"
+                    stroke="#75B3E7"
                   />
                   {/* <Line type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
-                </AreaChart>
+                </LineChart>
               </ResponsiveContainer>
             </div>
           ) : (
@@ -321,26 +360,15 @@ const Top5QueueTime = () => {
             //   </LineChart>
             // </ResponsiveContainer>
             <div style={{ width: "100%", height: 300 }}>
-              {console.log(chartdataqueue, "ddtest3")}
               <ResponsiveContainer>
-                <AreaChart
-                  width={400}
-                  height={150}
+                <LineChart
+                  width={800}
+                  height={400}
                   data={chartdataqueue}
                   margin={{ top: 5, right: 5, left: 5, bottom: 0 }}
                 >
-                  <XAxis
-                    dataKey="Date"
-                    padding={{ left: 30, right: 30 }}
-                    // stroke={"#fff"}
-                    tick={true}
-                  />
-                  <YAxis
-                    dataKey="Queue_Time"
-                    stroke={"#000"}
-                    // tick={true}
-                    tick={"#000"}
-                  />
+                  <XAxis dataKey="Date" />
+                  <YAxis dataKey="Queue_Time" />
                   <Tooltip />
                   <Legend verticalAlign="top" />
                   {/* {GetCallVolumePredictionValue?.length > 0 && (
@@ -364,14 +392,16 @@ const Top5QueueTime = () => {
                     </LineChart>
                   </Brush>
                 )} */}
-                  <Area
+                  <Line
+                    dot={<CustomDot />}
                     type="monotone"
                     dataKey="Queue_Time"
-                    stroke="#54D454"
-                    activeDot={{ r: 8 }}
+                    fill="#75B3E7"
+                    stroke="#75B3E7"
                   />
+
                   {/* <Line type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
-                </AreaChart>
+                </LineChart>
               </ResponsiveContainer>
             </div>
           ) : (

@@ -63,7 +63,6 @@ const KeyBarChart = () => {
     ));
   };
 
-  // console.log("wertyuio", GetKeyCallTopicsValue);
   return (
     <div className="App hide_legend_recharts">
       {!GetKeyCallTopicsloader && GetKeyCallTopicsValue?.length > 0 ? (

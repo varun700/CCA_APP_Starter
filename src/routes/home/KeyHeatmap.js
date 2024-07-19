@@ -35,7 +35,6 @@ function KeyHeatmap() {
     );
   }, [GetTopKeyPhrasesValue]);
 
-  console.log("word", GetTopKeyPhrasesValue);
   const options = {
     rotations: 0,
     // rotationAngles: [-90, 0],

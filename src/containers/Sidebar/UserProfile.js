@@ -15,7 +15,9 @@ import { DownOutlined } from "@ant-design/icons";
 import { userSignOut } from "../../appRedux/actions";
 import {
   GetImporsinationDD,
+  GetUserDetails,
   SaveUserDetails,
+  Usermainprofile,
   Userval,
 } from "../../appRedux/actions/globalactions";
 
@@ -29,68 +31,83 @@ const UserProfile = () => {
   const [userdata, setuserdata] = useState("");
   const [userdatades, setuserdatades] = useState("");
   const [usershortname, setusershortname] = useState("");
-  const localStorageuserval = localStorage.getItem("user");
+  const localStorageuserval = localStorage.getItem("userss");
   const GetImporsinationDDs = useSelector(
     (state) => state?.GetImporsinationDDreducer?.Table
   );
+  const GetUserDetailsimpdata = useSelector(
+    (state) => state?.GetUserDetailsreducer?.Table
+  );
+  const GetUserDetailsimpdataloader = useSelector(
+    (state) => state?.GetUserDetailsloader
+  );
+
+  const Usermainprofiledata = useSelector(
+    (state) => state?.Usermainprofilereducer
+  );
   const uservals = useSelector((state) => state?.Userval);
-  useEffect(() => {
-    if (JSON.parse(localStorageuserval)) {
-      setuserdata(JSON.parse(localStorageuserval)?.Employee_Name);
-      setuserdatades(JSON.parse(localStorageuserval)?.Job_Title);
-      setusershortname(JSON.parse(localStorageuserval)?.Short_Name);
-      dispatch(Userval(JSON.parse(localStorageuserval)));
-      dispatch(
-        GetImporsinationDD(JSON.parse(localStorageuserval)?.Employee_Id)
-      );
-      dispatch(
-        SaveUserDetails({
-          EmployeeId: JSON.parse(localStorageuserval)?.Employee_Id,
-          ImpersonationId: "",
-          Theme: "Light",
-        })
-      );
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (JSON.parse(localStorageuserval)) {
+  //     setuserdata(JSON.parse(localStorageuserval)?.Employee_Name);
+  //     setuserdatades(JSON.parse(localStorageuserval)?.Job_Title);
+  //     setusershortname(JSON.parse(localStorageuserval)?.Short_Name);
+  //     dispatch(Userval(JSON.parse(localStorageuserval)));
+  //     dispatch(Usermainprofile(localStorageuserval));
+  //     dispatch(
+  //       GetImporsinationDD(JSON.parse(localStorageuserval)?.Employee_Id)
+  //     );
+  //   }
+  // }, []);
   useEffect(() => {
     if (userdata === "" && userdd?.length > 0) {
-      console.log("eeeeeee");
-      setuserdata(userdd[0]?.Employee_Name);
-      setuserdatades(userdd[0]?.Job_Title);
-      setusershortname(userdd[0]?.Short_Name);
-      dispatch(Userval(userdd[0]));
-      dispatch(GetImporsinationDD(userdd[0]?.Employee_Id));
-      dispatch(
-        SaveUserDetails({
-          EmployeeId: userdd[0]?.Employee_Id,
-          ImpersonationId: "",
-          Theme: "Light",
-        })
-      );
+      dispatch(GetUserDetails(userdd[0]?.Employee_Id));
     }
   }, [userdd]);
 
+  useEffect(() => {
+    console.log(GetUserDetailsimpdataloader, GetUserDetailsimpdata, "op");
+    if (userdata === "" && userdd?.length > 0 && !GetUserDetailsimpdataloader) {
+      console.log(GetUserDetailsimpdata, "cond");
+      if (GetUserDetailsimpdata[0]?.Impersonation_Id == null) {
+        console.log("iff");
+        dispatch(Usermainprofile(userdd[0]));
+        setuserdata(userdd[0]?.Employee_Name);
+        setuserdatades(userdd[0]?.Job_Title);
+        setusershortname(userdd[0]?.Short_Name);
+        dispatch(Userval(userdd[0]));
+        dispatch(GetImporsinationDD(userdd[0]?.Employee_Id));
+      } else {
+        console.log("elsee");
+        dispatch(Usermainprofile(userdd[0]));
+        setuserdata(userdd[0]?.Employee_Name);
+        setuserdatades(userdd[0]?.Job_Title);
+        setusershortname(userdd[0]?.Short_Name);
+        console.log(GetUserDetailsimpdata, "elsee");
+        dispatch(
+          Userval({
+            Employee_Id: GetUserDetailsimpdata[0]?.Impersonation_Id,
+          })
+        );
+        dispatch(GetImporsinationDD(userdd[0]?.Employee_Id));
+      }
+    }
+  }, [userdd, GetUserDetailsimpdata, GetUserDetailsimpdataloader]);
   const Clickeduserdetails = (e) => {
     setuserdata(e?.Employee_Name);
     setuserdatades(e?.Job_Title);
+    dispatch(Usermainprofile(e));
     dispatch(Userval(e));
     setusershortname(e?.Short_Name);
-
+    dispatch(Usermainprofile(e));
     dispatch(GetImporsinationDD(e?.Employee_Id));
-    dispatch(
-      SaveUserDetails({
-        EmployeeId: e.Employee_Id,
-        ImpersonationId: "",
-        Theme: "Light",
-      })
-    );
-    localStorage.setItem("user", JSON.stringify(e));
+
+    localStorage.setItem("userss", JSON.stringify(e));
   };
   const Clickeduserdetails1 = (e) => {
     dispatch(Userval(e));
     dispatch(
       SaveUserDetails({
-        EmployeeId: "",
+        EmployeeId: userdata,
         ImpersonationId: e?.Employee_Id,
         Theme: "Light",
       })
@@ -114,8 +131,6 @@ const UserProfile = () => {
       </ul>
     );
   };
-
-  console.log("userimp", GetImporsinationDDs, uservals);
 
   return (
     <>
@@ -176,7 +191,7 @@ const UserProfile = () => {
         >
           <i className="icon icon-chevron-down gx-fs-xxs  userprofile_ml" />
         </Popover> */}
-        <Dropdown
+        {/* <Dropdown
           menu={{ items }}
           dropdownRender={() => (
             <Menu>
@@ -232,7 +247,7 @@ const UserProfile = () => {
               <i className="icon icon-chevron-down gx-fs-xxs  userprofile_ml" />
             </Space>
           </a>
-        </Dropdown>
+        </Dropdown> */}
       </div>
     </>
   );

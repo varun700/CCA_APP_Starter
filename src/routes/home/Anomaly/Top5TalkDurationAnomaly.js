@@ -14,6 +14,7 @@ import {
   Scatter,
   Tooltip,
   XAxis,
+  Line,
   YAxis,
 } from "recharts";
 import { GetTalkDurationAnomaly } from "../../../appRedux/actions/CCAwidgets";
@@ -21,7 +22,6 @@ import {
   GetQueueTimeDD,
   GetTalkDurationDD,
 } from "../../../appRedux/actions/globalactions";
-import { Line } from "react-simple-maps";
 import CustomBarChartSkeleton from "../../loader/Barchartloader";
 import AreaChartSkeleton from "../../loader/Areachartloader";
 // import TopSplitgroup from "./Linechart";
@@ -98,13 +98,15 @@ const Top5talkDuration = () => {
       const anomalies = chartdataqueue.filter((item) => item.Is_Anomaly === 1);
       setchartqueueanomaly(anomalies);
     }
-  }, [chartdataqueue]);
+  }, [chartdataqueue, chartdataloaderqueue]);
+
   useEffect(() => {
     if (!chartdataloaderdd && chartdatadd.length > 0) {
       const anomalies = chartdatadd.filter((item) => item.Is_Anomaly === 1);
-      setchartqueueanomaly(anomalies);
+
+      setcharttalkanomaly(anomalies);
     }
-  }, [chartdatadd]);
+  }, [chartdatadd, chartdataloaderdd]);
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -124,13 +126,11 @@ const Top5talkDuration = () => {
     setIsModalOpen1(false);
   };
   const Talkdurationchart = (e) => {
-    console.log(e, "talk");
     dispatch(GetTalkDurationDD(e?.Employee_Id));
     settalkmodalname(e?.Employee_Name);
     showModal();
   };
   const queuedurationchart = (e) => {
-    console.log(e, "talk");
     dispatch(GetQueueTimeDD(e?.Employee_Id));
     setqueuemodalname(e?.Employee_Name);
     showModal1();
@@ -155,7 +155,19 @@ const Top5talkDuration = () => {
     }
     return null;
   };
-  console.log(chartdatadd, chartdataloaderdd, "ddtop5talk1");
+  const CustomDot = (props) => {
+    const { cx, cy, value, payload } = props;
+    if (payload.Is_Anomaly === 1) {
+      return (
+        <g>
+          <circle cx={cx} cy={cy} r={6} fill="#27C4A0" stroke="none" />
+        </g>
+      );
+    } else {
+      return false;
+    }
+  };
+
   return (
     <>
       <Card className="gx-card">
@@ -235,9 +247,8 @@ const Top5talkDuration = () => {
             //   </LineChart>
             // </ResponsiveContainer>
             <div style={{ width: "100%", height: 300 }}>
-              {console.log(chartdatadd, "ddtest")}
               <ResponsiveContainer>
-                <AreaChart
+                <LineChart
                   width={400}
                   height={150}
                   data={chartdatadd}
@@ -256,6 +267,7 @@ const Top5talkDuration = () => {
                     tick={"#000"}
                   />
                   <Tooltip />
+
                   <Legend verticalAlign="top" />
                   {/* {GetCallVolumePredictionValue?.length > 0 && (
                   <Brush
@@ -278,14 +290,16 @@ const Top5talkDuration = () => {
                     </LineChart>
                   </Brush>
                 )} */}
-                  <Area
+                  <Line
+                    dot={<CustomDot />}
                     type="monotone"
                     dataKey="Talk_Duration"
-                    stroke="#54D454"
-                    activeDot={{ r: 8 }}
+                    fill="#75B3E7"
+                    stroke="#75B3E7"
                   />
+
                   {/* <Line type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
-                </AreaChart>
+                </LineChart>
               </ResponsiveContainer>
             </div>
           ) : (
@@ -339,67 +353,32 @@ const Top5talkDuration = () => {
             //   </LineChart>
             // </ResponsiveContainer>
             <div style={{ width: "100%", height: 300 }}>
-              {console.log(chartdataqueue, "ddtest3")}
               <ResponsiveContainer>
-                <AreaChart
-                  width={400}
-                  height={150}
+                <LineChart
+                  width={800}
+                  height={400}
                   data={chartdataqueue}
-                  margin={{ top: 5, right: 5, left: 5, bottom: 0 }}
+                  margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
                 >
-                  <XAxis
-                    dataKey="Date"
-                    padding={{ left: 30, right: 30 }}
-                    // stroke={"#fff"}
-                    tick={true}
-                  />
-                  <YAxis
-                    dataKey="Queue_Time"
-                    stroke={"#000"}
-                    // tick={true}
-                    tick={"#000"}
-                  />
+                  {/* <CartesianGrid strokeDasharray="3 3" /> */}
+                  <XAxis dataKey="Date" />
+                  <YAxis dataKey="Queue_Time" />
                   <Tooltip />
-                  <Legend verticalAlign="top" />
-                  {/* {GetCallVolumePredictionValue?.length > 0 && (
-                <Brush
-                  startIndex={GetCallVolumePredictionValue?.length - 60}
-                  endIndex={GetCallVolumePredictionValue?.length - 1}
-                  dataKey="Date"
-                  // tickFormatter={formatXAxis}
-                  height={50}
-                  y={250}
-                >
-                  <LineChart data={GetCallVolumePredictionValue}>
-                    <Line
-                      type="monotone"
-                      dataKey="Total_Answered_Calls"
-                      stroke="#54D454"
-                      fill="#54D454"
-                      strokeWidth={3}
-                      dot={false}
-                    />
-                  </LineChart>
-                </Brush>
-              )} */}
-                  <Area
-                    type="monotone"
+                  <Legend />
+                  <Line
                     dataKey="Queue_Time"
-                    stroke="#54D454"
-                    activeDot={{ r: 8 }}
+                    type="monotone"
+                    fill="#75B3E7"
+                    stroke="#75B3E7"
+                    dot={<CustomDot />}
                   />
-                  <Scatter data={chartqueueanomaly} fill="red">
-                    {chartqueueanomaly?.map((entry, index) => (
-                      <Scatter
-                        key={`dot-${index}`}
-                        cx={entry.Date}
-                        cy={entry.Queue_Time}
-                        r={5}
-                        fill="red"
-                      />
-                    ))}
-                  </Scatter>
-                </AreaChart>
+                  {/* <Scatter
+                    data={chartqueueanomaly}
+                    dataKey="Queue_Time"
+                    fill="blue"
+                    shape="star"
+                  /> */}
+                </LineChart>
               </ResponsiveContainer>
             </div>
           ) : (

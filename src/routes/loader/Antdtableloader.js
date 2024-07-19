@@ -4,7 +4,10 @@ import "react-loading-skeleton/dist/skeleton.css";
 
 const SkeletonTable = ({ columns, rows }) => {
   return (
-    <table className="ant-table">
+    <table
+      className="ant-table"
+      style={{ tableLayout: "fixed", width: "100%" }}
+    >
       <thead className="ant-table-thead">
         <tr>
           {columns.map((col, index) => (
