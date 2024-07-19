@@ -77,14 +77,14 @@ const Bottom10FCR = () => {
                   fill="#6ec48b"
                 />
                 <Bar
+                  dataKey="Neutral_Score_Percentage"
+                  stackId="a"
+                  fill="#f0bf3a"
+                />
+                <Bar
                   dataKey="Negative_Score_Percentage"
                   stackId="a"
                   fill="#db2143"
-                />
-                <Bar
-                  dataKey="Neutral_Score_Percentage"
-                  stackId="a"
-                  fill="#74d8db"
                 />
               </BarChart>
             </ResponsiveContainer>

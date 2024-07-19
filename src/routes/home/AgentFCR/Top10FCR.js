@@ -26,24 +26,15 @@ const Top10FCR = () => {
 
   const CustomTooltip = ({ active, payload }) => {
     console.log("1234567890987654321", payload, active);
-    // if (active && payload && payload.length) {
-    //   return (
-    //     <Card>
-    //       <div style={{ display: "flex", flexDirection: "column" }}>
-    //         <h5 className="h4 gx-mb-3">{payload[0]?.payload.Employee_Name}</h5>
-    //         <span className="label">{`${payload[0]?.dataKey.replace(
-    //           "_",
-    //           " "
-    //         )} : ${payload[0]?.value}`}</span>
-    //         <span className="label">{`${payload[1]?.dataKey.replace(
-    //           "_",
-    //           " "
-    //         )} : ${payload[1]?.value}`}</span>
-    //       </div>
-    //     </Card>
-    //   );
-    // }
-    // return null;
+    if (active && payload && payload.length) {
+      return (
+        <div className="custom-tooltip">
+          <p>{`${payload[0].name} : ${payload[0].value}`}</p>
+        </div>
+      );
+    }
+
+    return null;
   };
 
   const columns = [
@@ -90,7 +81,7 @@ const Top10FCR = () => {
             <ResponsiveContainer width={"100%"} height={20}>
               <BarChart
                 width={100}
-                height={40}
+                height={20}
                 data={[record]}
                 layout="vertical"
               >
@@ -103,14 +94,14 @@ const Top10FCR = () => {
                   fill="#6ec48b"
                 />
                 <Bar
+                  dataKey="Neutral_Score_Percentage"
+                  stackId="a"
+                  fill="#f0bf3a"
+                />
+                <Bar
                   dataKey="Negative_Score_Percentage"
                   stackId="a"
                   fill="#db2143"
-                />
-                <Bar
-                  dataKey="Neutral_Score_Percentage"
-                  stackId="a"
-                  fill="#74d8db"
                 />
               </BarChart>
             </ResponsiveContainer>
