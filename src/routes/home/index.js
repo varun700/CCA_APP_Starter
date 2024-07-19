@@ -80,67 +80,78 @@ const Index = () => {
     setselectdata(val);
     if (val == "") {
       dispatch(Userval(Usermainprofiledata));
-    }
-    const userimpdata = GetImporsinationDDs.filter(
-      (e) => e.Employee_Name === val
-    );
-    dispatch(Userval(userimpdata[0]));
+      dispatch(
+        SaveUserDetails({
+          EmployeeId: Usermainprofiledata?.Employee_Id,
+          // ImpersonationId: "",
+          Theme: "Light",
+        })
+      );
+    } else {
+      const userimpdata = GetImporsinationDDs.filter(
+        (e) => e.Employee_Name === val
+      );
+      dispatch(Userval(userimpdata[0]));
 
-    dispatch(
-      SaveUserDetails({
-        EmployeeId: Usermainprofiledata?.Employee_Id,
-        ImpersonationId: userimpdata[0]?.Employee_Id,
-        Theme: "Light",
-      })
-    );
+      dispatch(
+        SaveUserDetails({
+          EmployeeId: Usermainprofiledata?.Employee_Id,
+          ImpersonationId: userimpdata[0]?.Employee_Id,
+          Theme: "Light",
+        })
+      );
+    }
   };
 
   return (
     <div>
+      {console.log(Usermainprofiledata, "pdff")}
       <Row>
-        <Col
-          span={24}
-          style={{
-            display: "flex",
-            justifyContent: "flex-end",
-            marginBottom: "20px",
-          }}
-        >
-          <label
+        {Usermainprofiledata?.Job_Title !== "Call Centre Agent" && (
+          <Col
+            span={24}
             style={{
               display: "flex",
-              alignItems: "center",
-              marginRight: "20px",
+              justifyContent: "flex-end",
+              marginBottom: "20px",
             }}
           >
-            Impersonation as{" "}
-          </label>
-          <Select
-            showSearch
-            value={selectdata}
-            placeholder="Select value for impersonate"
-            onChange={(e) => Clickeduserdetails1(e)}
-            style={{
-              width: 300,
-            }}
-            // filterOption={(input, option) =>
-            //   (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
-            // }
-            // options={GetImporsinationDDs?.map((e) => {
-            //   console.log(e, "select");
-            //   return {
-            //     value: `${e?.Employee_Name}(${e?.Job_Title})`,
-            //   };
-            // })}
-          >
-            <Option key={""} value={""}></Option>
-            {GetImporsinationDDs?.map((item) => (
-              <Option key={item.Employee_Name} value={item.Employee_Name}>
-                {`${item?.Employee_Name}(${item?.Job_Title})`}
-              </Option>
-            ))}
-          </Select>
-        </Col>
+            <label
+              style={{
+                display: "flex",
+                alignItems: "center",
+                marginRight: "20px",
+              }}
+            >
+              Impersonating as{" "}
+            </label>
+            <Select
+              showSearch
+              value={selectdata}
+              placeholder="Select value for impersonate"
+              onChange={(e) => Clickeduserdetails1(e)}
+              style={{
+                width: 300,
+              }}
+              // filterOption={(input, option) =>
+              //   (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
+              // }
+              // options={GetImporsinationDDs?.map((e) => {
+              //   console.log(e, "select");
+              //   return {
+              //     value: `${e?.Employee_Name}(${e?.Job_Title})`,
+              //   };
+              // })}
+            >
+              <Option key={""} value={""}></Option>
+              {GetImporsinationDDs?.map((item) => (
+                <Option key={item.Employee_Name} value={item.Employee_Name}>
+                  {`${item?.Employee_Name}(${item?.Job_Title})`}
+                </Option>
+              ))}
+            </Select>
+          </Col>
+        )}
         <Col xl={6} lg={12} md={12} sm={12} xs={24}>
           {" "}
           <Callswidget />
