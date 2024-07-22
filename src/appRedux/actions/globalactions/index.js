@@ -1,4 +1,5 @@
 import axios from "axios";
+import moment from "moment";
 
 export const GetCallVolumePredictionChart = () => {
   return async function (dispatch) {
@@ -574,5 +575,34 @@ export const Usermainprofile = (val) => {
       type: "Usermainprofile",
       payload: val,
     });
+  };
+};
+export const GetCCATotalActualPredictedCallsChart = (userid) => {
+  return async function (dispatch) {
+    dispatch({
+      type: "GetCCATotalActualPredictedCallsChartloader",
+      payload: true,
+    });
+    try {
+      const response = await axios.get(
+        `https://ccaapp-api.azurewebsites.net/api/CCA/GetCCATotalActualPredictedCallsChart?EmployeeId=${userid}`
+      );
+      const val = response?.data?.Table.map((e) => ({
+        DS: e?.DS.split("T")[0],
+        TOTAL_CALLS: e?.TOTAL_CALLS,
+        Is_Predicted: e?.Is_Predicted,
+      }));
+      console.log(val, "totac");
+      dispatch({
+        type: "GetCCATotalActualPredictedCallsChart",
+        payload: { Table: val },
+      });
+      dispatch({
+        type: "GetCCATotalActualPredictedCallsChartloader",
+        payload: false,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 };

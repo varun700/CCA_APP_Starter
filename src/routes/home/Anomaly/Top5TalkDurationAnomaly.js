@@ -160,14 +160,69 @@ const Top5talkDuration = () => {
     if (payload.Is_Anomaly === 1) {
       return (
         <g>
-          <circle cx={cx} cy={cy} r={6} fill="#27C4A0" stroke="none" />
+          <circle cx={cx} cy={cy} r={6} fill="red" stroke="none" />
         </g>
       );
     } else {
       return false;
     }
   };
-
+  const renderCustomLegend = (props) => {
+    const { payload } = props; // The payload is an array of legend items
+    return (
+      <ul
+        style={{
+          listStyleType: "none",
+          margin: 0,
+          padding: 0,
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        {payload.map((entry, index) => (
+          <li
+            key={`item-${index}`}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              marginBottom: 5,
+              marginRight: "20px",
+            }}
+          >
+            <div
+              style={{
+                backgroundColor: entry.color,
+                width: 10,
+                height: 10,
+                marginRight: 5,
+              }}
+            ></div>
+            <span>{entry.value}</span>
+          </li>
+        ))}
+        <li
+          // key={`item-${index}`}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            marginBottom: 5,
+            marginRight: "15px",
+          }}
+        >
+          <div
+            style={{
+              backgroundColor: "red",
+              width: 10,
+              height: 10,
+              marginRight: 5,
+              borderRadius: "8px",
+            }}
+          ></div>
+          <span>Anomaly</span>
+        </li>
+      </ul>
+    );
+  };
   return (
     <>
       <Card className="gx-card">
@@ -268,7 +323,7 @@ const Top5talkDuration = () => {
                   />
                   <Tooltip />
 
-                  <Legend verticalAlign="top" />
+                  <Legend verticalAlign="top" content={renderCustomLegend} />
                   {/* {GetCallVolumePredictionValue?.length > 0 && (
                   <Brush
                     startIndex={GetCallVolumePredictionValue?.length - 60}
@@ -294,8 +349,7 @@ const Top5talkDuration = () => {
                     dot={<CustomDot />}
                     type="monotone"
                     dataKey="Talk_Duration"
-                    fill="#75B3E7"
-                    stroke="#75B3E7"
+                    fill="#038FDE"
                   />
 
                   {/* <Line type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
@@ -364,12 +418,11 @@ const Top5talkDuration = () => {
                   <XAxis dataKey="Date" />
                   <YAxis dataKey="Queue_Time" />
                   <Tooltip />
-                  <Legend />
+                  <Legend verticalAlign="top" content={renderCustomLegend} />
                   <Line
                     dataKey="Queue_Time"
                     type="monotone"
-                    fill="#75B3E7"
-                    stroke="#75B3E7"
+                    fill="#038FDE"
                     dot={<CustomDot />}
                   />
                   {/* <Scatter

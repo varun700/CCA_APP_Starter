@@ -42,3 +42,16 @@
     height: 20px;
     margin: 0 auto;
 }
+
+.userimpPopover.gx-user-popover li {
+  cursor: pointer;
+  padding: 3px 15px;
+  width: auto;
+ 
+  /* display: flex; */
+  /* justify-content: center; */
+}
+.userimpPopover.gx-user-popover{
+  height: 250px;
+  overflow: scroll;
+}

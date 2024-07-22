@@ -31,6 +31,10 @@ const UserProfile = () => {
   const [userdata, setuserdata] = useState("");
   const [userdatades, setuserdatades] = useState("");
   const [usershortname, setusershortname] = useState("");
+  const [isuserimpopen, setisuserimpopen] = useState(false);
+  const [selectdata, setselectdata] = useState("");
+  const [selectimpdata, setselectimpdata] = useState("");
+
   const localStorageuserval = localStorage.getItem("userss");
   const GetImporsinationDDs = useSelector(
     (state) => state?.GetImporsinationDDreducer?.Table
@@ -67,8 +71,15 @@ const UserProfile = () => {
   useEffect(() => {
     console.log(GetUserDetailsimpdataloader, GetUserDetailsimpdata, "op");
     if (userdata === "" && userdd?.length > 0 && !GetUserDetailsimpdataloader) {
-      console.log(GetUserDetailsimpdata, "cond");
-      if (GetUserDetailsimpdata[0]?.Impersonation_Id == null) {
+      console.log(
+        GetUserDetailsimpdata,
+        "cond",
+        GetUserDetailsimpdata[0]?.Impersonation_Id
+      );
+      if (
+        GetUserDetailsimpdata[0]?.Impersonation_Id === null ||
+        GetUserDetailsimpdata[0]?.Impersonation_Id === ""
+      ) {
         console.log("iff");
         dispatch(Usermainprofile(userdd[0]));
         setuserdata(userdd[0]?.Employee_Name);
@@ -95,6 +106,7 @@ const UserProfile = () => {
   const Clickeduserdetails = (e) => {
     setuserdata(e?.Employee_Name);
     setuserdatades(e?.Job_Title);
+    dispatch(GetUserDetails(e?.Employee_Id));
     dispatch(Usermainprofile(e));
     dispatch(Userval(e));
     setusershortname(e?.Short_Name);
@@ -103,15 +115,95 @@ const UserProfile = () => {
 
     localStorage.setItem("userss", JSON.stringify(e));
   };
-  const Clickeduserdetails1 = (e) => {
-    dispatch(Userval(e));
-    dispatch(
-      SaveUserDetails({
-        EmployeeId: userdata,
-        ImpersonationId: e?.Employee_Id,
-        Theme: "Light",
-      })
-    );
+
+  // const Clickeduserdetails1 = (val) => {
+  //   setselectdata(val);
+  //   if (val == "") {
+  //     dispatch(Userval(Usermainprofiledata));
+  //     dispatch(
+  //       SaveUserDetails({
+  //         EmployeeId: Usermainprofiledata?.Employee_Id,
+  //         // ImpersonationId: "",
+  //         Theme: "Light",
+  //       })
+  //     );
+  //   } else {
+  //     const userimpdata = GetImporsinationDDs.filter(
+  //       (e) => e.Employee_Name === val
+  //     );
+  //     dispatch(Userval(userimpdata[0]));
+
+  //     dispatch(
+  //       SaveUserDetails({
+  //         EmployeeId: Usermainprofiledata?.Employee_Id,
+  //         ImpersonationId: userimpdata[0]?.Employee_Id,
+  //         Theme: "Light",
+  //       })
+  //     );
+  //   }
+  // };
+  useEffect(() => {
+    if (GetUserDetailsimpdata && !GetUserDetailsimpdataloader) {
+      console.log(GetUserDetailsimpdata, "useff");
+      if (
+        GetUserDetailsimpdata[0]?.Impersonation_Id == null ||
+        GetUserDetailsimpdata[0]?.Impersonation_Id == undefined
+      ) {
+        console.log(GetUserDetailsimpdata[0]?.Impersonation_Id, "iff");
+        setselectdata("");
+        setselectimpdata("");
+      } else {
+        const getimpname = GetImporsinationDDs?.filter(
+          (e) => e.Employee_Id == GetUserDetailsimpdata[0]?.Impersonation_Id
+        );
+        console.log(getimpname, "getim");
+        getimpname && setselectdata(getimpname[0]?.Employee_Name);
+        getimpname && setselectimpdata(getimpname[0]?.Job_Title);
+      }
+    }
+  }, [GetUserDetailsimpdataloader, GetUserDetailsimpdata, GetImporsinationDDs]);
+
+  const Clickeduserdetails1 = (val) => {
+    console.log("eee", val);
+
+    if (val?.Employee_Name == "") {
+      console.log("eee", "iff", val);
+      setselectdata("");
+      setselectimpdata("");
+      dispatch(Userval(Usermainprofiledata));
+      dispatch(
+        SaveUserDetails({
+          EmployeeId: Usermainprofiledata?.Employee_Id,
+          // ImpersonationId: "",
+          Theme: "Light",
+        })
+      );
+    } else {
+      console.log("eee", "else", val);
+      setselectdata(val?.Employee_Name);
+      setselectimpdata(val?.Job_Title);
+      const userimpdata = GetImporsinationDDs.filter(
+        (e) => e.Employee_Name === val.Employee_Name
+      );
+      dispatch(Userval(userimpdata[0]));
+
+      dispatch(
+        SaveUserDetails({
+          EmployeeId: Usermainprofiledata?.Employee_Id,
+          ImpersonationId: userimpdata[0]?.Employee_Id,
+          Theme: "Light",
+        })
+      );
+    }
+    // dispatch(Userval(e));
+    // dispatch(
+    //   SaveUserDetails({
+    //     EmployeeId: userdata,
+    //     ImpersonationId: e?.Employee_Id,
+    //     Theme: "Light",
+    //   })
+    // );
+    setisuserimpopen(false);
   };
   const userMenuOptions = () => {
     return (
@@ -124,9 +216,17 @@ const UserProfile = () => {
   };
   const userimporsination = () => {
     return (
-      <ul className="gx-user-popover">
-        {GetImporsinationDDs?.map((e) => (
-          <li onClick={() => Clickeduserdetails1(e)}>{e?.Employee_Name}</li>
+      <ul className="gx-user-popover userimpPopover">
+        {/* <li onClick={() => Clickeduserdetails1(e)}>
+          {" "}
+          {`${e?.Employee_Name}(${e?.Job_Title})`}
+        </li> */}
+        <li onClick={() => Clickeduserdetails1({ Employee_Name: "" })}></li>
+        {GetImporsinationDDs?.map((e, i) => (
+          <li key={i} onClick={() => Clickeduserdetails1(e)}>
+            {" "}
+            {`${e?.Employee_Name}(${e?.Job_Title})`}
+          </li>
         ))}
       </ul>
     );
@@ -135,6 +235,52 @@ const UserProfile = () => {
   return (
     <>
       <div className="gx-flex-row gx-align-items-center  gx-avatar-row">
+        {!GetUserDetailsimpdataloader &&
+          Usermainprofiledata?.Job_Title !== "Call Centre Agent" &&
+          selectdata !== "" &&
+          selectimpdata !== "" && (
+            // <div style={{ marginRight: "20px" }}>
+            //   <Row>
+            //     <i
+            //       class="fas fa-users"
+            //       style={{ marginRight: "10px", fontSize: "18px" }}
+            //     ></i>
+            //     <Col span={24}>{selectdata}</Col>
+            //     {/* <Col span={24}>{selectdata}</Col> */}
+            //   </Row>
+            // </div>
+            <Row gutter={[16, 16]} style={{ marginRight: "20px" }}>
+              <Col
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <i
+                  class="fas fa-users"
+                  style={{
+                    marginRight: "10px",
+                    fontSize: "22px",
+                  }}
+                ></i>
+              </Col>
+              <Col style={{ marginTop: "5px" }}>
+                <Row>
+                  <Col>
+                    <span className="gx-avatar-name">{selectdata}</span>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    <span>{selectimpdata}</span>
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+          )}
+
+        {console.log(selectdata, "sel")}
         <Popover
           placement="bottomRight"
           content={userMenuOptions}
@@ -184,13 +330,21 @@ const UserProfile = () => {
             </Col>
           </Row>
         </Popover>
-        {/* <Popover
-          placement="bottomRight"
-          content={userimporsination}
-          trigger="click"
-        >
-          <i className="icon icon-chevron-down gx-fs-xxs  userprofile_ml" />
-        </Popover> */}
+        <div style={{ position: "relative" }}>
+          <Popover
+            placement="bottom"
+            content={userimporsination}
+            trigger="click"
+            open={isuserimpopen}
+            className="userimpPopover"
+          >
+            <i
+              className="icon icon-chevron-down gx-fs-xxs  userprofile_ml"
+              onClick={() => setisuserimpopen(!isuserimpopen)}
+            />
+          </Popover>
+        </div>
+
         {/* <Dropdown
           menu={{ items }}
           dropdownRender={() => (

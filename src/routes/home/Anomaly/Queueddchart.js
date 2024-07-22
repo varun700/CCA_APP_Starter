@@ -8,6 +8,8 @@ import {
   XAxis,
   YAxis,
   Tooltip,
+  Line,
+  LineChart,
 } from "recharts";
 import { GetQueueTimeDD } from "../../../appRedux/actions/globalactions";
 import AreaChartSkeleton from "../../loader/Areachartloader";
@@ -27,7 +29,74 @@ const Queueddchart = () => {
       dispatch(GetQueueTimeDD(uservals?.Employee_Id));
     }
   }, [uservals]);
-
+  const CustomDot = (props) => {
+    const { cx, cy, value, payload } = props;
+    if (payload.Is_Anomaly === 1) {
+      return (
+        <g>
+          <circle cx={cx} cy={cy} r={6} fill="red" stroke="none" />
+        </g>
+      );
+    } else {
+      return false;
+    }
+  };
+  const renderCustomLegend = (props) => {
+    const { payload } = props; // The payload is an array of legend items
+    return (
+      <ul
+        style={{
+          listStyleType: "none",
+          margin: 0,
+          padding: 0,
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        {payload.map((entry, index) => (
+          <li
+            key={`item-${index}`}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              marginBottom: 5,
+              marginRight: "20px",
+            }}
+          >
+            <div
+              style={{
+                backgroundColor: entry.color,
+                width: 10,
+                height: 10,
+                marginRight: 5,
+              }}
+            ></div>
+            <span>{entry.value}</span>
+          </li>
+        ))}
+        <li
+          // key={`item-${index}`}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            marginBottom: 5,
+            marginRight: "15px",
+          }}
+        >
+          <div
+            style={{
+              backgroundColor: "red",
+              width: 10,
+              height: 10,
+              marginRight: 5,
+              borderRadius: "8px",
+            }}
+          ></div>
+          <span>Anomaly</span>
+        </li>
+      </ul>
+    );
+  };
   return (
     <div>
       {!chartdataloaderqueue ? (
@@ -48,7 +117,7 @@ const Queueddchart = () => {
         // </ResponsiveContainer>
         <div style={{ width: "100%", height: 300 }}>
           <ResponsiveContainer>
-            <AreaChart
+            <LineChart
               width={400}
               height={150}
               data={chartdataqueue}
@@ -67,7 +136,7 @@ const Queueddchart = () => {
                 tick={"#000"}
               />
               <Tooltip />
-              <Legend verticalAlign="top" />
+              <Legend verticalAlign="top" content={renderCustomLegend} />
               {/* {GetCallVolumePredictionValue?.length > 0 && (
           <Brush
             startIndex={GetCallVolumePredictionValue?.length - 60}
@@ -89,14 +158,14 @@ const Queueddchart = () => {
             </LineChart>
           </Brush>
         )} */}
-              <Area
+              <Line
                 type="monotone"
                 dataKey="Queue_Time"
-                stroke="#54D454"
-                activeDot={{ r: 8 }}
+                dot={<CustomDot />}
+                stroke="#038FDE"
               />
               {/* <Line type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
-            </AreaChart>
+            </LineChart>
           </ResponsiveContainer>
         </div>
       ) : (

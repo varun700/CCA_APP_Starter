@@ -61,6 +61,7 @@ import {
   GetUserDetailsloader,
   GetKeyCallTopicsloader,
   GetTopKeyPhrasesloader,
+  GetCCATotalActualPredictedCallsChartloader,
 } from "./LoaderReducer/Ccawidgetloader";
 import { GetServiceLevel } from "./ServicelvlReducer";
 import {
@@ -77,6 +78,7 @@ import {
   GetKeyCallTopics,
   Usermainprofile,
   GetTopKeyPhrases,
+  GetCCATotalActualPredictedCallsChart,
 } from "./globalreducer";
 
 const createRootReducer = (history) =>
@@ -155,6 +157,9 @@ const createRootReducer = (history) =>
     GetTopKeyPhrasesreducer: GetTopKeyPhrases,
     GetTopKeyPhrasesloader,
     Usermainprofilereducer: Usermainprofile,
+    GetCCATotalActualPredictedCallsChartreducer:
+      GetCCATotalActualPredictedCallsChart,
+    GetCCATotalActualPredictedCallsChartloader,
   });
 
 export default createRootReducer;

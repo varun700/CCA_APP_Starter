@@ -108,3 +108,12 @@ export const Usermainprofile = (state = [], action) => {
       return state;
   }
 };
+
+export const GetCCATotalActualPredictedCallsChart = (state = [], action) => {
+  switch (action.type) {
+    case "GetCCATotalActualPredictedCallsChart":
+      return action.payload;
+    default:
+      return state;
+  }
+};

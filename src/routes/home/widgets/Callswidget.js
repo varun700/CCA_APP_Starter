@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   GetCCATotalCalls,
@@ -8,7 +8,11 @@ import CardBox from "../../../components/CardBox/index";
 import { Badge, Card, Skeleton } from "antd";
 import Top4card from "../../../components/CardBox/Top4card";
 import ChartCard from "../../../components/dashboard/Crypto/ChartCard";
+import { Button, Modal } from "antd";
+
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis } from "recharts";
+import moment from "moment";
+import CallsDD from "./widgetdd/CallsDD";
 const Index = () => {
   const dispatch = useDispatch();
   const callsdata = useSelector((state) => state.GetCCATotalCallsreducer);
@@ -18,6 +22,16 @@ const Index = () => {
   const chartdataloader = useSelector(
     (state) => state.GetCCATotalCallsChartloader
   );
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
 
   const increamentData = [
     { name: "Page A", price: 200 },
@@ -58,8 +72,8 @@ const Index = () => {
     return null;
   };
   const COLORS = {
-    "Actual Calls": "#9288E8", // Purple for actual calls
-    "Predicted Calls": "#FE9E15", // Green for predicted calls
+    "Actual Calls": "#0088FE", // Purple for actual calls
+    "Predicted Calls": "#00C49F", // Green for predicted calls
   };
   return (
     <div>
@@ -76,6 +90,8 @@ const Index = () => {
             <ResponsiveContainer width="100%" height={75}>
               <AreaChart
                 data={chartdata?.Table}
+                onClick={showModal}
+                style={{ cursor: "pointer" }}
                 margin={{ top: 0, right: 0, left: 0, bottom: -30 }}
               >
                 <XAxis dataKey="MONTH_YEAR" tick={false} />
@@ -138,6 +154,17 @@ const Index = () => {
           <Skeleton paragraph={{ rows: 2 }} active />
         </Card>
       )}
+      <Modal
+        title="Calls"
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        width={1200}
+        // style={{ height: }}
+        footer={null}
+      >
+        <CallsDD />
+      </Modal>
     </div>
   );
 };

@@ -271,3 +271,15 @@ export const GetTopKeyPhrasesloader = (state = true, action) => {
       return state;
   }
 };
+
+export const GetCCATotalActualPredictedCallsChartloader = (
+  state = true,
+  action
+) => {
+  switch (action.type) {
+    case "GetCCATotalActualPredictedCallsChartloader":
+      return action.payload;
+    default:
+      return state;
+  }
+};

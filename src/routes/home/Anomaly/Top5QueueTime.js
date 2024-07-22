@@ -24,6 +24,7 @@ import {
 } from "../../../appRedux/actions/globalactions";
 import CustomBarChartSkeleton from "../../loader/Barchartloader";
 import AreaChartSkeleton from "../../loader/Areachartloader";
+import { render } from "less";
 // import TopSplitgroup from "./Linechart";
 const datas = [
   {
@@ -166,12 +167,68 @@ const Top5QueueTime = () => {
     if (payload.Is_Anomaly === 1) {
       return (
         <g>
-          <circle cx={cx} cy={cy} r={6} fill="#27C4A0" stroke="none" />
+          <circle cx={cx} cy={cy} r={6} fill="red" stroke="none" />
         </g>
       );
     } else {
       return false;
     }
+  };
+  const renderCustomLegend = (props) => {
+    const { payload } = props; // The payload is an array of legend items
+    return (
+      <ul
+        style={{
+          listStyleType: "none",
+          margin: 0,
+          padding: 0,
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        {payload.map((entry, index) => (
+          <li
+            key={`item-${index}`}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              marginBottom: 5,
+              marginRight: "20px",
+            }}
+          >
+            <div
+              style={{
+                backgroundColor: entry.color,
+                width: 10,
+                height: 10,
+                marginRight: 5,
+              }}
+            ></div>
+            <span>{entry.value}</span>
+          </li>
+        ))}
+        <li
+          // key={`item-${index}`}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            marginBottom: 5,
+            marginRight: "15px",
+          }}
+        >
+          <div
+            style={{
+              backgroundColor: "red",
+              width: 10,
+              height: 10,
+              marginRight: 5,
+              borderRadius: "8px",
+            }}
+          ></div>
+          <span>Anomaly</span>
+        </li>
+      </ul>
+    );
   };
   return (
     <>
@@ -276,7 +333,7 @@ const Top5QueueTime = () => {
                     tick={"#000"}
                   />
                   <Tooltip />
-                  <Legend verticalAlign="top" />
+                  <Legend verticalAlign="top" content={renderCustomLegend} />
                   {/* {GetCallVolumePredictionValue?.length > 0 && (
                   <Brush
                     startIndex={GetCallVolumePredictionValue?.length - 60}
@@ -302,8 +359,7 @@ const Top5QueueTime = () => {
                     dot={<CustomDot />}
                     type="monotone"
                     dataKey="Talk_Duration"
-                    fill="#75B3E7"
-                    stroke="#75B3E7"
+                    fill="#038FDE"
                   />
                   {/* <Line type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
                 </LineChart>
@@ -370,7 +426,7 @@ const Top5QueueTime = () => {
                   <XAxis dataKey="Date" />
                   <YAxis dataKey="Queue_Time" />
                   <Tooltip />
-                  <Legend verticalAlign="top" />
+                  <Legend verticalAlign="top" content={renderCustomLegend} />
                   {/* {GetCallVolumePredictionValue?.length > 0 && (
                   <Brush
                     startIndex={GetCallVolumePredictionValue?.length - 60}
@@ -396,8 +452,7 @@ const Top5QueueTime = () => {
                     dot={<CustomDot />}
                     type="monotone"
                     dataKey="Queue_Time"
-                    fill="#75B3E7"
-                    stroke="#75B3E7"
+                    fill="#038FDE"
                   />
 
                   {/* <Line type="monotone" dataKey="uv" stroke="#82ca9d" /> */}

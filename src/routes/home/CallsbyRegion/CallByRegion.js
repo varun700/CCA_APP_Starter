@@ -52,9 +52,12 @@ const App = () => {
       dataIndex: "FCR_Calls",
     },
     {
-      title: "FCR PERCENTAGE",
+      title: "FCR PERCENTAGE %",
       key: "FCR_PERCENTAGE",
       dataIndex: "FCR_PERCENTAGE",
+      render: (text, record) => {
+        return <span>{text}%</span>;
+      },
     },
     {
       title: "Total Warm Calls",
@@ -62,9 +65,12 @@ const App = () => {
       dataIndex: "Total_Warm_Calls",
     },
     {
-      title: "Warm Call Percentage",
+      title: "Warm Call Percentage %",
       key: "Warm_Call_Percentage",
       dataIndex: "Warm_Call_Percentage",
+      render: (text, record) => {
+        return <span>{text}%</span>;
+      },
     },
     {
       title: "Total Cold Calls",
@@ -72,16 +78,23 @@ const App = () => {
       dataIndex: "Total_Cold_Calls",
     },
     {
-      title: "Cold Call Percentage",
+      title: "Cold Call Percentage %",
       key: "Cold_Call_Percentage",
       dataIndex: "Cold_Call_Percentage",
+      render: (text, record) => {
+        return <span>{text}%</span>;
+      },
     },
     {
-      title: "Cold Call Percentage",
-      key: "Cold_Call_Percentage",
-      dataIndex: "Cold_Call_Percentage",
+      title: "SERVICE LEVEL %",
+      key: "SERVICE_LEVEL_%",
+      dataIndex: "SERVICE_LEVEL_%",
+      render: (text, record) => {
+        return <span>{text}%</span>;
+      },
     },
   ];
+
   const showModal = () => {
     dispatch(GetCallByRegionDD(uservals?.Employee_Id, clickedloc));
     setIsModalOpen(true);
