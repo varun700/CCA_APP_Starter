@@ -105,7 +105,7 @@ const Index = () => {
 
   return (
     <div>
-      {console.log(Usermainprofiledata, "pdff")}
+      {console.log(usercurrval, "pdff")}
       <Row>
         {/* {Usermainprofiledata?.Job_Title !== "Call Centre Agent" && (
           <Col

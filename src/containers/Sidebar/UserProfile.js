@@ -93,13 +93,31 @@ const UserProfile = () => {
         setuserdata(userdd[0]?.Employee_Name);
         setuserdatades(userdd[0]?.Job_Title);
         setusershortname(userdd[0]?.Short_Name);
-        console.log(GetUserDetailsimpdata, "elsee");
+        const imporsinatetitle = GetImporsinationDDs?.map(
+          (val) => val.Job_Title == GetUserDetailsimpdata[0]?.Impersonation_Id
+        );
         dispatch(
           Userval({
             Employee_Id: GetUserDetailsimpdata[0]?.Impersonation_Id,
+            Job_Title: GetUserDetailsimpdata[0]?.Impersonation_Job_Title,
           })
         );
+        console.log("userjobt", GetUserDetailsimpdata[0], imporsinatetitle);
         dispatch(GetImporsinationDD(userdd[0]?.Employee_Id));
+      }
+    } else if (userdata && !GetUserDetailsimpdataloader) {
+      if (
+        GetUserDetailsimpdata[0]?.Impersonation_Id === null ||
+        GetUserDetailsimpdata[0]?.Impersonation_Id === ""
+      ) {
+        dispatch(Userval(Usermainprofiledata));
+      } else {
+        dispatch(
+          Userval({
+            Employee_Id: GetUserDetailsimpdata[0]?.Impersonation_Id,
+            Job_Title: GetUserDetailsimpdata[0]?.Impersonation_Job_Title,
+          })
+        );
       }
     }
   }, [userdd, GetUserDetailsimpdata, GetUserDetailsimpdataloader]);
@@ -108,7 +126,6 @@ const UserProfile = () => {
     setuserdatades(e?.Job_Title);
     dispatch(GetUserDetails(e?.Employee_Id));
     dispatch(Usermainprofile(e));
-    dispatch(Userval(e));
     setusershortname(e?.Short_Name);
     dispatch(Usermainprofile(e));
     dispatch(GetImporsinationDD(e?.Employee_Id));
@@ -221,13 +238,16 @@ const UserProfile = () => {
           {" "}
           {`${e?.Employee_Name}(${e?.Job_Title})`}
         </li> */}
-        <li onClick={() => Clickeduserdetails1({ Employee_Name: "" })}></li>
+
         {GetImporsinationDDs?.map((e, i) => (
           <li key={i} onClick={() => Clickeduserdetails1(e)}>
             {" "}
             {`${e?.Employee_Name}(${e?.Job_Title})`}
           </li>
         ))}
+        <li onClick={() => Clickeduserdetails1({ Employee_Name: "" })}>
+          Clear
+        </li>
       </ul>
     );
   };
