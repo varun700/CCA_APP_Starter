@@ -50,11 +50,7 @@ const Top10FCR = () => {
       dataIndex: "Total_Call",
       key: "Total_Call",
     },
-    {
-      title: "Duration",
-      dataIndex: "Duration",
-      key: "Duration",
-    },
+
     {
       title: "Service Level%",
       key: "Service_Level%",
