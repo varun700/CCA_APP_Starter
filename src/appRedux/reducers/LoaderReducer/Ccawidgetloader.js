@@ -291,3 +291,12 @@ export const GetChatGPTFilesdataloader = (state = true, action) => {
       return state;
   }
 };
+
+export const GetAvgCallVolumeHeatmaploader = (state = true, action) => {
+  switch (action.type) {
+    case "GetAvgCallVolumeHeatmaploader":
+      return action.payload;
+    default:
+      return state;
+  }
+};

@@ -21,6 +21,7 @@ import {
   Usermainprofile,
   Userval,
 } from "../../appRedux/actions/globalactions";
+import SkeletonLoader from "../../routes/loader/Userloader";
 
 const items = [{}];
 
@@ -195,7 +196,7 @@ const UserProfile = () => {
       dispatch(
         SaveUserDetails({
           EmployeeId: Usermainprofiledata?.Employee_Id,
-          // ImpersonationId: "",
+          ImpersonationId: "",
           Theme: "Light",
         })
       );
@@ -262,7 +263,8 @@ const UserProfile = () => {
         {!GetUserDetailsimpdataloader &&
           Usermainprofiledata?.Job_Title !== "Call Centre Agent" &&
           selectdata !== "" &&
-          selectimpdata !== "" && (
+          selectimpdata !== "" &&
+          false == true && (
             // <div style={{ marginRight: "20px" }}>
             //   <Row>
             //     <i
@@ -289,13 +291,13 @@ const UserProfile = () => {
                   }}
                 ></i>
               </Col>
-              <Col style={{ marginTop: "5px" }}>
+              <Col style={{ marginTop: "15px" }}>
                 <Row>
                   <Col>
                     <span className="gx-avatar-name">{selectdata}</span>
                   </Col>
                 </Row>
-                <Row>
+                <Row style={{ marginTop: "4px" }}>
                   <Col>
                     <span>{selectimpdata}</span>
                   </Col>
@@ -305,17 +307,13 @@ const UserProfile = () => {
           )}
 
         {console.log(selectdata, "sel")}
-        <Popover
-          placement="bottomRight"
-          content={userMenuOptions}
-          trigger="click"
-        >
-          {/* <Avatar
+
+        {/* <Avatar
           src={"https://via.placeholder.com/150"}
           className="gx-size-40 gx-pointer gx-mr-3"
           alt=""
         /> */}
-          {/* <span className="gx-avatar-name">
+        {/* <span className="gx-avatar-name">
           {userdata}
           <i className="icon icon-chevron-down gx-fs-xxs gx-ml-2" />
         </span>
@@ -323,38 +321,54 @@ const UserProfile = () => {
           {userdata}
           <i className="icon icon-chevron-down gx-fs-xxs gx-ml-2" />
         </div> */}
-          <Row gutter={[16, 16]}>
-            <Col>
-              <Avatar
-                style={{
-                  color: "black",
-                }}
-                className="gx-size-40 gx-pointer gx-mr-3"
-                alt=""
-              >
-                {usershortname}
+        <Row gutter={[16, 16]} style={{ marginRight: "20px" }}>
+          {!GetUserDetailsimpdataloader ? (
+            <>
+              <Col>
+                <Avatar
+                  style={{
+                    color: "black",
+                    height: "45px",
+                    width: "45px",
+                    lineHeight: "40px",
+                  }}
+                  // gx-pointer
+                  className="gx-size-40  gx-mr-3"
+                  alt=""
+                >
+                  {usershortname}
 
-                {""}
-              </Avatar>
-            </Col>
-            <Col style={{ marginTop: "5px" }}>
-              <Row>
-                <Col>
-                  <span className="gx-avatar-name">
-                    {userdata}
-                    <i className="icon icon-chevron-down gx-fs-xxs gx-ml-2" />
-                  </span>
+                  {""}
+                </Avatar>
+              </Col>
+              <Popover
+                placement="bottomRight"
+                content={userMenuOptions}
+                trigger="click"
+              >
+                <Col style={{ marginTop: "5px" }}>
+                  <Row>
+                    <Col>
+                      <span className="gx-avatar-name">{userdata}</span>
+                      <i
+                        style={{ marginLeft: "50px", cursor: "pointer" }}
+                        className="icon icon-chevron-down gx-fs-xxs "
+                      />
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col style={{ marginTop: "4px" }}>
+                      <span>{userdatades}</span>
+                    </Col>
+                  </Row>
                 </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <span>{userdatades}</span>
-                </Col>
-              </Row>
-            </Col>
-          </Row>
-        </Popover>
-        <div style={{ position: "relative" }}>
+              </Popover>
+            </>
+          ) : (
+            <SkeletonLoader />
+          )}
+        </Row>
+        {/* <div style={{ position: "relative" }}>
           <Popover
             placement="bottom"
             content={userimporsination}
@@ -367,7 +381,7 @@ const UserProfile = () => {
               onClick={() => setisuserimpopen(!isuserimpopen)}
             />
           </Popover>
-        </div>
+        </div> */}
 
         {/* <Dropdown
           menu={{ items }}

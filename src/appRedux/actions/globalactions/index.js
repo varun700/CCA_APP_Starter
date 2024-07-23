@@ -638,3 +638,28 @@ export const GetChatGPTFilesdata = (userid) => {
     }
   };
 };
+export const GetAvgCallVolumeHeatmap = (userid) => {
+  return async function (dispatch) {
+    dispatch({
+      type: "GetAvgCallVolumeHeatmaploader",
+      payload: true,
+    });
+    try {
+      const response = await axios.get(
+        `https:////ccaapp-api.azurewebsites.net/api/CCA/GetAvgCallVolumeHeatmap?EmployeeId=${userid}
+`
+      );
+      // console.log(val, "totac");
+      dispatch({
+        type: "GetAvgCallVolumeHeatmap",
+        payload: response?.data,
+      });
+      dispatch({
+        type: "GetAvgCallVolumeHeatmaploader",
+        payload: false,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};

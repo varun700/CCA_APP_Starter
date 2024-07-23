@@ -18,7 +18,7 @@ import {
   TAB_SIZE,
 } from "../../constants/ThemeSetting";
 import { useDispatch, useSelector } from "react-redux";
-// import ChatGpt from "../../routes/Chatgpt/Chatgpt.js";
+import ChatGpt from "../../routes/Chatgpt/Chatgpt.js";
 
 const { Header } = Layout;
 
@@ -137,12 +137,12 @@ const Topbar = () => {
           </Popover>
         </li> */}
         {/* {width >= TAB_SIZE ? null : ( */}
-        {/* <Auxiliary> */}
-        {/* <li className="gx-user-nav">
+        <Auxiliary>
+          {/* <li className="gx-user-nav">
             <UserInfo />
           </li> */}
-        {/* <ChatGpt /> */}
-        {/* </Auxiliary> */}
+          <ChatGpt />
+          {/* </Auxiliary>
         <Auxiliary>
           {/* <li className="gx-user-nav">
             <UserInfo />

@@ -80,7 +80,7 @@
 }
 .gpt_send_icon {
   margin-left: -5px;
-  color: white;
+  color: #000 !important;
   margin-top: 6px;
 }
 .gpt-send-msg:hover {
@@ -166,7 +166,7 @@ i.fad.fa-paper-plane.gpt-send-msg {
 .gpt .gpt-input:hover,
 .gpt .gpt-input:focus,
 .gpt .gpt-input:active {
-  background: #ffffff !important;
+  background: #c6c6c6 !important;
   border-radius: 5px;
   font-weight: 400 !important;
   color: #000 !important;
@@ -176,4 +176,40 @@ i.fad.fa-paper-plane.gpt-send-msg {
 }
 .float-right {
   float: right;
+}
+.gpt i.fad.fa-user {
+  font-size: 20px;
+  position: relative;
+  top: 15px;
+ 
+}
+.gpt-send-msg {
+  position: absolute !important;
+  left: 42px !important;
+  bottom: 8px !important;
+  font-size: 20px !important;
+  padding: -11px !important;
+  border-radius: 100% !important;
+  width: 40px !important;
+  height: 40px !important;
+  background-color: #fdffff !important;
+  border: none !important;
+  /* box-shadow: black !important; */
+  box-shadow: 1px -1px 15px 0px rgb(0 0 0 / 23%);
+
+}
+.audio_bg {
+  bottom: 8px;
+  font-size: 20px;
+  padding: -11px;
+  border-radius: 100%;
+  width: 40px;
+  height: 40px;
+  margin-top: 6px;
+  background-color: #fdffff;
+  border: none;
+  box-shadow: black;
+  box-shadow: 1px -1px 15px 0px rgb(0 0 0 / 23%);
+  /* -webkit-box-shadow: 1px -1px 15px 0px rgba(0, 0, 0, 0.75); */
+  /* -moz-box-shadow: 1px -1px 15px 0px rgba(0, 0, 0, 0.75); */
 }

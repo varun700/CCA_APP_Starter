@@ -133,24 +133,24 @@ const App = ({
   const [onclickvr, setonclickvr] = useState(false);
   const [prompt, setprompt] = useState("");
   const startarr = [
-    "IIM start",
-    "IIMStart",
-    "IIM Start",
-    "IIM start",
-    "hi IIM",
-    "HI IIM",
-    "hello iim",
-    "Hello IIM",
-    "hello IIM",
+    "CCA start",
+    "CCAStart",
+    "CCA Start",
+    "CCA start",
+    "hi CCA",
+    "HI CCA",
+    "hello CCA",
+    "Hello CCA",
+    "hello CCA",
     "hello gpt",
     "Hello Gpt",
     "hello GPT",
   ];
   const stoparr = [
-    "IIM stop",
-    "IIMStop",
-    "IIM Stop",
-    "IIM stop",
+    "CCA stop",
+    "CCAStop",
+    "CCA Stop",
+    "CCA stop",
     "Stop Gpt",
     "stop gpt",
     "stop GPT",
@@ -188,7 +188,7 @@ const App = ({
       allowval = true;
       setmiconoroff(true);
       setonclickvr(true);
-      message.success("IIMGPT started");
+      message.success("CCAGPT started");
       ignorefirstval = false;
     }
     if (stoparr.some((substring) => text.includes(substring))) {
@@ -196,7 +196,7 @@ const App = ({
       allowval = false;
       setmiconoroff(false);
       setonclickvr(false);
-      message.success("IIMGPT Stopped");
+      message.success("CCAGPT Stopped");
       ignorefirstval = false;
     }
     // if (allowval && onclickvr) {

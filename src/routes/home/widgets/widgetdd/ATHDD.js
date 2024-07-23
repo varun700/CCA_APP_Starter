@@ -12,6 +12,7 @@ import {
 } from "recharts";
 import { GetCCATotalActualPredictedCallsChart } from "../../../../appRedux/actions/globalactions";
 import { GetColdCallChart } from "../../../../appRedux/actions/CCAwidgets";
+import AreaChartSkeleton from "../../../loader/Areachartloader";
 const Athdd = () => {
   const dispatch = useDispatch();
 
@@ -52,7 +53,7 @@ const Athdd = () => {
   return (
     <div>
       {" "}
-      {!chartdataloader && (
+      {!chartdataloader ? (
         <ResponsiveContainer width="100%" height={450}>
           <AreaChart
             data={chartdata?.Table}
@@ -93,6 +94,8 @@ const Athdd = () => {
             <Brush dataKey="DS" height={30} stroke="#00C49F" />
           </AreaChart>
         </ResponsiveContainer>
+      ) : (
+        <AreaChartSkeleton />
       )}
     </div>
   );

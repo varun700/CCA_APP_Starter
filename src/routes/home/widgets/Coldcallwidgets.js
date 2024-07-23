@@ -132,7 +132,7 @@ const Coldcallwidget = () => {
               ? "neutral"
               : "down"
           }
-          desc="ATH"
+          desc="AHT"
         />
       ) : (
         <Card className="gx-card-widget" style={{ height: "400" }}>
@@ -140,7 +140,7 @@ const Coldcallwidget = () => {
         </Card>
       )}
       <Modal
-        title="ATH"
+        title="AHT"
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}

@@ -15,6 +15,7 @@ import Bottom10FCR from "./AgentFCR/Bottom10FCR.js";
 import Top5QueueTime from "./Anomaly/Top5QueueTime.js";
 import { Top10Splitgroup } from "./Group/Top10SplitGroup.js";
 import {
+  GetAvgCallVolumeHeatmap,
   GetImporsinationDD,
   GetUserDetails,
   SaveUserDetails,
@@ -28,6 +29,7 @@ import KeyHeatmap from "./KeyHeatmap.js";
 import BalanceHistory from "./CallsbyRegion/Map.js";
 import Talkddchart from "./Anomaly/Talkddchart.js";
 import Queueddchart from "./Anomaly/Queueddchart.js";
+import HeatmapChart from "./Anomaly/Heatmap.js";
 
 // import CallByRegion from "./CallsbyRegion/CallregionMap.js";
 // import CallsByRegion from "./CallsbyRegion/Map.js";
@@ -39,7 +41,9 @@ const Index = () => {
   const dispatch = useDispatch();
 
   const callsdata = useSelector((state) => state.GetCCATotalCallsreducer);
-
+  const heatmaploader = useSelector(
+    (state) => state?.GetAvgCallVolumeHeatmaploader
+  );
   const callsdataloader = useSelector((state) => state.GetCCATotalCallsLoader);
   const uservals = useSelector((state) => state?.Userval);
 
@@ -59,7 +63,11 @@ const Index = () => {
     (state) => state?.GetUserDetailsloader
   );
   const [selectdata, setselectdata] = useState("");
-
+  useEffect(() => {
+    if (uservals?.Employee_Id !== undefined) {
+      dispatch(GetAvgCallVolumeHeatmap(uservals?.Employee_Id));
+    }
+  }, [uservals]);
   useEffect(() => {
     if (GetUserDetailsimpdata && !GetUserDetailsimpdataloader) {
       console.log(GetUserDetailsimpdata, "useff");
@@ -249,6 +257,8 @@ const Index = () => {
           </Col>
         )}
       </Row>
+      {/* {console.log("heatmap", heatmaploader)} */}
+      {/* <Card>{!heatmaploader && <HeatmapChart />}</Card> */}
     </div>
   );
 };

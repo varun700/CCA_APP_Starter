@@ -176,7 +176,8 @@ const App = () => {
         width={1200}
       >
         {/* <Card style={{ width: "800", height: "500" }}> */}
-        {!Tooltipdataloader ? (
+        {console.log(Tooltiptbldataloader, "Tooltipdataloader")}
+        {!Tooltiptbldataloader ? (
           <Table
             className="gx-table-responsive"
             columns={columns}

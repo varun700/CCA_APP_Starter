@@ -125,3 +125,12 @@ export const GetChatGPTFilesdata = (state = [], action) => {
       return state;
   }
 };
+
+export const GetAvgCallVolumeHeatmap = (state = [], action) => {
+  switch (action.type) {
+    case "GetAvgCallVolumeHeatmap":
+      return action.payload;
+    default:
+      return state;
+  }
+};

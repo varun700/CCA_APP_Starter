@@ -35,6 +35,8 @@ import { useSpeechSynthesis } from "react-speech-kit";
 // import Reactrecorder from "./Reactrecorder";
 import Dynamicrecorder from "./DynamicRecorder";
 
+const apiKey = "sk-proj-tjgv7c9ZiSG7pKmGL89ZT3BlbkFJB3QNV0g9bnFZFCk4350i";
+
 const customSyntaxStyle = {
   backgroundColor: "lightgray",
   fontSize: "14px",
@@ -87,7 +89,7 @@ const ChatGpt = () => {
     right: 0,
   });
   const [Height, setHeight] = useState(400);
-  const [width, setWidth] = useState(800);
+  const [width, setWidth] = useState(1000);
   const draggleRef = useRef(null);
   const [streamResponse, setstreamResponse] = useState("");
   const messagesEndRef = useRef(null);
@@ -177,7 +179,9 @@ const ChatGpt = () => {
     // }
   };
   // const chatGPT = useSelector((state) => state.ChatGPTToggle.ChatGPTToggle);
-  const apologizeFunc = async () => {
+  let partialResult = useRef(""); // useRef to store partial result without causing re-renders
+
+  const ApologizeFunc = async () => {
     try {
       const response = await fetch(
         "https://api.openai.com/v1/chat/completions",
@@ -185,7 +189,7 @@ const ChatGpt = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            // Authorization: `Bearer ${apiKey}`,
+            Authorization: `Bearer ${apiKey}`,
           },
           body: JSON.stringify({
             messages: [{ role: "user", content: userInput }],
@@ -197,6 +201,7 @@ const ChatGpt = () => {
       );
 
       // Read the response as a stream of data
+
       const reader = response.body.getReader();
       const decoder = new TextDecoder("utf-8");
       let resultText = "";
@@ -213,7 +218,16 @@ const ChatGpt = () => {
         const parsedLines = lines
           .map((line) => line.replace(/^data: /, "").trim()) // Remove the "data: " prefix
           .filter((line) => line !== "" && line !== "[DONE]") // Remove empty lines and "[DONE]"
-          .map((line) => JSON.parse(line)); // Parse the JSON string
+          .map((line) => {
+            try {
+              return JSON.parse(line); // Parse the JSON string
+            } catch (e) {
+              console.error("Error parsing line:", line);
+              return null;
+            }
+          })
+          .filter((parsedLine) => parsedLine !== null);
+        console.log("chunck", chunk, lines, parsedLines);
 
         for (const parsedLine of parsedLines) {
           const { choices } = parsedLine;
@@ -221,23 +235,26 @@ const ChatGpt = () => {
           const { content } = delta;
           // Update the UI with the new content
           if (content) {
-            resultText = resultText + content;
-            setstreamResponse(resultText);
+            partialResult.current = partialResult.current + content;
+            setstreamResponse(partialResult.current);
           }
         }
       }
       setLoading(false);
       setMessages((prev) => {
-        return [...prev, { content: resultText, role: "assistant" }];
+        return [...prev, { content: partialResult.current, role: "assistant" }];
       });
       if (speechonoroff) {
-        speak({ text: resultText });
+        speak({ text: partialResult.current });
       }
       setstreamResponse("");
     } catch (error) {
       console.error("Error fetching data:", error);
+      setLoading(false);
+      // Optionally handle the error state in the UI
     }
   };
+
   if (!browserSupportsSpeechRecognition) {
     return <span>Browser t support speech recognition.</span>;
   }
@@ -327,21 +344,13 @@ const ChatGpt = () => {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              // Authorization: `Bearer ${apiKey}`,
+              Authorization: `Bearer ${apiKey}`,
             },
             body: JSON.stringify({
               messages: historyMsg,
               temperature: 0,
               model: "gpt-4-turbo-preview",
               stream: true,
-              // For streaming responses
-              // model: chatgptval[0].Model,
-              // stream: true, // For streaming responses
-              // max_tokens: chatgptval[0].Maxtoken,
-              // temperature: chatgptval[0].Temperature,
-              // frequency_penalty: chatgptval[0].Frequencypenalty,
-              // presence_penalty: chatgptval[0].Presencepenalty,
-              // top_p: chatgptval[0].TopP
             }),
           }
         );
@@ -350,9 +359,10 @@ const ChatGpt = () => {
         const reader = response.body.getReader();
         const decoder = new TextDecoder("utf-8");
         let resultText = "";
+        let stopStreaming = false;
 
         // eslint-disable-next-line no-constant-condition
-        while (true) {
+        while (!stopStreaming) {
           const { done, value } = await reader.read();
           if (done) {
             break;
@@ -364,6 +374,7 @@ const ChatGpt = () => {
             .map((line) => line.replace(/^data: /, "").trim()) // Remove the "data: " prefix
             .filter((line) => line !== "" && line !== "[DONE]") // Remove empty lines and "[DONE]"
             .map((line) => JSON.parse(line)); // Parse the JSON string
+          console.log("chunck", chunk, lines, parsedLines);
 
           for (const parsedLine of parsedLines) {
             const { choices } = parsedLine;
@@ -377,7 +388,9 @@ const ChatGpt = () => {
                 content.toLowerCase().includes("nothing") ||
                 resultText.toLowerCase().includes("above tables do not contain")
               ) {
-                return apologizeFunc();
+                stopStreaming = true;
+                ApologizeFunc();
+                break;
               }
               resultText = resultText + content;
               setstreamResponse(resultText);
@@ -435,7 +448,7 @@ const ChatGpt = () => {
   const customLocale = {
     emptyText: (
       <span className="empty-class-text">
-        I am IIMGPT by Microsoft Azure Open AI. Happy to help 🙂
+        I am CCAGPT by Microsoft Azure Open AI. Happy to help 🙂
       </span>
     ),
   };
@@ -461,7 +474,7 @@ const ChatGpt = () => {
     console.log("size", size);
   };
   return (
-    <div>
+    <div style={{ marginRight: "70px", fontSize: "20px", cursor: "pointer" }}>
       <i
         className="fad fa-comments-alt"
         onClick={() => {
@@ -723,10 +736,10 @@ const ChatGpt = () => {
 
               <Button
                 disabled={messages.length === 0}
-                className="gpt-clear float-right mr-3"
+                className="gpt-clear float-right gx-mr-3"
                 onClick={HandleClear}
               >
-                <i className="fas fa-trash-alt mr-2"></i> Clear chat
+                <i className="fas fa-trash-alt gx-mr-2"></i> Clear chat
               </Button>
             </Col>
           </Row>
