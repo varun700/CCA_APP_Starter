@@ -91,7 +91,7 @@ const QueueTime = () => {
         <ChartCard
           prize={formatTime(callsdata?.Table[0]?.Queue_Time)}
           title={`${callsdata?.Table[0]?.IncDec_Percentage}`}
-          icon="etherium"
+          icon="schedule"
           children={
             <ResponsiveContainer width="100%" height={75}>
               <AreaChart

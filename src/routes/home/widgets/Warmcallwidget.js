@@ -56,7 +56,7 @@ const Warmcallwidget = () => {
         <ChartCard
           prize={`${chartdata?.Table[0]?.Avg_Satisfaction_Score}`}
           title={`${chartdata?.Table[0]?.IncDec_Percentage}`}
-          icon="etherium"
+          icon="editor"
           children={
             <ResponsiveContainer width="100%" height={75}>
               <AreaChart
