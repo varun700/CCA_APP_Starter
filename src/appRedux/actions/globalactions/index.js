@@ -606,3 +606,35 @@ export const GetCCATotalActualPredictedCallsChart = (userid) => {
     }
   };
 };
+
+export const GetChatGPTFilesdata = (userid) => {
+  return async function (dispatch) {
+    dispatch({
+      type: "GetChatGPTFilesdataloader",
+      payload: true,
+    });
+    try {
+      const apiUrls = [
+        "https://ccaapp-api.azurewebsites.net/api/CCA/GetChatGPTFiles?FileName=AnomalyData",
+        "https://ccaapp-api.azurewebsites.net/api/CCA/GetChatGPTFiles?FileName=BasicCallData",
+        "https://ccaapp-api.azurewebsites.net/api/CCA/GetChatGPTFiles?FileName=DispositionData",
+        "https://ccaapp-api.azurewebsites.net/api/CCA/GetChatGPTFiles?FileName=ForecastData",
+      ];
+      const responses = await axios.all(apiUrls.map((url) => axios.get(url)));
+      const textdata = await axios.all(
+        responses.map((url) => axios.get(url.data))
+      );
+
+      dispatch({
+        type: "GetChatGPTFilesdata",
+        payload: textdata,
+      });
+      dispatch({
+        type: "GetChatGPTFilesdataloader",
+        payload: false,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};

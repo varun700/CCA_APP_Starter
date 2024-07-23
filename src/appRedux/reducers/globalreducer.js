@@ -117,3 +117,11 @@ export const GetCCATotalActualPredictedCallsChart = (state = [], action) => {
       return state;
   }
 };
+export const GetChatGPTFilesdata = (state = [], action) => {
+  switch (action.type) {
+    case "GetChatGPTFilesdata":
+      return action.payload;
+    default:
+      return state;
+  }
+};

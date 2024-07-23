@@ -14,6 +14,7 @@ import {
 import { DownOutlined } from "@ant-design/icons";
 import { userSignOut } from "../../appRedux/actions";
 import {
+  GetChatGPTFilesdata,
   GetImporsinationDD,
   GetUserDetails,
   SaveUserDetails,
@@ -62,9 +63,12 @@ const UserProfile = () => {
   //     );
   //   }
   // }, []);
+  const csvdata = useSelector((state) => state.GetChatGPTFilesdatareducer);
+  console.log(csvdata, "csvdata");
   useEffect(() => {
     if (userdata === "" && userdd?.length > 0) {
       dispatch(GetUserDetails(userdd[0]?.Employee_Id));
+      dispatch(GetChatGPTFilesdata());
     }
   }, [userdd]);
 

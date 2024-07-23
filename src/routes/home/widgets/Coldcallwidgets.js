@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   GetCallCentreColdCallWidget,
@@ -6,11 +6,23 @@ import {
   GetColdCallChart,
 } from "../../../appRedux/actions/CCAwidgets";
 import CardBox from "../../../components/CardBox/index";
-import { Badge, Card, Skeleton } from "antd";
+import { Badge, Card, Modal, Skeleton } from "antd";
 import Top4card from "../../../components/CardBox/Top4card";
 import ChartCard from "../../../components/dashboard/Crypto/ChartCard";
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis } from "recharts";
+import Athdd from "./widgetdd/ATHDD";
 const Coldcallwidget = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const showModal = () => {
+    setIsModalOpen(true);
+    dispatch(GetColdCallChart(uservals?.Employee_Id));
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
   const dispatch = useDispatch();
   const callsdata = useSelector(
     (state) => state.GetCallCentreColdCallWidgetreducer
@@ -19,8 +31,8 @@ const Coldcallwidget = () => {
     (state) => state.GetCallCentreColdCallWidgetloader
   );
 
-  const chartdata = useSelector((state) => state.GetColdCallChartreducer);
-  const chartdataloader = useSelector((state) => state.GetColdCallChartloader);
+  // const chartdata = useSelector((state) => state.GetColdCallChartreducer);
+  // const chartdataloader = useSelector((state) => state.GetColdCallChartloader);
   const uservals = useSelector((state) => state?.Userval);
 
   const increamentData = [
@@ -35,7 +47,6 @@ const Coldcallwidget = () => {
   useEffect(() => {
     if (uservals?.Employee_Id !== undefined) {
       dispatch(GetCallCentreColdCallWidget(uservals?.Employee_Id));
-      dispatch(GetColdCallChart(uservals?.Employee_Id));
     }
   }, [uservals]);
 
@@ -54,7 +65,7 @@ const Coldcallwidget = () => {
             <span className="label">{`${payload[0]?.dataKey.replaceAll(
               "_",
               " "
-            )} : ${payload[0]?.value}%`}</span>
+            )} : ${payload[0]?.value}s`}</span>
           </div>
         </Card>
       );
@@ -81,15 +92,17 @@ const Coldcallwidget = () => {
           )}
         </CardBox>
       </Badge.Ribbon>{" "} */}
-      {!callsdataloader && !chartdataloader ? (
+      {!callsdataloader ? (
         <ChartCard
-          prize={`${callsdata?.Table[0]?.Cold_Call_Percentage}%`}
+          prize={`${callsdata?.Table[0]?.Avg_Handling_Time}`}
           title={`${callsdata?.Table[0]?.IncDec_Percentage}`}
           icon="ripple"
           children={
             <ResponsiveContainer width="100%" height={75}>
               <AreaChart
-                data={chartdata?.Table}
+                onClick={showModal}
+                style={{ cursor: "pointer" }}
+                data={callsdata?.Table1}
                 margin={{ top: 0, right: 0, left: 0, bottom: -30 }}
               >
                 <XAxis dataKey="Short_Month" tick={false} />
@@ -102,7 +115,7 @@ const Coldcallwidget = () => {
                   </linearGradient>
                 </defs>
                 <Area
-                  dataKey="Cold_Call_Percentage"
+                  dataKey="Avg_Handling_Time"
                   strokeWidth={0}
                   stackId="2"
                   stroke="#FEEADA"
@@ -119,13 +132,24 @@ const Coldcallwidget = () => {
               ? "neutral"
               : "down"
           }
-          desc="Transfer/Cold"
+          desc="ATH"
         />
       ) : (
         <Card className="gx-card-widget" style={{ height: "400" }}>
           <Skeleton paragraph={{ rows: 2 }} active />
         </Card>
       )}
+      <Modal
+        title="ATH"
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        width={1200}
+        // style={{ height: }}
+        footer={null}
+      >
+        <Athdd />
+      </Modal>
     </div>
   );
 };

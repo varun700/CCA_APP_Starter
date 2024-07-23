@@ -78,7 +78,7 @@ export const GetCallCentreColdCallWidget = (userid) => {
     });
     try {
       const response = await axios.get(
-        `https://ccaapp-api.azurewebsites.net/api/CCA/GetCallCentreColdCallWidget?EmployeeId=${userid}`
+        `https://ccaapp-api.azurewebsites.net/api/CCA/GetAHTWidget?EmployeeId=${userid}`
       );
       dispatch({
         type: "GetCallCentreColdCallWidget",
@@ -148,11 +148,16 @@ export const GetColdCallChart = (userid) => {
     });
     try {
       const response = await axios.get(
-        `https://ccaapp-api.azurewebsites.net/api/CCA/GetColdCallChart?EmployeeId=${userid}`
+        `https://ccaapp-api.azurewebsites.net/api/CCA/GetAHTWidgetDD?EmployeeId=${userid}`
       );
+      const val = response?.data?.Table.map((e) => ({
+        Date: e?.Date.split("T")[0],
+        Avg_Handling_Time: e?.Avg_Handling_Time,
+        // Is_Predicted: e?.Is_Predicted,
+      }));
       dispatch({
         type: "GetColdCallChart",
-        payload: response.data,
+        payload: { Table: val },
       });
       dispatch({
         type: "GetColdCallChartloader",

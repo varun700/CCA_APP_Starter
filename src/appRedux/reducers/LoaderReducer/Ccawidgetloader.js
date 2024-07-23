@@ -283,3 +283,11 @@ export const GetCCATotalActualPredictedCallsChartloader = (
       return state;
   }
 };
+export const GetChatGPTFilesdataloader = (state = true, action) => {
+  switch (action.type) {
+    case "GetChatGPTFilesdataloader":
+      return action.payload;
+    default:
+      return state;
+  }
+};
