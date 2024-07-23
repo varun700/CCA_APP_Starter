@@ -14,6 +14,7 @@ import {
 import { DownOutlined } from "@ant-design/icons";
 import { userSignOut } from "../../appRedux/actions";
 import {
+  ClearUserDetails,
   GetChatGPTFilesdata,
   GetImporsinationDD,
   GetUserDetails,
@@ -24,6 +25,7 @@ import {
 import SkeletonLoader from "../../routes/loader/Userloader";
 
 const items = [{}];
+const { Option } = Select;
 
 const UserProfile = () => {
   const dispatch = useDispatch();
@@ -185,7 +187,9 @@ const UserProfile = () => {
     }
   }, [GetUserDetailsimpdataloader, GetUserDetailsimpdata, GetImporsinationDDs]);
 
-  const Clickeduserdetails1 = (val) => {
+  const Clickeduserdetails1 = (data) => {
+    const vals = GetImporsinationDDs?.filter((e) => e.Employee_Name == data);
+    const val = vals[0];
     console.log("eee", val);
 
     if (val?.Employee_Name == "") {
@@ -244,19 +248,74 @@ const UserProfile = () => {
           {`${e?.Employee_Name}(${e?.Job_Title})`}
         </li> */}
 
-        {GetImporsinationDDs?.map((e, i) => (
-          <li key={i} onClick={() => Clickeduserdetails1(e)}>
-            {" "}
-            {`${e?.Employee_Name}(${e?.Job_Title})`}
-          </li>
-        ))}
         <li onClick={() => Clickeduserdetails1({ Employee_Name: "" })}>
           Clear
         </li>
       </ul>
     );
   };
-
+  const clearbutton = () => {
+    setselectdata("");
+    dispatch(ClearUserDetails(Usermainprofiledata?.Employee_Id));
+    dispatch(Userval(Usermainprofiledata));
+  };
+  const content = (
+    <>
+      <div className="gx-flex-row gx-align-items-center  gx-avatar-row">
+        <Avatar
+          style={{
+            color: "black",
+          }}
+          className="gx-size-40 gx-pointer gx-mr-4"
+          alt=""
+        >
+          {usershortname}{" "}
+        </Avatar>
+        <Row gutter={[16, 16]}>
+          <Col>
+            <Row>
+              <Col>
+                <span className="gx-avatar-name">{userdata}</span>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <span>{userdatades}</span>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+        <Button
+          style={{ left: "40px", top: "10px" }}
+          danger
+          size="small"
+          onClick={clearbutton}
+        >
+          clear
+        </Button>
+      </div>
+      <div>
+        <hr />
+        <h6>Impersonation : </h6>
+        <Select
+          showSearch
+          value={selectdata}
+          onChange={(e) => Clickeduserdetails1(e)}
+          placeholder="Select"
+          style={{
+            width: 250,
+          }}
+        >
+          {GetImporsinationDDs?.map((e, i) => (
+            <Option
+              key={i}
+              value={e?.Employee_Name}
+            >{`${e?.Employee_Name}(${e?.Job_Title})`}</Option>
+          ))}
+        </Select>
+      </div>
+    </>
+  );
   return (
     <>
       <div className="gx-flex-row gx-align-items-center  gx-avatar-row">
@@ -307,53 +366,38 @@ const UserProfile = () => {
           )}
 
         {console.log(selectdata, "sel")}
-
-        {/* <Avatar
-          src={"https://via.placeholder.com/150"}
-          className="gx-size-40 gx-pointer gx-mr-3"
-          alt=""
-        /> */}
-        {/* <span className="gx-avatar-name">
-          {userdata}
-          <i className="icon icon-chevron-down gx-fs-xxs gx-ml-2" />
-        </span>
-        <div className="gx-avatar-name">
-          {userdata}
-          <i className="icon icon-chevron-down gx-fs-xxs gx-ml-2" />
-        </div> */}
-        <Row gutter={[16, 16]} style={{ marginRight: "20px" }}>
-          {!GetUserDetailsimpdataloader ? (
-            <>
-              <Col>
-                <Avatar
-                  style={{
-                    color: "black",
-                    height: "45px",
-                    width: "45px",
-                    lineHeight: "40px",
-                  }}
-                  // gx-pointer
-                  className="gx-size-40  gx-mr-3"
-                  alt=""
-                >
-                  {usershortname}
-
-                  {""}
-                </Avatar>
-              </Col>
-              <Popover
-                placement="bottomRight"
-                content={userMenuOptions}
-                trigger="click"
-              >
-                <Col style={{ marginTop: "5px" }}>
+        {!GetUserDetailsimpdataloader ? (
+          <>
+            <Avatar
+              style={{
+                color: "black",
+              }}
+              className="avatarsize gx-pointer gx-mr-4"
+              alt=""
+              // size={30}
+            >
+              <span style={{ display: "flex", flexDirection: "column" }}>
+                {usershortname}{" "}
+                <Popover content={content} trigger="click">
+                  {" "}
+                  <i className="icon icon-chevron-down" />
+                </Popover>
+              </span>
+            </Avatar>
+            <Popover
+              placement="bottomRight"
+              content={userMenuOptions}
+              trigger="click"
+            >
+              <Row gutter={[16, 16]}>
+                <Col>
                   <Row>
                     <Col>
-                      <span className="gx-avatar-name">{userdata}</span>
-                      <i
-                        style={{ marginLeft: "50px", cursor: "pointer" }}
-                        className="icon icon-chevron-down gx-fs-xxs "
-                      />
+                      <span className="gx-avatar-name">
+                        {` ${userdata}`}
+                        {selectdata && `(impersonated as ${selectdata})`}
+                        <i className="icon icon-chevron-down gx-fs-xxs gx-ml-2" />
+                      </span>
                     </Col>
                   </Row>
                   <Row>
@@ -362,12 +406,13 @@ const UserProfile = () => {
                     </Col>
                   </Row>
                 </Col>
-              </Popover>
-            </>
-          ) : (
-            <SkeletonLoader />
-          )}
-        </Row>
+              </Row>
+            </Popover>
+          </>
+        ) : (
+          <SkeletonLoader />
+        )}
+
         {/* <div style={{ position: "relative" }}>
           <Popover
             placement="bottom"
