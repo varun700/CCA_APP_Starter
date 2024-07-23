@@ -55,11 +55,11 @@
   cursor: pointer;
   padding: 3px 15px;
   width: auto;
- 
+
   /* display: flex; */
   /* justify-content: center; */
 }
-.userimpPopover.gx-user-popover{
+.userimpPopover.gx-user-popover {
   height: 250px;
   overflow: scroll;
 }
@@ -95,17 +95,17 @@
 .customSyntaxStyleWhite {
   background-color: black;
   color: white;
-  font-size: '14px';
+  font-size: "14px";
 
-  border-radius: '5px';
-  font-family: 'monospace';
+  border-radius: "5px";
+  font-family: "monospace";
 }
 .customSyntaxStyle {
   background-color: lightgray;
-  font-size: '14px';
+  font-size: "14px";
 
-  border-radius: '5px';
-  font-family: 'monospace';
+  border-radius: "5px";
+  font-family: "monospace";
 }
 .Intervaltimeline .ant-modal-footer button:disabled:hover {
   background-color: darkgrey;
@@ -176,4 +176,10 @@ i.fad.fa-paper-plane.gpt-send-msg {
 }
 .float-right {
   float: right;
+}
+.avatarsize {
+  width: 40px !important;
+  height: 40px !important;
+  line-height: 22px !important;
+  padding: 0px !important;
 }

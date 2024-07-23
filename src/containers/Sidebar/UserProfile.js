@@ -255,7 +255,58 @@ const UserProfile = () => {
       </ul>
     );
   };
-
+  const content = (
+    <>
+      <div className="gx-flex-row gx-align-items-center  gx-avatar-row">
+        <Avatar
+          style={{
+            color: "black",
+          }}
+          className="gx-size-40 gx-pointer gx-mr-4"
+          alt=""
+        >
+          {usershortname}{" "}
+        </Avatar>
+        <Row gutter={[16, 16]}>
+          <Col>
+            <Row>
+              <Col>
+                <span className="gx-avatar-name">{userdata}</span>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <span>{userdatades}</span>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+        <Button style={{ left: "40px", top: "10px" }} danger size="small">
+          clear
+        </Button>
+      </div>
+      <div>
+        <hr />
+        <h6>Impersonation : </h6>
+        <Select
+          showSearch
+          placeholder="Select"
+          style={{
+            width: 250,
+          }}
+          filterOption={(input, option) =>
+            (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
+          }
+          options={GetImporsinationDDs?.map((e, i) => (
+            <li key={i} onClick={() => Clickeduserdetails1(e)}>
+              {" "}
+              {`${e?.Employee_Name}(${e?.Job_Title})`}
+            </li>
+          ))}
+        />
+      </div>
+    </>
+  );
   return (
     <>
       <div className="gx-flex-row gx-align-items-center  gx-avatar-row">
@@ -305,43 +356,33 @@ const UserProfile = () => {
           )}
 
         {console.log(selectdata, "sel")}
+        <Avatar
+          style={{
+            color: "black",
+          }}
+          className="avatarsize gx-pointer gx-mr-4"
+          alt=""
+          // size={30}
+        >
+          <span style={{ display: "flex", flexDirection: "column" }}>
+            {usershortname}{" "}
+            <Popover content={content} trigger="click">
+              {" "}
+              <i className="icon icon-chevron-down" />
+            </Popover>
+          </span>
+        </Avatar>
         <Popover
           placement="bottomRight"
           content={userMenuOptions}
           trigger="click"
         >
-          {/* <Avatar
-          src={"https://via.placeholder.com/150"}
-          className="gx-size-40 gx-pointer gx-mr-3"
-          alt=""
-        /> */}
-          {/* <span className="gx-avatar-name">
-          {userdata}
-          <i className="icon icon-chevron-down gx-fs-xxs gx-ml-2" />
-        </span>
-        <div className="gx-avatar-name">
-          {userdata}
-          <i className="icon icon-chevron-down gx-fs-xxs gx-ml-2" />
-        </div> */}
           <Row gutter={[16, 16]}>
-            <Col>
-              <Avatar
-                style={{
-                  color: "black",
-                }}
-                className="gx-size-40 gx-pointer gx-mr-3"
-                alt=""
-              >
-                {usershortname}
-
-                {""}
-              </Avatar>
-            </Col>
             <Col style={{ marginTop: "5px" }}>
               <Row>
                 <Col>
                   <span className="gx-avatar-name">
-                    {userdata}
+                    {userdata}(Impersonating Todd,Heather)
                     <i className="icon icon-chevron-down gx-fs-xxs gx-ml-2" />
                   </span>
                 </Col>
@@ -354,7 +395,8 @@ const UserProfile = () => {
             </Col>
           </Row>
         </Popover>
-        <div style={{ position: "relative" }}>
+
+        {/* <div style={{ position: "relative" }}>
           <Popover
             placement="bottom"
             content={userimporsination}
@@ -367,7 +409,7 @@ const UserProfile = () => {
               onClick={() => setisuserimpopen(!isuserimpopen)}
             />
           </Popover>
-        </div>
+        </div> */}
 
         {/* <Dropdown
           menu={{ items }}
