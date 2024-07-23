@@ -35,15 +35,6 @@ const Coldcallwidget = () => {
   // const chartdataloader = useSelector((state) => state.GetColdCallChartloader);
   const uservals = useSelector((state) => state?.Userval);
 
-  const increamentData = [
-    { name: "Page A", price: 200 },
-    { name: "Page B", price: 1200 },
-    { name: "Page C", price: 600 },
-    { name: "Page D", price: 1600 },
-    { name: "Page D", price: 1000 },
-    { name: "Page H", price: 2260 },
-    { name: "Page K", price: 800 },
-  ];
   useEffect(() => {
     if (uservals?.Employee_Id !== undefined) {
       dispatch(GetCallCentreColdCallWidget(uservals?.Employee_Id));

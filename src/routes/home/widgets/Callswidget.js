@@ -33,15 +33,6 @@ const Index = () => {
     setIsModalOpen(false);
   };
 
-  const increamentData = [
-    { name: "Page A", price: 200 },
-    { name: "Page B", price: 1200 },
-    { name: "Page C", price: 600 },
-    { name: "Page D", price: 1600 },
-    { name: "Page D", price: 1000 },
-    { name: "Page H", price: 2260 },
-    { name: "Page K", price: 800 },
-  ];
   useEffect(() => {
     if (uservals?.Employee_Id !== undefined) {
       dispatch(GetCCATotalCalls(uservals?.Employee_Id));
@@ -85,7 +76,7 @@ const Index = () => {
             !callsdataloader && callsdata?.Table1[0]?.AVG_FORECAST_CALLS
           }
           forecasttitle="Avg Predicted Calls"
-          icon="bitcoin"
+          icon="phone"
           children={
             <ResponsiveContainer width="100%" height={75}>
               <AreaChart

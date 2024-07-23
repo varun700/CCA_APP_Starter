@@ -22,17 +22,6 @@ const ServiceLevelWidget = () => {
   );
   const uservals = useSelector((state) => state?.Userval);
 
-  // GetServiceLevel
-  const increamentData = [
-    { name: "Page A", price: 200 },
-    { name: "Page B", price: 1200 },
-    { name: "Page C", price: 600 },
-    { name: "Page D", price: 1600 },
-    { name: "Page D", price: 1000 },
-    { name: "Page H", price: 2260 },
-    { name: "Page K", price: 800 },
-  ];
-
   useEffect(() => {
     if (uservals?.Employee_Id !== undefined) {
       dispatch(GetServiceLevel(uservals?.Employee_Id));
@@ -68,7 +57,7 @@ const ServiceLevelWidget = () => {
         <ChartCard
           prize={`${callsdata?.Table[0]?.SERVICE_LEVEL}%`}
           title={callsdata?.Table[0]?.IncDec_Percentage}
-          icon="etherium"
+          icon="cascader"
           children={
             <ResponsiveContainer width="100%" height={75}>
               <AreaChart

@@ -64,7 +64,7 @@ const FCRwidget = () => {
         <ChartCard
           prize={`${callsdata?.Table[0]?.FCR_Percentage}%`}
           title={callsdata?.Table[0]?.IncDec_Percentage}
-          icon="litcoin"
+          icon="shuffle"
           children={
             <ResponsiveContainer width="100%" height={75}>
               {console.log(
