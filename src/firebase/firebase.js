@@ -7,7 +7,7 @@ const config = {
   databaseURL: "https://wieldy-4f59c.firebaseio.com",
   projectId: "wieldy-4f59c",
   storageBucket: "wieldy-4f59c.appspot.com",
-  messagingSenderId: "81949884261"
+  messagingSenderId: "81949884261",
 };
 
 firebase.initializeApp(config);
@@ -26,5 +26,5 @@ export {
   googleAuthProvider,
   githubAuthProvider,
   facebookAuthProvider,
-  twitterAuthProvider
+  twitterAuthProvider,
 };

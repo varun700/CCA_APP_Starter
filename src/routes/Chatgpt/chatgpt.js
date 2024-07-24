@@ -35,8 +35,6 @@ import { useSpeechSynthesis } from "react-speech-kit";
 // import Reactrecorder from "./Reactrecorder";
 import Dynamicrecorder from "./DynamicRecorder";
 
-const apiKey = "sk-proj-tjgv7c9ZiSG7pKmGL89ZT3BlbkFJB3QNV0g9bnFZFCk4350i";
-
 const customSyntaxStyle = {
   backgroundColor: "lightgray",
   fontSize: "14px",
@@ -189,7 +187,7 @@ const ChatGpt = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${apiKey}`,
+            Authorization: `Bearer ${process.env.REACT_APP_API_URL}`,
           },
           body: JSON.stringify({
             messages: [{ role: "user", content: userInput }],
@@ -344,7 +342,7 @@ const ChatGpt = () => {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${apiKey}`,
+              Authorization: `Bearer ${process.env.REACT_APP_API_URL}`,
             },
             body: JSON.stringify({
               messages: historyMsg,
