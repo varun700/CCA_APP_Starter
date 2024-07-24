@@ -16,6 +16,7 @@ import {
   XAxis,
   Line,
   YAxis,
+  Brush,
 } from "recharts";
 import { GetTalkDurationAnomaly } from "../../../appRedux/actions/CCAwidgets";
 import {
@@ -348,6 +349,7 @@ const Top5talkDuration = () => {
                     dataKey="Talk_Duration"
                     fill="#038FDE"
                   />
+                  <Brush dataKey="Queue_Time" height={30} stroke="#00C49F" />
 
                   {/* <Line type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
                 </LineChart>

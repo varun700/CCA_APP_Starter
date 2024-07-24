@@ -220,3 +220,6 @@ i.fad.fa-paper-plane.gpt-send-msg {
 .fad.fa-comments-alt {
   left: 40px !important;
 }
+.apexcharts-toolbar {
+  visibility: hidden !important;
+}

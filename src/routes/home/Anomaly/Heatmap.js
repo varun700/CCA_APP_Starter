@@ -14,7 +14,14 @@ const HeatmapChart = () => {
     (state) => state?.GetAvgCallVolumeHeatmaploader
   );
   const uservals = useSelector((state) => state?.Userval);
-  const colorss = ["#43a2ca", "#a8ddb5", "#f0f9e8"];
+  const colorss = [
+    "#f0e9c0",
+    "#c5e39a",
+    "#a2d160",
+    "#60bcd1",
+    "#4379ba",
+    "#35289e",
+  ];
 
   const options = {
     chart: {
@@ -105,10 +112,10 @@ const HeatmapChart = () => {
             >
               <div
                 style={{
-                  width: "300px",
+                  width: "400px",
                   height: "20px",
                   background:
-                    "linear-gradient(to right,#f0f9e8,#a8ddb5, #43a2ca)",
+                    "linear-gradient(to right,#f0e9c0,#c5e39a,#a2d160,#60bcd1,#4379ba,#35289e)",
                 }}
               >
                 <div
@@ -116,13 +123,16 @@ const HeatmapChart = () => {
                     marginLeft: "10px",
                     display: "flex",
                     justifyContent: "space-between",
-                    width: "290px",
+                    width: "390px",
                   }}
                 >
                   <span>0</span>
                   <span>200</span>
+                  <span>400</span>
                   <span>600</span>
+                  <span>800</span>
                   <span>1000</span>
+                  <span>1200</span>
                   <span>1400</span>
                 </div>
               </div>
