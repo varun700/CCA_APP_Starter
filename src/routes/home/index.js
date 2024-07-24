@@ -229,7 +229,8 @@ const Index = () => {
           </Col>
         ) : (
           <Col span={12}>
-            <Top5QueueTime />
+            {/* <Top5QueueTime /> */}
+            <HeatmapChart />
           </Col>
         )}{" "}
         {usercurrval?.Job_Title !== "Call Centre Agent" && (

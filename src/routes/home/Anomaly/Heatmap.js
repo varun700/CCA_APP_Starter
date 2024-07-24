@@ -3,6 +3,8 @@ import React, { useEffect } from "react";
 import Chart from "react-apexcharts";
 import { useDispatch, useSelector } from "react-redux";
 import { GetAvgCallVolumeHeatmap } from "../../../appRedux/actions/globalactions";
+import { Card } from "antd";
+import AreaChartSkeleton from "../../loader/Areachartloader";
 
 const HeatmapChart = () => {
   const dispatch = useDispatch();
@@ -12,35 +14,15 @@ const HeatmapChart = () => {
     (state) => state?.GetAvgCallVolumeHeatmaploader
   );
   const uservals = useSelector((state) => state?.Userval);
+  const colorss = ["#43a2ca", "#a8ddb5", "#f0f9e8"];
 
   const options = {
     chart: {
       type: "heatmap",
     },
-    plotOptions: {
-      heatmap: {
-        shadeIntensity: 0.5,
-        colorScale: {
-          ranges: [
-            { from: 0, to: 10, color: "#00A100" },
-            { from: 11, to: 20, color: "#128FD9" },
-            { from: 21, to: 30, color: "#FFB200" },
-            { from: 31, to: 40, color: "#FF0000" },
-            { from: 41, to: 50, color: "#FF00FF" },
-            { from: 51, to: 60, color: "#800080" },
-            { from: 61, to: 70, color: "#800000" },
-            { from: 71, to: 80, color: "#808000" },
-            { from: 81, to: 90, color: "#008080" },
-            { from: 91, to: 100, color: "#00FFFF" },
-          ],
-        },
-      },
-    },
+    colors: colorss,
     dataLabels: {
       enabled: false,
-    },
-    title: {
-      text: "Weekly Heatmap",
     },
     xaxis: {
       type: "category",
@@ -102,9 +84,57 @@ const HeatmapChart = () => {
   ];
 
   return (
-    <div>
-      <Chart options={options} series={series} type="heatmap" height={350} />
-    </div>
+    <Card style={{ height: "435px" }} className="gx-card">
+      <h2 className="h4 gx-mb-3">Heatmap</h2>
+      <div className="App">
+        {!dataloader ? (
+          <>
+            <Chart
+              options={options}
+              series={series}
+              type="heatmap"
+              height={290}
+            />
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                marginTop: "20px",
+              }}
+            >
+              <div
+                style={{
+                  width: "300px",
+                  height: "20px",
+                  background:
+                    "linear-gradient(to right,#f0f9e8,#a8ddb5, #43a2ca)",
+                }}
+              >
+                <div
+                  style={{
+                    marginLeft: "10px",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    width: "290px",
+                  }}
+                >
+                  <span>0</span>
+                  <span>200</span>
+                  <span>600</span>
+                  <span>1000</span>
+                  <span>1400</span>
+                </div>
+              </div>
+            </div>
+          </>
+        ) : (
+          <>
+            <AreaChartSkeleton />
+          </>
+        )}
+      </div>
+    </Card>
   );
 };
 

@@ -27,7 +27,7 @@ const CallsDD = () => {
             }}
           >
             <h5 className="h4 gx-mb-3">{payload[0]?.payload.DS}</h5>
-            <span className="label">Total Calls : ${payload[0]?.value}`</span>
+            <span className="label">Total Calls : {payload[0]?.value}sec</span>
           </div>
         </Card>
       );

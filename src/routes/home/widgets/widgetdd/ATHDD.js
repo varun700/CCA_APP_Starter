@@ -29,7 +29,7 @@ const Athdd = () => {
           >
             <h5 className="h4 gx-mb-3">{payload[0]?.payload.Date}</h5>
             <span className="label">
-              Avg Handling Time : ${payload[0]?.value}`
+              Avg Handling Time : {payload[0]?.value}
             </span>
           </div>
         </Card>

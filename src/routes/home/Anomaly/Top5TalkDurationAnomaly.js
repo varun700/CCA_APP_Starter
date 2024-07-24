@@ -145,10 +145,6 @@ const Top5talkDuration = () => {
               "_",
               " "
             )} : ${payload[0]?.value}`}</span>
-            <span className="label">{`${payload[1]?.dataKey.replace(
-              "_",
-              " "
-            )} : ${payload[1]?.value}`}</span>
           </div>
         </Card>
       );
@@ -259,14 +255,14 @@ const Top5talkDuration = () => {
                   cursor={"pointer"}
                   onClickCapture={(e) => Talkdurationchart(e)}
                 />
-                <Bar
+                {/* <Bar
                   dataKey="Queuetime_Count"
                   fill="url(#blueGradient)"
                   barSize={30}
                   cursor={"pointer"}
                   onClickCapture={(e) => queuedurationchart(e)}
                   radius={5}
-                />
+                /> */}
               </BarChart>
             </ResponsiveContainer>
           ) : (
@@ -314,6 +310,7 @@ const Top5talkDuration = () => {
                     padding={{ left: 30, right: 30 }}
                     // stroke={"#fff"}
                     tick={true}
+                    hide={true}
                   />
                   <YAxis
                     dataKey="Talk_Duration"

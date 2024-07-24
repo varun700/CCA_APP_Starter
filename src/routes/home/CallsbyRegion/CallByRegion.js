@@ -9,11 +9,19 @@ import {
   GetCallByRegion,
   GetCallByRegionMap,
 } from "../../../appRedux/actions/CCAwidgets";
-import { Card, Modal, Skeleton, Table } from "antd";
+import { Card, Modal, Skeleton, Table, Tooltip } from "antd";
 import Widget from "../../../components/Widget";
 import { GetCallByRegionDD } from "../../../appRedux/actions/globalactions";
 import CustomMapSkeleton from "../../loader/Maploader";
 import SkeletonTable from "../../loader/Antdtableloader";
+import {
+  Bar,
+  BarChart,
+  Label,
+  ResponsiveContainer,
+  XAxis,
+  YAxis,
+} from "recharts";
 let DefaultIcon = L.icon({
   iconUrl: customicon,
   iconSize: [40, 41],
@@ -42,55 +50,63 @@ const App = () => {
       key: "Supervisor_Name",
     },
     {
-      title: "TOTAL CALLS",
+      title: "Total Calls",
       dataIndex: "TOTAL_CALLS",
       key: "TOTAL_CALLS",
     },
     {
-      title: "FCR Calls",
-      key: "FCR_Calls",
-      dataIndex: "FCR_Calls",
-    },
-    {
-      title: "FCR PERCENTAGE %",
-      key: "FCR_PERCENTAGE",
-      dataIndex: "FCR_PERCENTAGE",
+      title: "FCR Percentage %",
+      key: "FCR_Percentage",
+      dataIndex: "FCR_Percentage",
       render: (text, record) => {
         return <span>{text}%</span>;
       },
     },
     {
-      title: "Total Warm Calls",
-      key: "Total_Warm_Calls",
-      dataIndex: "Total_Warm_Calls",
-    },
-    {
-      title: "Warm Call Percentage %",
-      key: "Warm_Call_Percentage",
-      dataIndex: "Warm_Call_Percentage",
-      render: (text, record) => {
-        return <span>{text}%</span>;
-      },
-    },
-    {
-      title: "Total Cold Calls",
-      key: "Total_Cold_Calls",
-      dataIndex: "Total_Cold_Calls",
-    },
-    {
-      title: "Cold Call Percentage %",
-      key: "Cold_Call_Percentage",
-      dataIndex: "Cold_Call_Percentage",
-      render: (text, record) => {
-        return <span>{text}%</span>;
-      },
-    },
-    {
-      title: "SERVICE LEVEL %",
+      title: "Service Level %",
       key: "SERVICE_LEVEL_%",
-      dataIndex: "SERVICE_LEVEL_%",
+      dataIndex: "Service_Level_Percentage",
       render: (text, record) => {
         return <span>{text}%</span>;
+      },
+    },
+    {
+      title: "Sentiment Score%",
+      key: "Sentiment_Score_Percentage%",
+      dataIndex: "Neutral_Score_Percentage",
+      width: 170,
+      render: (text, record) => {
+        return (
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <ResponsiveContainer width={"100%"} height={20}>
+              <BarChart
+                width={100}
+                height={20}
+                data={[record]}
+                layout="vertical"
+              >
+                {/* <Tooltip content={<CustomTooltip />} /> */}
+                <XAxis type="number" hide={true} />
+                <YAxis type="category" dataKey="name" hide={true} />
+                <Bar
+                  dataKey="Positive_Score_Percentage"
+                  stackId="a"
+                  fill="#6ec48b"
+                />
+                <Bar
+                  dataKey="Neutral_Score_Percentage"
+                  stackId="a"
+                  fill="#bfbfbd"
+                />
+                <Bar
+                  dataKey="Negative_Score_Percentage"
+                  stackId="a"
+                  fill="#e36d6d"
+                />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        );
       },
     },
   ];
@@ -122,10 +138,18 @@ const App = () => {
     setclickedloc(location);
     dispatch(GetCallByRegion(uservals?.Employee_Id, location));
   };
+  console.log("123456789098765432123456789098765432", uservals);
   return (
     <div>
       {/* {!mapdataloader && mapdata?.Table.length > 0 ? ( */}
-      <Map center={[39.0997, -94.5786]} zoom={zoom}>
+      <Map
+        center={
+          uservals?.Employee_Id == "AG101"
+            ? [45.424721, -75.695]
+            : [39.0997, -94.5786]
+        }
+        zoom={zoom}
+      >
         <TileLayer
           attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.osm.org/{z}/{x}/{y}.png"
@@ -139,13 +163,13 @@ const App = () => {
             <Popup>
               {Tooltipdata.length > 0 && !Tooltipdataloader ? (
                 <span>
-                  <li>center : {Tooltipdata[0]?.Call_Centre}</li>
-                  <li>city : {Tooltipdata[0]?.Location}</li>
-                  <li>Total Call : {Tooltipdata[0]?.Total_Calls}</li>
-                  <li>Fcr : {Tooltipdata[0]?.FCR}</li>
-                  <li>Transfer/Cold : {Tooltipdata[0]?.Transfer_Cold}</li>
-                  <li>Conference/Warm :{Tooltipdata[0]?.Conference_Warm}</li>
-                  <li>Service Level : {Tooltipdata[0]?.Service_Level}</li>
+                  <li>center : {Tooltipdata[0]?.CALL_CENTRE}</li>
+                  <li>city : {Tooltipdata[0]?.LOCATION}</li>
+                  <li>Total Call : {Tooltipdata[0]?.TOTAL_CALLS}</li>
+                  <li>Fcr : {Tooltipdata[0]?.FCR_PERCENTAGE}</li>
+                  <li>
+                    Service Level : {Tooltipdata[0]?.SERVICE_LEVEL_PERCENTAGE}
+                  </li>
                   <li
                     className=" text-blue-300 gx-link"
                     style={{ cursor: "pointer" }}

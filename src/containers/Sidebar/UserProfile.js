@@ -38,6 +38,7 @@ const UserProfile = () => {
   const [isuserimpopen, setisuserimpopen] = useState(false);
   const [selectdata, setselectdata] = useState("");
   const [selectimpdata, setselectimpdata] = useState("");
+  const [openPopup, setOpenPopup] = useState(false);
 
   const localStorageuserval = localStorage.getItem("userss");
   const GetImporsinationDDs = useSelector(
@@ -230,6 +231,7 @@ const UserProfile = () => {
     //   })
     // );
     setisuserimpopen(false);
+    setOpenPopup(false);
   };
   const userMenuOptions = () => {
     return (
@@ -255,6 +257,7 @@ const UserProfile = () => {
     );
   };
   const clearbutton = () => {
+    setOpenPopup(false);
     setselectdata("");
     dispatch(ClearUserDetails(Usermainprofiledata?.Employee_Id));
     dispatch(Userval(Usermainprofiledata));
@@ -318,7 +321,7 @@ const UserProfile = () => {
   );
   return (
     <>
-      <div className="gx-flex-row gx-align-items-center  gx-avatar-row">
+      <div className="gx-flex-row gx-align-items-center  gx-avatar-row gx-mr-4">
         {!GetUserDetailsimpdataloader &&
           Usermainprofiledata?.Job_Title !== "Call Centre Agent" &&
           selectdata !== "" &&
@@ -378,7 +381,11 @@ const UserProfile = () => {
             >
               <span style={{ display: "flex", flexDirection: "column" }}>
                 {usershortname}{" "}
-                <Popover content={content} trigger="click">
+                <Popover
+                  content={content}
+                  open={openPopup}
+                  onOpenChange={() => setOpenPopup(true)}
+                >
                   {" "}
                   <i className="icon icon-chevron-down" />
                 </Popover>
@@ -395,7 +402,7 @@ const UserProfile = () => {
                     <Col>
                       <span className="gx-avatar-name">
                         {` ${userdata}`}
-                        {selectdata && `(impersonated as ${selectdata})`}
+                        {selectdata && `(Impersonated as ${selectdata})`}
                         <i className="icon icon-chevron-down gx-fs-xxs gx-ml-2" />
                       </span>
                     </Col>
