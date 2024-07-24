@@ -20,6 +20,7 @@
     "connected-react-router": "^6.8.0",
     "crypto-js": "^4.2.0",
     "d3-scale": "^3.2.3",
+    "dotenv": "^16.4.5",
     "draftjs-to-html": "^0.9.1",
     "firebase": "^8.2.3",
     "instantsearch.css": "^7.4.5",

@@ -18,7 +18,8 @@ import {
   TAB_SIZE,
 } from "../../constants/ThemeSetting";
 import { useDispatch, useSelector } from "react-redux";
-import ChatGpt from "../../routes/Chatgpt/Chatgpt.js";
+// import ChatGpt from "../../routes/Chatgpt/Chatgpt.js";
+import ChartGpt from "../../routes/Chatgpt/chatgpt.js";
 
 const { Header } = Layout;
 
@@ -141,7 +142,9 @@ const Topbar = () => {
           {/* <li className="gx-user-nav">
             <UserInfo />
           </li> */}
-          <ChatGpt />
+
+          <ChartGpt />
+
           {/* </Auxiliary>
         <Auxiliary>
           {/* <li className="gx-user-nav">

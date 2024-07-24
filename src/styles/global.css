@@ -187,7 +187,6 @@ i.fad.fa-paper-plane.gpt-send-msg {
   font-size: 20px;
   position: relative;
   top: 15px;
- 
 }
 .gpt-send-msg {
   position: absolute !important;
@@ -202,7 +201,6 @@ i.fad.fa-paper-plane.gpt-send-msg {
   border: none !important;
   /* box-shadow: black !important; */
   box-shadow: 1px -1px 15px 0px rgb(0 0 0 / 23%);
-
 }
 .audio_bg {
   bottom: 8px;
@@ -218,4 +216,7 @@ i.fad.fa-paper-plane.gpt-send-msg {
   box-shadow: 1px -1px 15px 0px rgb(0 0 0 / 23%);
   /* -webkit-box-shadow: 1px -1px 15px 0px rgba(0, 0, 0, 0.75); */
   /* -moz-box-shadow: 1px -1px 15px 0px rgba(0, 0, 0, 0.75); */
+}
+.fad.fa-comments-alt {
+  left: 40px !important;
 }

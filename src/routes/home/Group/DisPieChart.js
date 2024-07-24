@@ -22,6 +22,8 @@ const COLORS = [
   "#0088a3",
   "#a3008d",
   "#a39300",
+  "#594ead",
+  "#e39fb3",
 ];
 const renderColorfulLegendText = (value, entry) => {
   // console.log("lklklkl", value, entry);
