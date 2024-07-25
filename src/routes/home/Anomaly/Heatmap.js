@@ -4,9 +4,11 @@ import Chart from "react-apexcharts";
 import { useDispatch, useSelector } from "react-redux";
 import { GetAvgCallVolumeHeatmap } from "../../../appRedux/actions/globalactions";
 import { Card } from "antd";
-import AreaChartSkeleton from "../../loader/Areachartloader";
+// import AreaChartSkeleton from "../../loader/Areachartloader";
+import CustomMapSkeleton from "../../loader/Maploader";
+// import { HeatMapGrid } from "react-grid-heatmap";
 
-const HeatmapChart = () => {
+const HeatmapChart = ({ height, cardheight }) => {
   const dispatch = useDispatch();
 
   const data = useSelector((state) => state?.GetAvgCallVolumeHeatmapreducer);
@@ -28,11 +30,66 @@ const HeatmapChart = () => {
       type: "heatmap",
     },
     colors: colorss,
+    legend: { show: false },
     dataLabels: {
       enabled: false,
+      style: {
+        colors: ["#302a23"],
+      },
     },
     xaxis: {
       type: "category",
+    },
+    plotOptions: {
+      heatmap: {
+        shadeIntensity: 0.5,
+        colorScale: {
+          ranges: [
+            {
+              from: 0,
+              to: 200,
+              color: "#f0e9c0",
+            },
+            {
+              from: 201,
+              to: 400,
+              color: "#c5e39a",
+            },
+            {
+              from: 401,
+              to: 600,
+              color: "#a2d160",
+            },
+            {
+              from: 601,
+              to: 800,
+              color: "#60bcd1",
+            },
+
+            {
+              from: 801,
+              to: 1000,
+              color: "#4379ba",
+            },
+            {
+              from: 1001,
+              to: 1200,
+              color: "#35289e",
+            },
+          ],
+          inverse: true,
+          min: 0,
+          max: 1400,
+          gradientToColors: [
+            "#f0e9c0",
+            "#c5e39a",
+            "#a2d160",
+            "#60bcd1",
+            "#4379ba",
+            "#35289e",
+          ],
+        },
+      },
     },
   };
 
@@ -91,8 +148,8 @@ const HeatmapChart = () => {
   ];
 
   return (
-    <Card style={{ height: "435px" }} className="gx-card">
-      <h2 className="h4 gx-mb-3">Heatmap</h2>
+    <Card style={{ height: { cardheight } }} className="gx-card">
+      <h2 className="h4 gx-mb-3">Hourly Call Volume</h2>
       <div className="App">
         {!dataloader ? (
           <>
@@ -100,7 +157,7 @@ const HeatmapChart = () => {
               options={options}
               series={series}
               type="heatmap"
-              height={290}
+              height={height}
             />
             <div
               style={{
@@ -120,6 +177,7 @@ const HeatmapChart = () => {
               >
                 <div
                   style={{
+                    marginTop: "20px",
                     marginLeft: "10px",
                     display: "flex",
                     justifyContent: "space-between",
@@ -140,7 +198,7 @@ const HeatmapChart = () => {
           </>
         ) : (
           <>
-            <AreaChartSkeleton />
+            <CustomMapSkeleton width={540} height={330} />
           </>
         )}
       </div>

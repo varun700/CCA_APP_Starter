@@ -223,3 +223,6 @@ i.fad.fa-paper-plane.gpt-send-msg {
 .apexcharts-toolbar {
   visibility: hidden !important;
 }
+.apexcharts-legend {
+  visibility: hidden !important;
+}
