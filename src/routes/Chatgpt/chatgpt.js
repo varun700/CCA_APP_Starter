@@ -215,7 +215,7 @@ const ChatGpt = () => {
         const lines = chunk.split("\n");
         const parsedLines = lines
           .map((line) => line.replace(/^data: /, "").trim()) // Remove the "data: " prefix
-          .filter((line) => line !== "" && line !== "[DONE]") // Remove empty lines and "[DONE]"
+          .filter((line) => line !== "[DONE]") // Remove empty lines and "[DONE]"
           .map((line) => {
             try {
               return JSON.parse(line); // Parse the JSON string
@@ -225,7 +225,6 @@ const ChatGpt = () => {
             }
           })
           .filter((parsedLine) => parsedLine !== null);
-        console.log("chunck", chunk, lines, parsedLines);
 
         for (const parsedLine of parsedLines) {
           const { choices } = parsedLine;
@@ -273,7 +272,6 @@ const ChatGpt = () => {
   };
 
   const sendMessage = async (e) => {
-    console.log(userInput, "send");
     let filterval = userInput.includes("!@#$%^&*")
       ? userInput.replace("!@#$%^&*", "")
       : userInput;
@@ -357,52 +355,56 @@ const ChatGpt = () => {
         const reader = response.body.getReader();
         const decoder = new TextDecoder("utf-8");
         let resultText = "";
-        let stopStreaming = false;
-
+        // let stopStreaming = false;
+        let buffer = "";
         // eslint-disable-next-line no-constant-condition
-        while (!stopStreaming) {
+        while (true) {
           const { done, value } = await reader.read();
-          if (done) {
-            break;
-          }
-          // Massage and parse the chunk of data
-          const chunk = decoder.decode(value);
-          const lines = chunk.split("\n");
-          const parsedLines = lines
-            .map((line) => line.replace(/^data: /, "").trim()) // Remove the "data: " prefix
-            .filter((line) => line !== "" && line !== "[DONE]") // Remove empty lines and "[DONE]"
-            .map((line) => JSON.parse(line)); // Parse the JSON string
-          console.log("chunck", chunk, lines, parsedLines);
+          if (done) break;
 
-          for (const parsedLine of parsedLines) {
-            const { choices } = parsedLine;
-            const { delta } = choices[0];
-            const { content } = delta;
-            // Update the UI with the new content
-            if (content) {
-              if (
-                content.toLowerCase().includes("apologize") ||
-                content.toLowerCase().includes("sorry") ||
-                content.toLowerCase().includes("nothing") ||
-                resultText.toLowerCase().includes("above tables do not contain")
-              ) {
-                stopStreaming = true;
-                ApologizeFunc();
-                break;
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split("\n");
+
+          // Process all lines except the last one which may be incomplete
+          for (let i = 0; i < lines.length - 1; i++) {
+            const line = lines[i].trim();
+
+            if (line === "data: [DONE]") {
+              setLoading(false);
+              setMessages((prevMessages) => [
+                ...prevMessages,
+                { role: "assistant", content: resultText },
+              ]);
+              setstreamResponse("");
+              return;
+            }
+
+            if (line.startsWith("data: ")) {
+              const jsonString = line.substring(6);
+
+              try {
+                const parsedLine = JSON.parse(jsonString);
+                const { choices } = parsedLine;
+                const { delta } = choices[0];
+                const { content } = delta;
+
+                if (content) {
+                  resultText += content;
+                  setstreamResponse(resultText);
+                }
+              } catch (e) {
+                console.error("Error parsing JSON:", e);
               }
-              resultText = resultText + content;
-              setstreamResponse(resultText);
             }
           }
+
+          // Keep the last (potentially incomplete) line in the buffer
+          buffer = lines[lines.length - 1];
+          if (speechonoroff) {
+            speak({ text: resultText });
+          }
         }
-        setLoading(false);
-        setMessages((prev) => {
-          return [...prev, { content: resultText, role: "assistant" }];
-        });
-        if (speechonoroff) {
-          speak({ text: resultText });
-        }
-        setstreamResponse("");
+        // setstreamResponse("");
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -469,7 +471,6 @@ const ChatGpt = () => {
     // this.setState({width: size.width, height: size.height});
     setHeight(size.Height);
     setWidth(size.width);
-    console.log("size", size);
   };
   return (
     <div style={{ marginRight: "70px", fontSize: "20px", cursor: "pointer" }}>
@@ -660,7 +661,6 @@ const ChatGpt = () => {
                   description={
                     <div>
                       <span>
-                        {console.log(item.content, "op")}
                         <div>
                           <SyntaxHighlighter
                             customStyle={
