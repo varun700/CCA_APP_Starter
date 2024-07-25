@@ -66,9 +66,9 @@ const Topbar = () => {
         </div>
       ) : null}
 
-      <Link to="/" className="gx-d-block gx-d-lg-none gx-pointer">
+      {/* <Link to="/" className="gx-d-block gx-d-lg-none gx-pointer">
         <img alt="" src={"/assets/images/w-logo.png"} />
-      </Link>
+      </Link> */}
 
       {/* <SearchBox
         styleName="gx-d-none gx-d-lg-block gx-lt-icon-search-bar-lg"
@@ -97,7 +97,7 @@ const Topbar = () => {
             </span>
           </Popover>
         </li> */}
-        {width >= TAB_SIZE ? null : (
+        {/* {width >= TAB_SIZE ? null : (
           <Auxiliary>
             <li className="gx-notify">
               <Popover
@@ -126,7 +126,7 @@ const Topbar = () => {
               </Popover>
             </li>
           </Auxiliary>
-        )}
+        )} */}
         {/* <li className="gx-language">
           <Popover overlayClassName="gx-popover-horizantal" placement="bottomRight" content={languageMenu()}
                    trigger="click">

@@ -10,6 +10,7 @@ import {
   YAxis,
   Tooltip,
   LineChart,
+  Brush,
 } from "recharts";
 import { GetTalkDurationDD } from "../../../appRedux/actions/globalactions";
 import AreaChartSkeleton from "../../loader/Areachartloader";
@@ -138,6 +139,7 @@ const Talkddchart = () => {
                   tick={"#000"}
                 />
                 <Tooltip />
+                <Brush dataKey="Queue_Time" height={30} stroke="#038FDE" />
                 <Legend verticalAlign="top" content={renderCustomLegend} />
                 {/* {GetCallVolumePredictionValue?.length > 0 && (
           <Brush
