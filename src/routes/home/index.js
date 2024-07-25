@@ -207,6 +207,7 @@ const Index = () => {
         {usercurrval?.Job_Title == "Call Centre Agent" ? (
           <Col span={12}>
             <Card
+              style={{ height: "440px" }}
               className="gx-card text_transform_none"
               title="Talk Duration Anomaly"
             >

@@ -5,9 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { GetAvgCallVolumeHeatmap } from "../../../appRedux/actions/globalactions";
 import { Card } from "antd";
 import AreaChartSkeleton from "../../loader/Areachartloader";
-import CustomMapSkeleton from "../../loader/Maploader";
 
-const HeatmapChart = ({ height, cardheight }) => {
+const HeatmapChart = () => {
   const dispatch = useDispatch();
 
   const data = useSelector((state) => state?.GetAvgCallVolumeHeatmapreducer);
@@ -92,7 +91,7 @@ const HeatmapChart = ({ height, cardheight }) => {
   ];
 
   return (
-    <Card style={{ height: { cardheight } }} className="gx-card">
+    <Card style={{ height: "435px" }} className="gx-card">
       <h2 className="h4 gx-mb-3">Heatmap</h2>
       <div className="App">
         {!dataloader ? (
@@ -101,7 +100,7 @@ const HeatmapChart = ({ height, cardheight }) => {
               options={options}
               series={series}
               type="heatmap"
-              height={height}
+              height={290}
             />
             <div
               style={{
@@ -141,7 +140,7 @@ const HeatmapChart = ({ height, cardheight }) => {
           </>
         ) : (
           <>
-            <CustomMapSkeleton width={540} height={330} />
+            <AreaChartSkeleton />
           </>
         )}
       </div>
