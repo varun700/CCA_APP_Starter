@@ -19,7 +19,7 @@ import {
 } from "../../constants/ThemeSetting";
 import { useDispatch, useSelector } from "react-redux";
 // import ChatGpt from "../../routes/Chatgpt/Chatgpt.js";
-import ChartGpt from "../../routes/Chatgpt/chatgpt.js";
+import ChartGpt from "../../routes/Chatgpt/Chatgpt.js";
 
 const { Header } = Layout;
 

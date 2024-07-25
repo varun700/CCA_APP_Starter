@@ -220,17 +220,12 @@ const Index = () => {
         )}
         {usercurrval?.Job_Title == "Call Centre Agent" ? (
           <Col span={12}>
-            <Card
-              className="gx-card text_transform_none"
-              title="Queue Time Anomaly"
-            >
-              <Queueddchart />
-            </Card>
+            <HeatmapChart height={"245"} cardheight={"420px"} />
           </Col>
         ) : (
           <Col span={12}>
             {/* <Top5QueueTime /> */}
-            <HeatmapChart />
+            <HeatmapChart height={"295px"} cardheight={"480px"} />
           </Col>
         )}{" "}
         {usercurrval?.Job_Title !== "Call Centre Agent" && (
