@@ -232,12 +232,19 @@ const Top5talkDuration = () => {
                 margin={{ top: 20, right: 0, left: 0, bottom: 0 }}
               >
                 <XAxis dataKey="Employee_Name" />
-                <YAxis dataKey="Queuetime_Count" />
-                <Tooltip cursor={false} content={<CustomTooltip />} />
-                <Legend
+                <YAxis
+                  dataKey="Talkduration_count"
+                  label={{
+                    value: "Anomaly",
+                    angle: -90,
+                    position: "insideLeft",
+                  }}
+                />
+                {/* <Tooltip cursor={false} content={<CustomTooltip />} /> */}
+                {/* <Legend
                   verticalAlign="bottom"
                   formatter={(text) => text.replace("_", " ")}
-                />
+                /> */}
                 <defs>
                   <linearGradient id="color08" x1="0" y1="1" x2="0" y2="0">
                     <stop offset="5%" stopColor="#43c48a" stopOpacity={0.9} />

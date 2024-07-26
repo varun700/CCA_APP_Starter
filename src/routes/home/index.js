@@ -207,7 +207,7 @@ const Index = () => {
         {usercurrval?.Job_Title == "Call Centre Agent" ? (
           <Col span={12}>
             <Card
-              style={{ height: "440px" }}
+              style={{ height: "385px" }}
               className="gx-card text_transform_none"
               title="Talk Duration Anomaly"
             >
@@ -221,7 +221,7 @@ const Index = () => {
         )}
         {usercurrval?.Job_Title == "Call Centre Agent" ? (
           <Col span={12}>
-            <HeatmapChart height={"245"} cardheight={"420px"} />
+            <HeatmapChart height={"245"} cardheight={"500px"} />
           </Col>
         ) : (
           <Col span={12}>
