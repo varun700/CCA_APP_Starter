@@ -76,7 +76,7 @@
   border-radius: 5px;
 }
 .colorof_offmic {
-  background-color: #258392 !important;
+  background-color: #fff !important;
 }
 .gpt_send_icon {
   margin-left: -5px;
@@ -172,7 +172,7 @@ i.fad.fa-paper-plane.gpt-send-msg {
   color: #000 !important;
 }
 .colorof_offmic {
-  background-color: #258392 !important;
+  background-color: #fff !important;
 }
 .float-right {
   float: right;
