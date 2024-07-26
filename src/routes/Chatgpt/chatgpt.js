@@ -448,7 +448,7 @@ const ChatGpt = () => {
   const customLocale = {
     emptyText: (
       <span className="empty-class-text">
-        I am CCAGPT by Microsoft Azure Open AI. Happy to help 🙂
+        I am CCAGPT by Open AI. Happy to help 🙂
       </span>
     ),
   };
