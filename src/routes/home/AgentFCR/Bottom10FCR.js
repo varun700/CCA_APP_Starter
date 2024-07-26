@@ -1,10 +1,17 @@
 import React, { useEffect } from "react";
-import { Table } from "antd";
+import { Table, Card } from "antd";
 import Widget from "components/Widget/index";
 import { useDispatch, useSelector } from "react-redux";
 import { GetCallBottom10AgentByFCR } from "../../../appRedux/actions/globalactions";
 import SkeletonTable from "../../loader/Antdtableloader";
-import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
+import {
+  Bar,
+  BarChart,
+  ResponsiveContainer,
+  XAxis,
+  YAxis,
+  Tooltip,
+} from "recharts";
 
 const Bottom10FCR = () => {
   const dispatch = useDispatch();
@@ -21,12 +28,34 @@ const Bottom10FCR = () => {
       dispatch(GetCallBottom10AgentByFCR(uservals?.Employee_Id));
     }
   }, [uservals]);
+
+  const CustomTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+      return (
+        <Card style={{ width: 150 }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <span>{` Positive  : ${payload[0]?.payload.Positive_Score_Percentage}`}</span>
+            <span>{` Neutral   : ${payload[1]?.payload.Neutral_Score_Percentage}`}</span>
+            <span>{` Negative  : ${payload[2]?.payload.Negative_Score_Percentage}`}</span>
+          </div>
+        </Card>
+      );
+    }
+
+    return null;
+  };
+
   const columns = [
     {
       title: "Agent Name",
       dataIndex: "Agent_Name",
       key: "Agent_Name",
-      width: 180,
+      width: 160,
       // render: (text) => <span>{text}</span>,
     },
     {
@@ -47,6 +76,7 @@ const Bottom10FCR = () => {
       title: "FCR%",
       key: "FCR%",
       dataIndex: "FCR%",
+      width: 90,
       render: (text, record) => {
         return <span>{text}%</span>;
       },
@@ -55,16 +85,21 @@ const Bottom10FCR = () => {
       title: "Sentiment Score%",
       key: "Sentiment_Score_Percentage%",
       dataIndex: "Neutral_Score_Percentage",
+      width: 150,
       render: (text, record) => {
         return (
           <div style={{ display: "flex", justifyContent: "center" }}>
             <ResponsiveContainer width={"100%"} height={20}>
               <BarChart
                 width={100}
-                height={40}
+                height={20}
                 data={[record]}
                 layout="vertical"
               >
+                <Tooltip
+                  content={<CustomTooltip />}
+                  position={{ x: -100, y: -90 }}
+                />
                 <XAxis type="number" hide={true} />
                 <YAxis type="category" dataKey="name" hide={true} />
                 <Bar

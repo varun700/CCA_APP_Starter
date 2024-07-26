@@ -226,3 +226,8 @@ i.fad.fa-paper-plane.gpt-send-msg {
 .apexcharts-legend {
   visibility: hidden !important;
 }
+.gx-table-responsive .ant-table {
+  min-height: 0.01%;
+  overflow-x: hidden !important;
+  overflow-y: hidden;
+}

@@ -32,9 +32,10 @@ const HeatmapChart = ({ height, cardheight }) => {
     colors: colorss,
     legend: { show: false },
     dataLabels: {
-      enabled: false,
+      enabled: true,
       style: {
         colors: ["#302a23"],
+        fontWeight: 400,
       },
     },
     xaxis: {
@@ -159,6 +160,7 @@ const HeatmapChart = ({ height, cardheight }) => {
               type="heatmap"
               height={height}
             />
+
             <div
               style={{
                 display: "flex",
