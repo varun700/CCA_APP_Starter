@@ -62,6 +62,7 @@ const Bottom10FCR = () => {
       title: "Total Call",
       dataIndex: "Total_Call",
       key: "Total_Call",
+      width: 160,
     },
 
     {
@@ -71,6 +72,7 @@ const Bottom10FCR = () => {
       render: (text, record) => {
         return <span>{text}%</span>;
       },
+      width: 160,
     },
     {
       title: "FCR%",
@@ -85,15 +87,26 @@ const Bottom10FCR = () => {
       title: "Sentiment Score%",
       key: "Sentiment_Score_Percentage%",
       dataIndex: "Neutral_Score_Percentage",
-      width: 150,
+      width: 160,
       render: (text, record) => {
+        const dectowholeno = [
+          {
+            ...record,
+            Positive_Whole_Value: Math.round(record.Positive_Whole_Value),
+            Negative_Whole_Value: Math.round(record.Negative_Whole_Value),
+            Neutral_Whole_Value: Math.round(record.Neutral_Whole_Value),
+          },
+        ];
+
+        console.log(dectowholeno, "whlno");
         return (
           <div style={{ display: "flex", justifyContent: "center" }}>
+            {console.log(record, "re")}
             <ResponsiveContainer width={"100%"} height={20}>
               <BarChart
                 width={100}
                 height={20}
-                data={[record]}
+                data={dectowholeno}
                 layout="vertical"
               >
                 <Tooltip
@@ -103,17 +116,13 @@ const Bottom10FCR = () => {
                 <XAxis type="number" hide={true} />
                 <YAxis type="category" dataKey="name" hide={true} />
                 <Bar
-                  dataKey="Positive_Score_Percentage"
+                  dataKey="Positive_Whole_Value"
                   stackId="a"
                   fill="#6ec48b"
                 />
+                <Bar dataKey="Neutral_Whole_Value" stackId="a" fill="#bfbfbd" />
                 <Bar
-                  dataKey="Neutral_Score_Percentage"
-                  stackId="a"
-                  fill="#bfbfbd"
-                />
-                <Bar
-                  dataKey="Negative_Score_Percentage"
+                  dataKey="Negative_Whole_Value"
                   stackId="a"
                   fill="#e36d6d"
                 />

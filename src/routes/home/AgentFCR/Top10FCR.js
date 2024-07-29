@@ -85,13 +85,21 @@ const Top10FCR = () => {
       dataIndex: "Neutral_Score_Percentage",
       width: 150,
       render: (text, record) => {
+        const dectowholeno = [
+          {
+            ...record,
+            Positive_Whole_Value: Math.round(record.Positive_Whole_Value),
+            Negative_Whole_Value: Math.round(record.Negative_Whole_Value),
+            Neutral_Whole_Value: Math.round(record.Neutral_Whole_Value),
+          },
+        ];
         return (
           <div style={{ display: "flex", justifyContent: "center" }}>
             <ResponsiveContainer width={"100%"} height={20}>
               <BarChart
                 width={100}
                 height={20}
-                data={[record]}
+                data={dectowholeno}
                 layout="vertical"
               >
                 <Tooltip

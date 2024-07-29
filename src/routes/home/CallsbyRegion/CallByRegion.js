@@ -9,7 +9,7 @@ import {
   GetCallByRegion,
   GetCallByRegionMap,
 } from "../../../appRedux/actions/CCAwidgets";
-import { Card, Modal, Skeleton, Table, Tooltip } from "antd";
+import { Card, Modal, Skeleton, Table } from "antd";
 import Widget from "../../../components/Widget";
 import { GetCallByRegionDD } from "../../../appRedux/actions/globalactions";
 import CustomMapSkeleton from "../../loader/Maploader";
@@ -19,6 +19,7 @@ import {
   BarChart,
   Label,
   ResponsiveContainer,
+  Tooltip,
   XAxis,
   YAxis,
 } from "recharts";
@@ -37,6 +38,26 @@ const App = () => {
   const [zoom, setZoom] = useState(4);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [clickedloc, setclickedloc] = useState("");
+  const CustomTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+      return (
+        <Card style={{ width: 150 }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <span>{` Positive  : ${payload[0]?.payload.Positive_Score_Percentage}`}</span>
+            <span>{` Neutral   : ${payload[1]?.payload.Neutral_Score_Percentage}`}</span>
+            <span>{` Negative  : ${payload[2]?.payload.Negative_Score_Percentage}`}</span>
+          </div>
+        </Card>
+      );
+    }
+
+    return null;
+  };
   const columns = [
     {
       title: "Agent Name",
@@ -76,30 +97,39 @@ const App = () => {
       dataIndex: "Neutral_Score_Percentage",
       width: 170,
       render: (text, record) => {
+        const dectowholeno = [
+          {
+            ...record,
+            Positive_Whole_Value: Math.round(record.Positive_Whole_Value),
+            Negative_Whole_Value: Math.round(record.Negative_Whole_Value),
+            Neutral_Whole_Value: Math.round(record.Neutral_Whole_Value),
+          },
+        ];
+        console.log(dectowholeno, "dec");
         return (
           <div style={{ display: "flex", justifyContent: "center" }}>
             <ResponsiveContainer width={"100%"} height={20}>
+              {console.log(record)}
               <BarChart
                 width={100}
                 height={20}
-                data={[record]}
+                data={dectowholeno}
                 layout="vertical"
               >
-                {/* <Tooltip content={<CustomTooltip />} /> */}
+                <Tooltip
+                  content={<CustomTooltip />}
+                  position={{ x: -100, y: -90 }}
+                />
                 <XAxis type="number" hide={true} />
                 <YAxis type="category" dataKey="name" hide={true} />
                 <Bar
-                  dataKey="Positive_Score_Percentage"
+                  dataKey="Positive_Whole_Value"
                   stackId="a"
                   fill="#6ec48b"
                 />
+                <Bar dataKey="Neutral_Whole_Value" stackId="a" fill="#bfbfbd" />
                 <Bar
-                  dataKey="Neutral_Score_Percentage"
-                  stackId="a"
-                  fill="#bfbfbd"
-                />
-                <Bar
-                  dataKey="Negative_Score_Percentage"
+                  dataKey="Negative_Whole_Value"
                   stackId="a"
                   fill="#e36d6d"
                 />
