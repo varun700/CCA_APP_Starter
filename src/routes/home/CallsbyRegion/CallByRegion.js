@@ -41,16 +41,16 @@ const App = () => {
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
       return (
-        <Card style={{ width: 150 }}>
+        <Card style={{ width: 180 }}>
           <div
             style={{
               display: "flex",
               flexDirection: "column",
             }}
           >
-            <span>{` Positive  : ${payload[0]?.payload.Positive_Score_Percentage}`}</span>
-            <span>{` Neutral   : ${payload[1]?.payload.Neutral_Score_Percentage}`}</span>
-            <span>{` Negative  : ${payload[2]?.payload.Negative_Score_Percentage}`}</span>
+            <span>{` Positive  : ${payload[0]?.payload.Positive_Score_Percentage}%`}</span>
+            <span>{` Neutral   : ${payload[1]?.payload.Neutral_Score_Percentage}%`}</span>
+            <span>{` Negative  : ${payload[2]?.payload.Negative_Score_Percentage}%`}</span>
           </div>
         </Card>
       );
@@ -161,7 +161,7 @@ const App = () => {
   const Tooltiptbldata =
     useSelector((state) => state?.GetCallByRegionDDreducer?.Table) || [];
   const Tooltiptbldataloader = useSelector(
-    (state) => state?.GetCallByRegionDDloaders
+    (state) => state?.GetCallByRegionDDloader
   );
 
   const handleMarkerClick = (e, location) => {
