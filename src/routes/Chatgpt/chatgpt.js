@@ -354,13 +354,15 @@ const ChatGpt = () => {
         // Read the response as a stream of data
         const reader = response.body.getReader();
         const decoder = new TextDecoder("utf-8");
-        let resultText = "";
+        var resultText = "";
         // let stopStreaming = false;
         let buffer = "";
         // eslint-disable-next-line no-constant-condition
         while (true) {
           const { done, value } = await reader.read();
-          if (done) break;
+          if (done) {
+            break;
+          }
 
           buffer += decoder.decode(value, { stream: true });
           const lines = buffer.split("\n");
@@ -376,6 +378,9 @@ const ChatGpt = () => {
                 { role: "assistant", content: resultText },
               ]);
               setstreamResponse("");
+              if (speechonoroff) {
+                speak({ text: resultText });
+              }
               return;
             }
 
@@ -400,9 +405,6 @@ const ChatGpt = () => {
 
           // Keep the last (potentially incomplete) line in the buffer
           buffer = lines[lines.length - 1];
-          if (speechonoroff) {
-            speak({ text: resultText });
-          }
         }
         // setstreamResponse("");
       } catch (error) {
