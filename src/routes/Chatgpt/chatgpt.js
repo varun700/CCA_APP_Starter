@@ -345,12 +345,11 @@ const ChatGpt = () => {
             body: JSON.stringify({
               messages: historyMsg,
               temperature: 0,
-              model: "gpt-4-turbo-preview",
+              model: "gpt-4-turbo",
               stream: true,
             }),
           }
         );
-
         // Read the response as a stream of data
         const reader = response.body.getReader();
         const decoder = new TextDecoder("utf-8");

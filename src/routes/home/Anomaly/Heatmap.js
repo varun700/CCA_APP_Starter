@@ -66,7 +66,6 @@ const HeatmapChart = ({ height, cardheight }) => {
               to: 800,
               color: "#60bcd1",
             },
-
             {
               from: 801,
               to: 1000,
