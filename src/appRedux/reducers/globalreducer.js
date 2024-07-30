@@ -134,3 +134,12 @@ export const GetAvgCallVolumeHeatmap = (state = [], action) => {
       return state;
   }
 };
+
+export const GetQueueTimeWidgetDD = (state = [], action) => {
+  switch (action.type) {
+    case "GetQueueTimeWidgetDD":
+      return action.payload;
+    default:
+      return state;
+  }
+};

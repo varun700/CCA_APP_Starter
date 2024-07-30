@@ -221,6 +221,14 @@ export const GetCallByRegionloader = (state = true, action) => {
       return state;
   }
 };
+export const GetQueueTimeWidgetDDloader = (state = true, action) => {
+  switch (action.type) {
+    case "GetQueueTimeWidgetDDloader":
+      return action.payload;
+    default:
+      return state;
+  }
+};
 
 export const GetCallByRegionDDloader = (state = true, action) => {
   switch (action.type) {

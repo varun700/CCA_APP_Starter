@@ -646,7 +646,7 @@ export const GetAvgCallVolumeHeatmap = (userid) => {
     });
     try {
       const response = await axios.get(
-        `https:////ccaapp-api.azurewebsites.net/api/CCA/GetAvgCallVolumeHeatmap?EmployeeId=${userid}
+        `https://ccaapp-api.azurewebsites.net/api/CCA/GetAvgCallVolumeHeatmap?EmployeeId=${userid}
 `
       );
       // console.log(val, "totac");
@@ -656,6 +656,36 @@ export const GetAvgCallVolumeHeatmap = (userid) => {
       });
       dispatch({
         type: "GetAvgCallVolumeHeatmaploader",
+        payload: false,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+export const GetQueueTimeWidgetDD = (userid) => {
+  return async function (dispatch) {
+    dispatch({
+      type: "GetQueueTimeWidgetDDloader",
+      payload: true,
+    });
+    try {
+      const response = await axios.get(
+        `https://ccaapp-api.azurewebsites.net/api/CCA/GetQueueTimeWidgetDD?EmployeeId=${userid}
+`
+      );
+      // console.log(val, "totac");
+      const val = response?.data?.Table.map((e) => ({
+        Date: e?.Date.split("T")[0],
+        Queue_Time: e?.Queue_Time,
+        // Is_Predicted: e?.Is_Predicted,
+      }));
+      dispatch({
+        type: "GetQueueTimeWidgetDD",
+        payload: { Table: val },
+      });
+      dispatch({
+        type: "GetQueueTimeWidgetDDloader",
         payload: false,
       });
     } catch (error) {

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 // import { useDispatch, useSelector } from "react-redux";
 // import { GetCallCentreWarmCallWidget } from "../../../appRedux/actions/CCAwidgets";
 // import CardBox from "../../../components/CardBox/index";
@@ -7,8 +7,12 @@ import React, { useEffect } from "react";
 import ChartCard from "../../../components/dashboard/Crypto/ChartCard";
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis } from "recharts";
 import { useDispatch, useSelector } from "react-redux";
-import { GetQueueTimeWidget } from "../../../appRedux/actions/globalactions";
-import { Card, Skeleton } from "antd";
+import {
+  GetQueueTimeWidget,
+  GetQueueTimeWidgetDD,
+} from "../../../appRedux/actions/globalactions";
+import { Card, Modal, Skeleton } from "antd";
+import QueueDD from "./widgetdd/QueueDD";
 
 const QueueTime = () => {
   const dispatch = useDispatch();
@@ -17,7 +21,17 @@ const QueueTime = () => {
     (state) => state.GetQueueTimeWidgetloader
   );
   const uservals = useSelector((state) => state?.Userval);
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const showModal = () => {
+    setIsModalOpen(true);
+    dispatch(GetQueueTimeWidgetDD(uservals?.Employee_Id));
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
   const increamentData = [
     { name: "Page A", price: 200 },
     { name: "Page B", price: 1200 },
@@ -96,6 +110,7 @@ const QueueTime = () => {
             <ResponsiveContainer width="100%" height={75}>
               <AreaChart
                 data={callsdata?.Table1}
+                onClick={showModal}
                 margin={{ top: 0, right: 0, left: 0, bottom: -30 }}
               >
                 <XAxis dataKey="Month" tick={false} />
@@ -133,6 +148,17 @@ const QueueTime = () => {
           <Skeleton paragraph={{ rows: 2 }} active />
         </Card>
       )}
+      <Modal
+        title="Queue Time"
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        width={1200}
+        // style={{ height: }}
+        footer={null}
+      >
+        <QueueDD />
+      </Modal>
     </div>
   );
 };

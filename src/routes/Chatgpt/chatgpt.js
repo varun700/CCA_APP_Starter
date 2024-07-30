@@ -345,7 +345,7 @@ const ChatGpt = () => {
             body: JSON.stringify({
               messages: historyMsg,
               temperature: 0,
-              model: "gpt-4-turbo",
+              model: "gpt-4-turbo-preview",
               stream: true,
             }),
           }
