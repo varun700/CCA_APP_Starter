@@ -6,6 +6,7 @@ import {
   Col,
   Dropdown,
   Menu,
+  message,
   Popover,
   Row,
   Select,
@@ -23,7 +24,6 @@ import {
   Userval,
 } from "../../appRedux/actions/globalactions";
 import SkeletonLoader from "../../routes/loader/Userloader";
-
 const items = [{}];
 const { Option } = Select;
 
@@ -205,6 +205,7 @@ const UserProfile = () => {
           Theme: "Light",
         })
       );
+      message.success("Impersonation cleared");
     } else {
       console.log("eee", "else", val);
       setselectdata(val?.Employee_Name);
@@ -221,6 +222,7 @@ const UserProfile = () => {
           Theme: "Light",
         })
       );
+      message.success(`Impersonated as ${val.Employee_Name}`);
     }
     // dispatch(Userval(e));
     // dispatch(
@@ -261,6 +263,7 @@ const UserProfile = () => {
     setselectdata("");
     dispatch(ClearUserDetails(Usermainprofiledata?.Employee_Id));
     dispatch(Userval(Usermainprofiledata));
+    message.success("Impersonation cleared");
   };
   const content = (
     <>
@@ -387,7 +390,10 @@ const UserProfile = () => {
                   onOpenChange={() => setOpenPopup(true)}
                 >
                   {" "}
-                  <i className="icon icon-chevron-down" />
+                  <i
+                    className="icon icon-chevron-down"
+                    onClick={() => setOpenPopup(!openPopup)}
+                  />
                 </Popover>
               </span>
             </Avatar>
