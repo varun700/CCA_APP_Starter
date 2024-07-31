@@ -111,6 +111,7 @@ const QueueTime = () => {
               <AreaChart
                 data={callsdata?.Table1}
                 onClick={showModal}
+                style={{ cursor: "pointer" }}
                 margin={{ top: 0, right: 0, left: 0, bottom: -30 }}
               >
                 <XAxis dataKey="Month" tick={false} />
