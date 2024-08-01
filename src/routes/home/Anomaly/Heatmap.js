@@ -35,13 +35,14 @@ const HeatmapChart = ({ height, cardheight }) => {
       "#4379ba",
       "#35289e",
       "#1d003d",
+      "#0b002a",
+      "#00001a",
     ];
     for (let i = 0; i < e.length - 1; i++) {
       const fromValue = e[i].value;
       const toValue = e[i + 1].value;
       result.push({ from: fromValue, to: toValue, color: color[i] });
     }
-    // console.log(result)
     return result;
   };
 
