@@ -228,7 +228,7 @@ const Index = () => {
             {!Heatmaploader ? (
               <HeatmapChart height={"245"} cardheight={"500px"} />
             ) : (
-              <Card style={{ height: 500 }} className="gx-card">
+              <Card style={{ height: 400 }} className="gx-card">
                 <h2 className="h4 gx-mb-3">Hourly Call Volume</h2>
                 <CustomMapSkeleton width={540} height={330} />
               </Card>
@@ -240,7 +240,7 @@ const Index = () => {
             {!Heatmaploader ? (
               <HeatmapChart height={"295px"} cardheight={"480px"} />
             ) : (
-              <Card style={{ height: 500 }} className="gx-card">
+              <Card style={{ height: 415 }} className="gx-card">
                 <h2 className="h4 gx-mb-3">Hourly Call Volume</h2>
                 <CustomMapSkeleton width={540} height={330} />
               </Card>
