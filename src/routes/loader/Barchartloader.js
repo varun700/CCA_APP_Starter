@@ -8,7 +8,7 @@ const CustomBarChartSkeleton = () => {
     display: "flex",
     alignItems: "flex-end",
     justifyContent: "space-around",
-    height: "300px",
+    height: "330px",
     width: "100%",
     margin: "auto",
   };

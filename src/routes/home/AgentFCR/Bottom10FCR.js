@@ -55,30 +55,30 @@ const Bottom10FCR = () => {
       title: "Agent Name",
       dataIndex: "Agent_Name",
       key: "Agent_Name",
-      width: 160,
+      width: 220,
       // render: (text) => <span>{text}</span>,
     },
     {
       title: "Total Call",
       dataIndex: "Total_Call",
       key: "Total_Call",
-      width: 160,
+      width: 120,
     },
 
     {
       title: "Service Level%",
       key: "Service_Level%",
       dataIndex: "Service_Level%",
+      width: 180,
       render: (text, record) => {
         return <span>{text}%</span>;
       },
-      width: 160,
     },
     {
       title: "FCR%",
       key: "FCR%",
       dataIndex: "FCR%",
-      width: 90,
+      width: 70,
       render: (text, record) => {
         return <span>{text}%</span>;
       },
@@ -87,7 +87,7 @@ const Bottom10FCR = () => {
       title: "Sentiment Score%",
       key: "Sentiment_Score_Percentage%",
       dataIndex: "Neutral_Score_Percentage",
-      width: 160,
+      width: 220,
       render: (text, record) => {
         const dectowholeno = [
           {
@@ -148,7 +148,7 @@ const Bottom10FCR = () => {
           pagination={false}
         />
       ) : (
-        <SkeletonTable columns={columns} rows={6}></SkeletonTable>
+        <SkeletonTable columns={columns} rows={5}></SkeletonTable>
       )}
     </>
     // {/* </Widget> */}

@@ -30,6 +30,7 @@ import BalanceHistory from "./CallsbyRegion/Map.js";
 import Talkddchart from "./Anomaly/Talkddchart.js";
 import Queueddchart from "./Anomaly/Queueddchart.js";
 import HeatmapChart from "./Anomaly/Heatmap.js";
+import CustomMapSkeleton from "../loader/Maploader.js";
 
 // import CallByRegion from "./CallsbyRegion/CallregionMap.js";
 // import CallsByRegion from "./CallsbyRegion/Map.js";
@@ -61,6 +62,9 @@ const Index = () => {
   );
   const GetUserDetailsimpdataloader = useSelector(
     (state) => state?.GetUserDetailsloader
+  );
+  const Heatmaploader = useSelector(
+    (state) => state?.GetAvgCallVolumeHeatmaploader
   );
   const [selectdata, setselectdata] = useState("");
   useEffect(() => {
@@ -209,8 +213,8 @@ const Index = () => {
             <Card
               style={{ height: "385px" }}
               className="gx-card text_transform_none"
-              title="Talk Duration Anomaly"
             >
+              <h2 className="h4 gx-mb-3">Talk Duration Anomaly</h2>
               <Talkddchart />
             </Card>
           </Col>
@@ -221,12 +225,26 @@ const Index = () => {
         )}
         {usercurrval?.Job_Title == "Call Centre Agent" ? (
           <Col span={12}>
-            <HeatmapChart height={"245"} cardheight={"500px"} />
+            {!Heatmaploader ? (
+              <HeatmapChart height={"245"} cardheight={"500px"} />
+            ) : (
+              <Card style={{ height: 500 }} className="gx-card">
+                <h2 className="h4 gx-mb-3">Hourly Call Volume</h2>
+                <CustomMapSkeleton width={540} height={330} />
+              </Card>
+            )}
           </Col>
         ) : (
           <Col span={12}>
             {/* <Top5QueueTime /> */}
-            <HeatmapChart height={"295px"} cardheight={"480px"} />
+            {!Heatmaploader ? (
+              <HeatmapChart height={"295px"} cardheight={"480px"} />
+            ) : (
+              <Card style={{ height: 500 }} className="gx-card">
+                <h2 className="h4 gx-mb-3">Hourly Call Volume</h2>
+                <CustomMapSkeleton width={540} height={330} />
+              </Card>
+            )}
           </Col>
         )}{" "}
         {usercurrval?.Job_Title !== "Call Centre Agent" && (

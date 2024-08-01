@@ -2,9 +2,9 @@ import React from "react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
-const AreaChartSkeleton = () => {
+const AreaChartSkeleton = ({ height }) => {
   return (
-    <div style={{ width: "100%", height: 400, position: "relative" }}>
+    <div style={{ width: "100%", height: height, position: "relative" }}>
       {/* Y-axis skeleton */}
       <div style={{ position: "absolute", top: 0, bottom: 20, left: 0 }}>
         <Skeleton width={20} height="100%" />

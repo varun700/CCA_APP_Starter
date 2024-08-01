@@ -10,7 +10,7 @@ import CustomMapSkeleton from "../../loader/Maploader";
 
 const HeatmapChart = ({ height, cardheight }) => {
   const dispatch = useDispatch();
-
+  const usercurrval = useSelector((state) => state?.Userval) || [];
   const data = useSelector((state) => state?.GetAvgCallVolumeHeatmapreducer);
   const dataloader = useSelector(
     (state) => state?.GetAvgCallVolumeHeatmaploader
@@ -24,6 +24,27 @@ const HeatmapChart = ({ height, cardheight }) => {
     "#4379ba",
     "#35289e",
   ];
+
+  const ctr = (e) => {
+    var result = [];
+    var color = [
+      "#f0e9c0",
+      "#c5e39a",
+      "#a2d160",
+      "#60bcd1",
+      "#4379ba",
+      "#35289e",
+    ];
+    for (let i = 0; i < e.length - 1; i++) {
+      const fromValue = e[i].value;
+      const toValue = e[i + 1].value;
+      result.push({ from: fromValue, to: toValue, color: color[i] });
+    }
+    // console.log(result)
+    return result;
+  };
+
+  // const mindata = data?.Table1[0]
 
   const options = {
     chart: {
@@ -41,45 +62,15 @@ const HeatmapChart = ({ height, cardheight }) => {
     xaxis: {
       type: "category",
     },
+
     plotOptions: {
       heatmap: {
         shadeIntensity: 0.5,
         colorScale: {
-          ranges: [
-            {
-              from: 0,
-              to: 200,
-              color: "#f0e9c0",
-            },
-            {
-              from: 201,
-              to: 400,
-              color: "#c5e39a",
-            },
-            {
-              from: 401,
-              to: 600,
-              color: "#a2d160",
-            },
-            {
-              from: 601,
-              to: 800,
-              color: "#60bcd1",
-            },
-            {
-              from: 801,
-              to: 1000,
-              color: "#4379ba",
-            },
-            {
-              from: 1001,
-              to: 1200,
-              color: "#35289e",
-            },
-          ],
+          ranges: ctr(data?.Table1),
           inverse: true,
           min: 0,
-          max: 1400,
+          max: data?.Table1[data.Table1.length - 1],
           gradientToColors: [
             "#f0e9c0",
             "#c5e39a",
@@ -151,57 +142,51 @@ const HeatmapChart = ({ height, cardheight }) => {
     <Card style={{ height: { cardheight } }} className="gx-card">
       <h2 className="h4 gx-mb-3">Hourly Call Volume</h2>
       <div className="App">
-        {!dataloader ? (
-          <>
-            <Chart
-              options={options}
-              series={series}
-              type="heatmap"
-              height={height}
-            />
+        <>
+          <Chart
+            options={options}
+            series={series}
+            type="heatmap"
+            height={height}
+          />
 
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: "20px",
+            }}
+          >
             <div
               style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                marginTop: "20px",
+                width: "400px",
+                height: "20px",
+                background:
+                  "linear-gradient(to right,#f0e9c0,#c5e39a,#a2d160,#60bcd1,#4379ba,#35289e)",
               }}
             >
               <div
                 style={{
-                  width: "400px",
-                  height: "20px",
-                  background:
-                    "linear-gradient(to right,#f0e9c0,#c5e39a,#a2d160,#60bcd1,#4379ba,#35289e)",
+                  marginTop: "20px",
+                  marginLeft: "10px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  width: "390px",
                 }}
               >
-                <div
-                  style={{
-                    marginTop: "20px",
-                    marginLeft: "10px",
-                    display: "flex",
-                    justifyContent: "space-between",
-                    width: "390px",
-                  }}
-                >
-                  <span>0</span>
-                  <span>200</span>
-                  <span>400</span>
-                  <span>600</span>
-                  <span>800</span>
-                  <span>1000</span>
-                  <span>1200</span>
-                  <span>1400</span>
-                </div>
+                <span>{data?.Table1[0]?.value}</span>
+                <span>{data?.Table1[1]?.value}</span>
+                <span>{data?.Table1[2]?.value}</span>
+                <span>{data?.Table1[3]?.value}</span>
+                <span>{data?.Table1[4]?.value}</span>
+                <span>{data?.Table1[5]?.value}</span>
+                <span>{data?.Table1[6]?.value}</span>
+                <span>{data?.Table1[7]?.value}</span>
               </div>
             </div>
-          </>
-        ) : (
-          <>
-            <CustomMapSkeleton width={540} height={330} />
-          </>
-        )}
+          </div>
+        </>
       </div>
     </Card>
   );

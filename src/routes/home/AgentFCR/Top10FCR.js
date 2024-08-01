@@ -150,7 +150,7 @@ const Top10FCR = () => {
           pagination={false}
         />
       ) : (
-        <SkeletonTable columns={columns} rows={6}></SkeletonTable>
+        <SkeletonTable columns={columns} rows={5}></SkeletonTable>
       )}
     </>
     // </Widget>
