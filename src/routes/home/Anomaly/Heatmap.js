@@ -34,6 +34,7 @@ const HeatmapChart = ({ height, cardheight }) => {
       "#60bcd1",
       "#4379ba",
       "#35289e",
+      "#1d003d",
     ];
     for (let i = 0; i < e.length - 1; i++) {
       const fromValue = e[i].value;
@@ -45,6 +46,7 @@ const HeatmapChart = ({ height, cardheight }) => {
   };
 
   // const mindata = data?.Table1[0]
+  console.log(ctr(data?.Table1), data, "heatmap");
 
   const options = {
     chart: {
