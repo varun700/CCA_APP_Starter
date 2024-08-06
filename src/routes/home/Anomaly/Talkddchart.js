@@ -193,7 +193,7 @@ const Talkddchart = () => {
           //     </AreaChart>
           //   </ResponsiveContainer>
           // </div>
-          <AreaChartSkeleton height={300} />
+          <AreaChartSkeleton height={320} />
         )}
       </div>
     </div>

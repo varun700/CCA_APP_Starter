@@ -95,7 +95,7 @@ const Athdd = () => {
           </AreaChart>
         </ResponsiveContainer>
       ) : (
-        <AreaChartSkeleton />
+        <AreaChartSkeleton height={400} />
       )}
     </div>
   );

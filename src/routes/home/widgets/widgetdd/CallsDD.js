@@ -104,7 +104,7 @@ const CallsDD = () => {
           </AreaChart>
         </ResponsiveContainer>
       ) : (
-        <AreaChartSkeleton />
+        <AreaChartSkeleton height={400} />
       )}
     </div>
   );
