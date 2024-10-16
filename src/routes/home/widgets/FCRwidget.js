@@ -37,12 +37,12 @@ const FCRwidget = () => {
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
       return (
-        <Card>
+        <Card style={{ borderColor: "black" }}>
           <div
             style={{
               display: "flex",
               flexDirection: "column",
-              padding: "10px",
+              padding: "5px",
             }}
           >
             <h5 className="h4 gx-mb-3">{payload[0]?.payload.Short_Month}</h5>

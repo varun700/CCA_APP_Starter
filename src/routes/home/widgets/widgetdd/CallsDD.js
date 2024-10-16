@@ -9,16 +9,18 @@ import {
   Area,
   YAxis,
   Brush,
+  Legend,
 } from "recharts";
 import { GetCCATotalActualPredictedCallsChart } from "../../../../appRedux/actions/globalactions";
 import AreaChartSkeleton from "../../../loader/Areachartloader";
+import moment from "moment";
 const CallsDD = () => {
   const dispatch = useDispatch();
 
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
       return (
-        <Card>
+        <Card style={{ borderColor: "black" }}>
           <div
             style={{
               display: "flex",
@@ -51,18 +53,79 @@ const CallsDD = () => {
     }
   }, [uservals]);
 
+  const CustomXAxisTick = ({ x, y, payload }) => {
+    // Check if the current tick is the first occurrence of the month
+    const isFirstOfMonth = (date) => {
+      return moment(date).date() === 1; // Adjust logic if necessary
+    };
+
+    return (
+      <g transform={`translate(${x},${y})`}>
+        {isFirstOfMonth(payload.value) && (
+          <text x={0} y={0} dy={16} textAnchor="middle" fill="#666">
+            {moment(payload.value).format("MMM-YY")}
+          </text>
+        )}
+      </g>
+    );
+  };
+
   return (
     <div>
       {" "}
       {!chartdataloader ? (
         <ResponsiveContainer width="100%" height={450}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginTop: "10px",
+            }}
+          >
+            <div
+              style={{
+                marginRight: "20px",
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <span
+                style={{
+                  backgroundColor: "#8884d8",
+                  width: "12px",
+                  height: "12px",
+                  display: "inline-block",
+                  marginRight: "5px",
+                }}
+              ></span>
+              <span>Actual Calls</span>
+            </div>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <span
+                style={{
+                  backgroundColor: "#82ca9d",
+                  width: "12px",
+                  height: "12px",
+                  display: "inline-block",
+                  marginRight: "5px",
+                }}
+              ></span>
+              <span>Predicted Calls</span>
+            </div>
+          </div>
           <AreaChart
             data={chartdata?.Table}
-            margin={{ top: 0, right: 30, left: 30, bottom: 0 }}
+            margin={{ top: 0, right: 30, left: 30, bottom: 30 }}
           >
-            <XAxis dataKey="DS" />
+            <XAxis
+              dataKey="DS"
+              tickFormatter={(item) => {
+                return moment(item).format("MMM-YY");
+              }}
+              tick={<CustomXAxisTick />}
+              interval={0}
+            />
             <YAxis dataKey="TOTAL_CALLS" />
-
             <Tooltip content={<CustomTooltip />} />
             <defs>
               <linearGradient id="colorGradient" x1="0" y1="0" x2="1" y2="0">
@@ -80,6 +143,7 @@ const CallsDD = () => {
                 })}
               </linearGradient>
             </defs>
+
             {/* <defs>
       <linearGradient id="color3" x1="0" y1="0" x2="1" y2="0">
         <stop offset="5%" stopColor="#163469" stopOpacity={0.9} />
@@ -100,7 +164,16 @@ const CallsDD = () => {
               stroke="url(#colorGradient)"
               fill="url(#colorGradient)"
             />
-            <Brush dataKey="DS" height={30} stroke="#8884d8" />
+            <Brush
+              dataKey="DS"
+              height={30}
+              stroke="#8884d8"
+              startIndex={chartdata?.Table?.length - 400}
+              endIndex={chartdata?.Table.length - 200}
+              tickFormatter={(item) => {
+                return moment(item).format("MMM-YY");
+              }}
+            />
           </AreaChart>
         </ResponsiveContainer>
       ) : (

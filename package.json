@@ -84,6 +84,7 @@
     "redux-saga": "^1.1.3",
     "redux-thunk": "^2.3.0",
     "rheostat": "^4.1.1",
+    "sass": "^1.79.5",
     "slick-carousel": "^1.8.1",
     "url-search-params": "^1.1.0",
     "victory": "^35.4.6"

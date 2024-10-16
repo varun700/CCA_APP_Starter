@@ -16,6 +16,7 @@ import {
   Popover,
   message,
   Divider,
+  Card,
 } from "antd";
 import Draggable from "react-draggable";
 // import { Speech } from 'react-speech';
@@ -37,18 +38,22 @@ import Dynamicrecorder from "./DynamicRecorder";
 
 const customSyntaxStyle = {
   backgroundColor: "lightgray",
-  fontSize: "14px",
-
-  borderRadius: "5px",
-  fontFamily: "monospace",
+  fontSize: " 14px",
+  color: "black",
+  // padding: '10px',
+  borderRadius: "12px",
+  fontWeight: "500",
 };
 const customSyntaxStyleWhite = {
-  backgroundColor: "black",
-  color: "white",
+  color: "black",
   fontSize: "14px",
+  borderRadius: "12px",
+  // fontFamily: 'monospace'
+  backgroundColor: "#f4f4f4",
 
-  borderRadius: "5px",
-  fontFamily: "monospace",
+  // border-radius: 12px;
+  // font-weight: 500;
+  // padding: 10px;
 };
 
 const ChatGpt = () => {
@@ -95,7 +100,10 @@ const ChatGpt = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
   useEffect(() => {
-    if (userInput.includes("!@#$%^&*")) {
+    if (
+      userInput.includes("!@#$%^&*") ||
+      userInput.includes("defaultstate@!@#")
+    ) {
       sendMessage();
     }
   }, [userInput]);
@@ -272,9 +280,14 @@ const ChatGpt = () => {
   };
 
   const sendMessage = async (e) => {
-    let filterval = userInput.includes("!@#$%^&*")
+    let filtervalvoicegpt = userInput.includes("!@#$%^&*")
       ? userInput.replace("!@#$%^&*", "")
       : userInput;
+
+    let filterval = filtervalvoicegpt.includes("defaultstate@!@#")
+      ? userInput.replace("defaultstate@!@#", "")
+      : filtervalvoicegpt;
+
     if (filterval.trim() === "") return;
     // if (e.keyCode == 13) {
     //   e.preventDefault();
@@ -446,11 +459,96 @@ const ChatGpt = () => {
     setUserInput(event.target.value);
     SpeechRecognition.stopListening();
   };
+  // const customLocale = {
+  //   emptyText: (
+  //     <span className="empty-class-text">
+  //       I am CCAGPT by Open AI. Happy to help 🙂
+  //     </span>
+  //   ),
+  // };
   const customLocale = {
     emptyText: (
-      <span className="empty-class-text">
-        I am CCAGPT by Open AI. Happy to help 🙂
-      </span>
+      <>
+        <span className="empty-class-text">
+          I am CCAGPT by Open AI. Happy to help 🙂
+        </span>
+        <Row gutter={[16, 0]} style={{ marginTop: "10px" }}>
+          <Col span={6}>
+            {" "}
+            <Card
+              style={{
+                height: "135px",
+                cursor: "pointer",
+                color: "#267abe",
+                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+              }}
+              onClick={() =>
+                defaultmsgclick(
+                  " Can you give me the average monthly Calls? defaultstate@!@#"
+                )
+              }
+            >
+              Can you give me the average monthly Calls?
+            </Card>
+          </Col>
+          <Col span={6}>
+            {" "}
+            <Card
+              style={{
+                height: "135px",
+                cursor: "pointer",
+                color: "#267abe",
+                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+              }}
+              onClick={() =>
+                defaultmsgclick(
+                  "Could you please give me the FCR Rate? defaultstate@!@#"
+                )
+              }
+            >
+              Could you please give me the FCR Rate?
+            </Card>
+          </Col>
+
+          <Col span={6}>
+            {" "}
+            <Card
+              style={{
+                height: "135px",
+                cursor: "pointer",
+                color: "#267abe",
+                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+              }}
+              onClick={() =>
+                defaultmsgclick(
+                  "Can you give me the top five agents by FCR? defaultstate@!@#"
+                )
+              }
+            >
+              Can you give me the top five agents by FCR?
+            </Card>
+          </Col>
+
+          <Col span={6}>
+            {" "}
+            <Card
+              style={{
+                height: "135px",
+                cursor: "pointer",
+                color: "#267abe",
+                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+              }}
+              onClick={() =>
+                defaultmsgclick(
+                  "Can you give me the bottom five agents by FCR? defaultstate@!@#"
+                )
+              }
+            >
+              Can you give me the bottom five agents by FCR?
+            </Card>
+          </Col>
+        </Row>
+      </>
     ),
   };
 
@@ -472,6 +570,10 @@ const ChatGpt = () => {
     // this.setState({width: size.width, height: size.height});
     setHeight(size.Height);
     setWidth(size.width);
+  };
+  const defaultmsgclick = (e) => {
+    setUserInput(e);
+    sendMessage();
   };
   return (
     <div style={{ marginRight: "70px", fontSize: "20px", cursor: "pointer" }}>
@@ -561,7 +663,7 @@ const ChatGpt = () => {
                       />
                     </Col>
                     <Col span={3} className="mt-1">
-                      <span className="gx-text-center gx-mt-3">
+                      <span className="text-center mt-3">
                         <Dynamicrecorder
                           sendmsg={sendMessage}
                           setip={setUserInput}
@@ -657,7 +759,13 @@ const ChatGpt = () => {
             itemLayout="horizontal"
             dataSource={messages}
             renderItem={(item) => (
-              <List.Item className={`message-${item.role}`}>
+              <List.Item
+                className={
+                  item.role === "assistant"
+                    ? `assistant_image message-${item.role}`
+                    : `message-${item.role}`
+                }
+              >
                 <List.Item.Meta
                   description={
                     <div>
@@ -695,15 +803,19 @@ const ChatGpt = () => {
           {/* <p>{transcript}</p> */}
           {/* {console.log(streamResponse)} */}
           {loading ? (
-            <SyntaxHighlighter
-              customStyle={customSyntaxStyleWhite}
-              language="javascript"
-              style={docco}
-              wrapLongLines={true}
-              wrapLines={true}
-            >
-              {streamResponse}
-            </SyntaxHighlighter>
+            <div>
+              <SyntaxHighlighter
+                // className="customSyntaxStyleWhite"
+                language="javascript"
+                className="assistant_image message-assistant"
+                customStyle={customSyntaxStyleWhite}
+                wrapLongLines={true}
+                wrapLines={true}
+                style={docco}
+              >
+                {streamResponse}
+              </SyntaxHighlighter>
+            </div>
           ) : (
             <></>
           )}
@@ -722,7 +834,7 @@ const ChatGpt = () => {
                 className={
                   speechonoroff
                     ? "gpt-clear colorof_offmic float-right mr-3"
-                    : "gpt-clear  float-right gx-mr-3"
+                    : "gpt-clear float-right gx-mr-3"
                 }
                 onClick={speakeronoroff}
               >
@@ -735,10 +847,15 @@ const ChatGpt = () => {
 
               <Button
                 disabled={messages.length === 0}
-                className="gpt-clear float-right gx-mr-3"
+                className="gpt-clear float-right mr-3"
                 onClick={HandleClear}
+                style={{ marginRight: "10px" }}
               >
-                <i className="fas fa-trash-alt gx-mr-2"></i> Clear chat
+                <i
+                  className="fas fa-trash-alt"
+                  style={{ marginRight: "5px" }}
+                ></i>{" "}
+                Clear chat
               </Button>
             </Col>
           </Row>

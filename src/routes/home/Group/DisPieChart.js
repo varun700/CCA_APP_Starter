@@ -111,6 +111,7 @@ const DisPieChart = () => {
                 dataKey="Category_Count"
                 label={renderCustomizedLabel}
                 labelLine={false}
+                cornerRadius={5}
               >
                 {GetCallCenterDispositionPieChartValue?.map((entry, index) => (
                   <Cell

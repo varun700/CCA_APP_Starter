@@ -43,7 +43,7 @@ const Index = () => {
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
       return (
-        <Card>
+        <Card style={{ borderColor: "black" }}>
           <div
             style={{
               display: "flex",
@@ -51,7 +51,7 @@ const Index = () => {
               padding: "10px",
             }}
           >
-            <h5 className="h4 gx-mb-3">{payload[0]?.payload.SHORT_MONTH}</h5>
+            <h5 className="h4 gx-mb-3">{payload[0]?.payload.Short_Month}</h5>
             <span className="label">{`${payload[0]?.payload?.Actual_Predicted_Calls.replace(
               "_",
               " "
@@ -66,6 +66,8 @@ const Index = () => {
     "Actual Calls": "#0088FE", // Purple for actual calls
     "Predicted Calls": "#00C49F", // Green for predicted calls
   };
+
+  console.log("ugbhkj htyfuygibhkj hcftf", callsdata);
   return (
     <div>
       {!callsdataloader && !chartdataloader ? (

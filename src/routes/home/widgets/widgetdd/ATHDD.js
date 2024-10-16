@@ -13,13 +13,14 @@ import {
 import { GetCCATotalActualPredictedCallsChart } from "../../../../appRedux/actions/globalactions";
 import { GetColdCallChart } from "../../../../appRedux/actions/CCAwidgets";
 import AreaChartSkeleton from "../../../loader/Areachartloader";
+import moment from "moment";
 const Athdd = () => {
   const dispatch = useDispatch();
 
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
       return (
-        <Card>
+        <Card style={{ borderColor: "black" }}>
           <div
             style={{
               display: "flex",
@@ -49,6 +50,22 @@ const Athdd = () => {
   //       dispatch(GetColdCallChart(uservals?.Employee_Id));
   //     }
   //   }, [uservals]);
+  const CustomXAxisTick = ({ x, y, payload }) => {
+    // Check if the current tick is the first occurrence of the month
+    const isFirstOfMonth = (date) => {
+      return moment(date).date() === 1; // Adjust logic if necessary
+    };
+
+    return (
+      <g transform={`translate(${x},${y})`}>
+        {isFirstOfMonth(payload.value) && (
+          <text x={0} y={0} dy={16} textAnchor="middle" fill="#666">
+            {moment(payload.value).format("MMM-YY")}
+          </text>
+        )}
+      </g>
+    );
+  };
 
   return (
     <div>
@@ -57,9 +74,16 @@ const Athdd = () => {
         <ResponsiveContainer width="100%" height={450}>
           <AreaChart
             data={chartdata?.Table}
-            margin={{ top: 0, right: 30, left: 30, bottom: 0 }}
+            margin={{ top: 0, right: 30, left: 30, bottom: 20 }}
           >
-            <XAxis dataKey="Date" />
+            <XAxis
+              dataKey="Date"
+              tickFormatter={(item) => {
+                return moment(item).format("MMM-YY");
+              }}
+              tick={<CustomXAxisTick />}
+              interval={0}
+            />
             <YAxis dataKey="Avg_Handling_Time" />
 
             <Tooltip content={<CustomTooltip />} />
@@ -91,7 +115,14 @@ const Athdd = () => {
               stroke="#00C49F"
               fill="#00C49F"
             />
-            <Brush dataKey="DS" height={30} stroke="#00C49F" />
+            <Brush
+              dataKey="DS"
+              height={30}
+              stroke="#00C49F"
+              tickFormatter={(item) => {
+                return moment(item).format("MMM-YY");
+              }}
+            />
           </AreaChart>
         </ResponsiveContainer>
       ) : (

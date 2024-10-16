@@ -12,13 +12,14 @@ import {
 } from "recharts";
 import { GetCCATotalActualPredictedCallsChart } from "../../../../appRedux/actions/globalactions";
 import AreaChartSkeleton from "../../../loader/Areachartloader";
+import moment from "moment";
 const QueueDD = () => {
   const dispatch = useDispatch();
 
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
       return (
-        <Card>
+        <Card style={{ borderColor: "black" }}>
           <div
             style={{
               display: "flex",
@@ -48,6 +49,22 @@ const QueueDD = () => {
   //       dispatch(GetCCATotalActualPredictedCallsChart(uservals?.Employee_Id));
   //     }
   //   }, [uservals]);
+  const CustomXAxisTick = ({ x, y, payload }) => {
+    // Check if the current tick is the first occurrence of the month
+    const isFirstOfMonth = (date) => {
+      return moment(date).date() === 1; // Adjust logic if necessary
+    };
+
+    return (
+      <g transform={`translate(${x},${y})`}>
+        {isFirstOfMonth(payload.value) && (
+          <text x={0} y={0} dy={16} textAnchor="middle" fill="#666">
+            {moment(payload.value).format("MMM-YY")}
+          </text>
+        )}
+      </g>
+    );
+  };
 
   return (
     <div>
@@ -57,9 +74,16 @@ const QueueDD = () => {
           <AreaChart
             data={chartdata?.Table}
             style={{ cursor: "pointer" }}
-            margin={{ top: 0, right: 30, left: 30, bottom: 0 }}
+            margin={{ top: 0, right: 30, left: 30, bottom: 20 }}
           >
-            <XAxis dataKey="Date" />
+            <XAxis
+              dataKey="Date"
+              tickFormatter={(item) => {
+                return moment(item).format("MMM-YY");
+              }}
+              tick={<CustomXAxisTick />}
+              interval={0}
+            />
             <YAxis dataKey="Queue_Time" />
 
             <Tooltip content={<CustomTooltip />} />
@@ -89,7 +113,14 @@ const QueueDD = () => {
               stroke="url(#color2)"
               fill="url(#color2)"
             />
-            <Brush dataKey="Date" height={30} stroke="#8884d8" />
+            <Brush
+              dataKey="Date"
+              height={30}
+              stroke="#8884d8"
+              tickFormatter={(item) => {
+                return moment(item).format("MMM-YY");
+              }}
+            />
           </AreaChart>
         </ResponsiveContainer>
       ) : (

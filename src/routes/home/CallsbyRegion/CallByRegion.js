@@ -41,7 +41,7 @@ const App = () => {
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
       return (
-        <Card style={{ width: 180 }}>
+        <Card style={{ width: 180, borderColor: "black" }}>
           <div
             style={{
               display: "flex",
@@ -118,7 +118,7 @@ const App = () => {
               >
                 <Tooltip
                   content={<CustomTooltip />}
-                  position={{ x: -100, y: -90 }}
+                  position={{ x: -100, y: -65 }}
                 />
                 <XAxis type="number" hide={true} />
                 <YAxis type="category" dataKey="name" hide={true} />
