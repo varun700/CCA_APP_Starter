@@ -28,7 +28,11 @@ const Athdd = () => {
               padding: "10px",
             }}
           >
-            <h5 className="h4 gx-mb-3">{payload[0]?.payload.Date}</h5>
+            <h5 className="h4 gx-mb-3">
+              {payload[0]?.payload.Date
+                ? moment(payload[0].payload.Date).format("MMM-YY")
+                : ""}
+            </h5>
             <span className="label">
               Avg Handling Time :{payload[0]?.value}sec
             </span>
@@ -119,9 +123,11 @@ const Athdd = () => {
               dataKey="DS"
               height={30}
               stroke="#00C49F"
-              tickFormatter={(item) => {
-                return moment(item).format("MMM-YY");
-              }}
+              // tickFormatter={(item) => {
+              //   return moment(item, "your format here").isValid()
+              //     ? moment(item, "your format here").format("MMM-YY")
+              //     : "";
+              // }}
             />
           </AreaChart>
         </ResponsiveContainer>

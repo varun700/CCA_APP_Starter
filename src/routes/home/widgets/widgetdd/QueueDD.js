@@ -27,7 +27,11 @@ const QueueDD = () => {
               padding: "10px",
             }}
           >
-            <h5 className="h4 gx-mb-3">{payload[0]?.payload.Date}</h5>
+            <h5 className="h4 gx-mb-3">
+              {payload[0]?.payload.Date
+                ? moment(payload[0].payload.Date).format("MMM-YY")
+                : ""}
+            </h5>
             <span className="label">Queue Time : {payload[0]?.value}</span>
           </div>
         </Card>

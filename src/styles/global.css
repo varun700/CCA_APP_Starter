@@ -365,3 +365,19 @@ body ::-webkit-scrollbar-track {
   overflow-y: auto;
   padding: 0px 15px 0px 15px;
 }
+.header-logo-hide {
+  position: relative;
+  top: 2px;
+  display: inline-block;
+  width: 40%;
+  padding: 29px 29px;
+  border: 0 !important;
+  background-color: transparent;
+  background-size: 40px !important;
+  background-image: url(../assets/CCA3.png);
+  background-repeat: no-repeat;
+  background-position: center center;
+  border-bottom: 1px solid #29363d;
+  cursor: pointer;
+  right: 8px;
+}
