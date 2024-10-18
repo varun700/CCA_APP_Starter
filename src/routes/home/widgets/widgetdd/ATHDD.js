@@ -71,6 +71,7 @@ const Athdd = () => {
     );
   };
 
+  console.log(chartdata?.Table, "1234567890987654321");
   return (
     <div>
       {" "}
@@ -120,14 +121,12 @@ const Athdd = () => {
               fill="#00C49F"
             />
             <Brush
-              dataKey="DS"
+              dataKey="Date"
               height={30}
               stroke="#00C49F"
-              // tickFormatter={(item) => {
-              //   return moment(item, "your format here").isValid()
-              //     ? moment(item, "your format here").format("MMM-YY")
-              //     : "";
-              // }}
+              tickFormatter={(item) => {
+                return moment(item).format("MMM-YY");
+              }}
             />
           </AreaChart>
         </ResponsiveContainer>
