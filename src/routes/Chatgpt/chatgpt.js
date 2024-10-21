@@ -330,6 +330,7 @@ const ChatGpt = () => {
           { role: "user", content: csvDatas[1]?.data },
           { role: "user", content: csvDatas[2]?.data },
           { role: "user", content: csvDatas[3]?.data },
+          { role: "user", content: csvDatas[4]?.data },
           // { role: 'user', content: csv6 },
           // { role: 'user', content: csv7 },
           {
@@ -484,11 +485,11 @@ const ChatGpt = () => {
               }}
               onClick={() =>
                 defaultmsgclick(
-                  " Can you give me the average monthly Calls? defaultstate@!@#"
+                  " what's the predicted calls for November month in 2024? defaultstate@!@#"
                 )
               }
             >
-              Can you give me the average monthly Calls?
+              what's the predicted calls for November month in 2024?
             </Card>
           </Col>
           <Col span={6}>
@@ -502,30 +503,11 @@ const ChatGpt = () => {
               }}
               onClick={() =>
                 defaultmsgclick(
-                  "Could you please give me the FCR Rate? defaultstate@!@#"
+                  "Which agents have the highest talk duration anomalies? defaultstate@!@#"
                 )
               }
             >
-              Could you please give me the FCR Rate?
-            </Card>
-          </Col>
-
-          <Col span={6}>
-            {" "}
-            <Card
-              style={{
-                height: "135px",
-                cursor: "pointer",
-                color: "#267abe",
-                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-              }}
-              onClick={() =>
-                defaultmsgclick(
-                  "Can you give me the top five agents by FCR? defaultstate@!@#"
-                )
-              }
-            >
-              Can you give me the top five agents by FCR?
+              Which agents have the highest talk duration anomalies?
             </Card>
           </Col>
 
@@ -540,11 +522,30 @@ const ChatGpt = () => {
               }}
               onClick={() =>
                 defaultmsgclick(
-                  "Can you give me the bottom five agents by FCR? defaultstate@!@#"
+                  "How many calls did Jessica Maddy handle, and what is her FCR rate? defaultstate@!@#"
                 )
               }
             >
-              Can you give me the bottom five agents by FCR?
+              How many calls did Jessica Maddy handle, and what is her FCR rate?
+            </Card>
+          </Col>
+
+          <Col span={6}>
+            {" "}
+            <Card
+              style={{
+                height: "135px",
+                cursor: "pointer",
+                color: "#267abe",
+                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+              }}
+              onClick={() =>
+                defaultmsgclick(
+                  "Can you show me the satisfaction score for Yolonda Hubbard? defaultstate@!@#"
+                )
+              }
+            >
+              Can you show me the satisfaction score for Yolonda Hubbard?
             </Card>
           </Col>
         </Row>
@@ -575,6 +576,8 @@ const ChatGpt = () => {
     setUserInput(e);
     sendMessage();
   };
+
+  console.log("paperid", csvDatas);
   return (
     <div style={{ marginRight: "70px", fontSize: "20px", cursor: "pointer" }}>
       <i

@@ -619,6 +619,7 @@ export const GetChatGPTFilesdata = (userid) => {
         "https://ccaapp-api.azurewebsites.net/api/CCA/GetChatGPTFiles?FileName=BasicCallData",
         "https://ccaapp-api.azurewebsites.net/api/CCA/GetChatGPTFiles?FileName=DispositionData",
         "https://ccaapp-api.azurewebsites.net/api/CCA/GetChatGPTFiles?FileName=ForecastData",
+        "https://ccaapp-api.azurewebsites.net/api/CCA/GetChatGPTFiles?FileName=OveralldataCCA",
       ];
       const responses = await axios.all(apiUrls.map((url) => axios.get(url)));
       const textdata = await axios.all(
